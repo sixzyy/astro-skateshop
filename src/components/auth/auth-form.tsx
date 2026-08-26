@@ -77,7 +77,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           <button
             type="submit"
             disabled={loading}
-            className="h-11 w-full rounded-lg bg-cta font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+            className="min-h-[48px] w-full rounded-lg bg-cta px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:bg-cta-hover hover:shadow-[0_8px_30px_rgba(255,90,31,0.25)] active:scale-[0.98] disabled:opacity-60 cursor-pointer"
           >
             {loading ? "Procesando..." : isLogin ? "Entrar" : "Crear cuenta"}
           </button>

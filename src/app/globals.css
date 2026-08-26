@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   ASTRO SKATESHOP — DESIGN SYSTEM v6
+   ASTRO SKATESHOP — DESIGN SYSTEM v7
    Minimalist Brutalism + Cosmic Streetwear
+   Enriched Motion · Star Language · Sensory Depth
    ═══════════════════════════════════════════ */
 
 :root {
@@ -13,9 +14,9 @@
   --card-elevated: #151a29;
 
   /* Cosmic Surfaces */
-  --cosmic-blue: #101a35;
+  --cosmic-blue: #101d3b;
   --cosmic-indigo: #171536;
-  --cosmic-violet: #211b46;
+  --cosmic-violet: #241b4a;
   --cosmic-purple: #2a2050;
 
   /* Typography */
@@ -38,10 +39,21 @@
   --cta: #ff5a1f;
   --cta-hover: #e94d15;
 
+  /* Drop System — independent color identity */
+  --drop-accent: #54d8ff;
+  --drop-glow: rgba(84, 216, 255, 0.08);
+  --drop-surface: #0d1220;
+
   /* System */
   --success: #35c98b;
   --error: #ff5575;
   --warning: #f5b942;
+
+  /* Motion — enriched timings */
+  --duration-fast: 0.25s;
+  --duration-normal: 0.5s;
+  --duration-slow: 0.7s;
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Legacy aliases */
   --muted: var(--card);
@@ -76,6 +88,9 @@
   --color-cosmic-indigo: var(--cosmic-indigo);
   --color-cosmic-violet: var(--cosmic-violet);
   --color-cosmic-purple: var(--cosmic-purple);
+  --color-drop-accent: var(--drop-accent);
+  --color-drop-glow: var(--drop-glow);
+  --color-drop-surface: var(--drop-surface);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
@@ -158,6 +173,22 @@ body {
     var(--cosmic-blue);
 }
 
+/* Drop module — independent glow */
+.cosmic-drop {
+  background:
+    radial-gradient(
+      ellipse 90% 70% at 50% 20%,
+      rgba(84, 216, 255, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 80% 70%,
+      rgba(129, 140, 248, 0.05),
+      transparent 40%
+    ),
+    var(--drop-surface);
+}
+
 /* ═══════════════════════════════════════════
    TECHNICAL GRID BACKGROUND
    ═══════════════════════════════════════════ */
@@ -189,11 +220,11 @@ body {
 }
 
 /* ═══════════════════════════════════════════
-   MOTION — Fluid easing
+   MOTION — Fluid easing, enriched
    ═══════════════════════════════════════════ */
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -222,16 +253,41 @@ body {
   50% { transform: translateY(-6px); }
 }
 
+@keyframes reveal-up {
+  from { clip-path: inset(10% 0 10% 0); opacity: 0; }
+  to { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+@keyframes countdown-tick {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes orbital-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes entrance-fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .animate-fade-up {
-  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fade-up 0.7s var(--ease-out-expo) both;
 }
 
 .animate-fade-in {
-  animation: fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fade-in 0.5s var(--ease-out-expo) both;
 }
 
 .animate-slide-in {
-  animation: slide-in-right 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slide-in-right 0.4s var(--ease-out-expo) both;
 }
 
 .animate-marquee {
@@ -243,17 +299,64 @@ body {
 }
 
 .animate-pop {
-  animation: pop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: pop 0.35s var(--ease-out-expo);
 }
 
 .animate-float {
   animation: float 4s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
 }
 
+.animate-reveal-up {
+  animation: reveal-up 0.8s var(--ease-out-expo) both;
+}
+
+.animate-countdown-tick {
+  animation: countdown-tick 0.3s var(--ease-out-expo) both;
+}
+
+.animate-entrance {
+  animation: entrance-fade 0.6s var(--ease-out-expo) both;
+}
+
+.animate-stagger-1 { animation-delay: 0.05s; }
+.animate-stagger-2 { animation-delay: 0.1s; }
+.animate-stagger-3 { animation-delay: 0.15s; }
+.animate-stagger-4 { animation-delay: 0.2s; }
+.animate-stagger-5 { animation-delay: 0.25s; }
+.animate-stagger-6 { animation-delay: 0.3s; }
+.animate-stagger-7 { animation-delay: 0.35s; }
+.animate-stagger-8 { animation-delay: 0.4s; }
+
 @keyframes pop {
   0% { transform: scale(1); }
   50% { transform: scale(1.06); }
   100% { transform: scale(1); }
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL (JS-driven, CSS fallback)
+   ═══════════════════════════════════════════ */
+
+.reveal-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+}
+
+.reveal-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-image {
+  clip-path: inset(10% 0 10% 0);
+  opacity: 0;
+  transition: clip-path 0.85s var(--ease-out-expo), opacity 0.85s var(--ease-out-expo);
+}
+
+.reveal-image.is-visible {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
 }
 
 /* ═══════════════════════════════════════════

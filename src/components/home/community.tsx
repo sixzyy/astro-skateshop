@@ -64,7 +64,7 @@ export function AstroCommunity() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={s.label}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground"
               >
                 <s.icon className="h-4 w-4" strokeWidth={1.5} />
               </a>
@@ -73,13 +73,14 @@ export function AstroCommunity() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-          {POSTS.map((post) => (
+          {POSTS.map((post, i) => (
             <a
               key={post.handle + post.caption}
               href="https://instagram.com/astroskateshop"
               target="_blank"
               rel="noreferrer"
-              className={`group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-lg p-3 transition-all duration-300 hover:-translate-y-0.5 ${post.color}`}
+              className={`group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-lg p-3 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:scale-[1.02] ${post.color}`}
+              style={{ animationDelay: `${i * 0.05}s` }}
             >
               <div className="relative flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/70">
                 {post.handle}

@@ -23,11 +23,11 @@ export function ProductCard({
   return (
     <div
       className={cn(
-        "group relative flex h-full flex-col",
+        "group relative flex h-full flex-col transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1",
         className
       )}
     >
-      {/* Image — slight grayscale, color on hover */}
+      {/* Image — slight grayscale, color on hover, translateY */}
       <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-card">
         <Link href={`/products/${product.slug}`} className="block h-full" aria-label={product.name}>
           <ProductImage
@@ -35,7 +35,7 @@ export function ProductCard({
             alt={product.name}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
-            className="object-cover transition-all duration-500 ease-out grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.035]"
+            className="object-cover transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.035]"
           />
         </Link>
 
@@ -59,7 +59,7 @@ export function ProductCard({
 
         {/* Quick add — bottom right */}
         {!outOfStock && (
-          <div className="absolute bottom-3 right-3 z-10 translate-y-2 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+          <div className="absolute bottom-3 right-3 z-10 translate-y-2 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100">
             <QuickAdd product={product} />
           </div>
         )}

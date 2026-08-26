@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 import { CustomStarCursor } from "@/components/fx/custom-star-cursor";
 import { FloatingChat } from "@/components/layout/floating-chat";
+import { ScrollRevealProvider } from "@/components/fx/scroll-reveal-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -67,6 +68,7 @@ export default function RootLayout({
         <Footer />
         <CartDrawer />
         <CustomStarCursor />
+        <ScrollRevealProvider />
         <FloatingChat />
       </body>
     </html>

@@ -44,7 +44,7 @@ export function ProfileForm({ initialName }: { initialName: string }) {
           onClick={saveName}
           disabled={busy || name.trim().length < 2}
           className={cn(
-            "inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-lg bg-cta px-4 font-display text-xs font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover disabled:opacity-50",
+            "inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-lg bg-cta px-4 font-display text-xs font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[1px] hover:bg-cta-hover disabled:opacity-50",
             saved && "bg-success",
           )}
         >

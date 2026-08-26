@@ -122,7 +122,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
             onClick={handleAdd}
             disabled={outOfStock}
             className={cn(
-              "group/btn flex h-12 flex-1 min-w-52 items-center justify-center gap-2 rounded-lg bg-cta font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover active:scale-[0.98] cursor-pointer",
+              "group/btn flex min-h-[52px] flex-1 min-w-52 items-center justify-center gap-2 rounded-lg bg-cta px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:bg-cta-hover hover:shadow-[0_8px_30px_rgba(255,90,31,0.25)] active:scale-[0.98] cursor-pointer",
               added && "animate-pop"
             )}
           >
@@ -132,7 +132,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
               </>
             ) : (
               <>
-                <ShoppingBag className="h-5 w-5 transition-transform duration-300 group-hover/btn:-rotate-12" />
+                <ShoppingBag className="h-5 w-5 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-[2px] group-hover/btn:-rotate-12" />
                 Agregar — {formatMoney(product.price * quantity, currencyCode, rates)}
               </>
             )}

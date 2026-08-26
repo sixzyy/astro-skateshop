@@ -94,7 +94,7 @@ export default async function HomePage() {
       />
 
       {/* Trust strip */}
-      <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <section className="reveal-section mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-3">
           {[
             { icon: Truck, title: "Envio gratis", text: "En compras desde $999 MXN" },
@@ -117,7 +117,7 @@ export default async function HomePage() {
 
       {/* Categories */}
       {categories.length > 0 && (
-        <section className="mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+        <section className="reveal-section mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
           <SectionHeading kicker="Explora" title="Compra por categoria" href="/products" linkText="Ver todo" />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             {categories.map((cat) => {
@@ -126,7 +126,7 @@ export default async function HomePage() {
                 <Link
                   key={cat.id}
                   href={`/products?category=${cat.slug}`}
-                  className="group flex flex-col items-center gap-3 rounded-lg border border-border bg-background-secondary/30 p-6 text-center transition-all duration-300 hover:border-border-active hover:-translate-y-0.5"
+                  className="reveal-section group flex flex-col items-center gap-3 rounded-lg border border-border bg-background-secondary/30 p-6 text-center transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-border-active hover:-translate-y-1"
                 >
                   <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-colors duration-300 group-hover:border-border-active group-hover:text-foreground">
                     <Icon className="h-5 w-5" strokeWidth={1.5} />
@@ -146,7 +146,7 @@ export default async function HomePage() {
 
       {/* New arrivals */}
       {newArrivals.length > 0 && (
-        <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <section className="reveal-section mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Recien llegados"
             title="Nuevos arribos"
@@ -162,7 +162,7 @@ export default async function HomePage() {
       )}
 
       {/* Editorial setup section — cosmic violet atmosphere */}
-      <section className="cosmic-violet border-y border-border-subtle">
+      <section className="reveal-section cosmic-violet border-y border-border-subtle">
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">
             Tu setup, tu forma
@@ -177,16 +177,16 @@ export default async function HomePage() {
           </p>
           <Link
             href="/armador"
-            className="mt-8 inline-flex h-12 items-center gap-2 rounded-lg border border-border px-7 font-display text-sm font-bold uppercase tracking-wide text-foreground transition-all duration-300 hover:border-border-active"
+            className="mt-8 inline-flex min-h-[52px] items-center gap-2 rounded-lg border border-border px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-foreground transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:border-border-active hover:shadow-[0_8px_30px_rgba(84,216,255,0.08)] active:scale-[0.98]"
           >
-            Arma tu setup <ArrowUpRight className="h-4 w-4" />
+            Arma tu setup <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
       </section>
 
       {/* Featured */}
       {featured.length > 0 && (
-        <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <section className="reveal-section mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <SectionHeading
             kicker="Destacados"
             title="Lanzamientos destacados"

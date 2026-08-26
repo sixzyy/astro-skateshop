@@ -56,19 +56,19 @@ export function Header() {
         <div
           className={`mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 transition-all duration-500 ${
             scrolled
-              ? "h-14 border-b border-border-subtle"
-              : "h-16"
+              ? "h-[72px] border-b border-border-subtle"
+              : "h-[72px]"
           }`}
           style={{
             maxWidth: "1400px",
             background: scrolled
-              ? "rgba(10, 13, 22, 0.9)"
+              ? "rgba(10, 13, 22, 0.92)"
               : "transparent",
           }}
         >
           {/* Mobile menu */}
           <button
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-card md:hidden"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-lg transition-colors hover:bg-card md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Menu"
           >
@@ -80,7 +80,7 @@ export function Header() {
             <Logo size={scrolled ? "sm" : "md"} />
           </Link>
 
-          {/* Desktop nav — monospace bullets */}
+          {/* Desktop nav — stagger entrance, hover lift, active dot */}
           <nav className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link, i) => (
               <span key={link.label} className="inline-flex items-center gap-1">
@@ -91,10 +91,11 @@ export function Header() {
                 )}
                 <Link
                   href={link.href}
-                  className="relative px-2 py-1 text-sm font-medium text-foreground-secondary transition-colors duration-200 hover:text-foreground group"
+                  className="group relative inline-flex min-h-[48px] items-center gap-1.5 px-3 py-1.5 font-mono text-xs sm:text-sm uppercase tracking-[0.12em] font-medium text-foreground-secondary transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-foreground hover:-translate-y-[2px] animate-stagger-in animate-fade-in"
+                  style={{ animationDelay: `${0.1 + i * 0.06}s` }}
                 >
+                  <span className="absolute -bottom-0.5 left-3 right-3 h-px w-0 bg-accent transition-all duration-300 ease-out group-hover:w-full" />
                   {link.label}
-                  <span className="absolute -bottom-0.5 left-2 right-2 h-px w-0 bg-accent transition-all duration-300 ease-out group-hover:w-full" />
                 </Link>
               </span>
             ))}
@@ -103,7 +104,7 @@ export function Header() {
                 <span className="font-mono text-[10px] text-foreground-disabled select-none">/</span>
                 <Link
                   href="/admin"
-                  className="px-2 py-1 text-sm font-medium text-cta transition-colors duration-200 hover:text-cta-hover"
+                  className="inline-flex min-h-[48px] items-center px-3 py-1.5 font-mono text-xs sm:text-sm uppercase tracking-[0.12em] font-medium text-cta transition-all duration-300 hover:text-cta-hover"
                 >
                   Admin
                 </Link>
@@ -111,7 +112,7 @@ export function Header() {
             )}
           </nav>
 
-          {/* Right actions */}
+          {/* Right actions — larger touch targets */}
           <div className="flex items-center gap-1">
             <div className="hidden sm:block">
               <CurrencySelector />
@@ -123,26 +124,26 @@ export function Header() {
 
             <Link
               href="/wishlist"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors duration-200 hover:bg-card"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-lg transition-all duration-300 hover:bg-card"
               aria-label="Wishlist"
             >
-              <Heart className="h-[18px] w-[18px]" />
+              <Heart className="h-[20px] w-[20px]" />
             </Link>
 
             <Link
               href={user ? "/account" : "/login"}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors duration-200 hover:bg-card"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-lg transition-all duration-300 hover:bg-card"
               aria-label={user ? "Mi cuenta" : "Iniciar sesion"}
             >
-              <User className="h-[18px] w-[18px]" />
+              <User className="h-[20px] w-[20px]" />
             </Link>
 
             <button
               onClick={openCart}
-              className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors duration-200 hover:bg-card"
+              className="relative inline-flex h-12 w-12 items-center justify-center rounded-lg transition-all duration-300 hover:bg-card"
               aria-label="Carrito"
             >
-              <ShoppingBag className="h-[18px] w-[18px]" />
+              <ShoppingBag className="h-[20px] w-[20px]" />
               {count > 0 && (
                 <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-cta px-1 text-[10px] font-bold text-white">
                   {count}
@@ -171,7 +172,7 @@ export function Header() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground-secondary transition-colors duration-200 hover:bg-card hover:text-foreground"
+                  className="flex min-h-[56px] items-center rounded-lg px-3 text-lg font-medium text-foreground-secondary transition-colors duration-200 hover:bg-card hover:text-foreground"
                 >
                   {link.label}
                 </Link>
@@ -180,7 +181,7 @@ export function Header() {
                 <Link
                   href="/admin"
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-cta"
+                  className="flex min-h-[56px] items-center rounded-lg px-3 text-lg font-medium text-cta"
                 >
                   Admin
                 </Link>
@@ -194,7 +195,7 @@ export function Header() {
       )}
 
       {/* Spacer for fixed header */}
-      <div className={scrolled ? "h-14" : "h-16"} />
+      <div className="h-[72px]" />
     </>
   );
 }
