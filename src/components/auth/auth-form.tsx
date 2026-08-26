@@ -41,7 +41,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
 
   return (
     <div className="mx-auto flex min-h-[70vh] w-full max-w-md flex-col justify-center px-4 py-16">
-      <div className="border border-border bg-background-secondary/50 p-8">
+      <div className="rounded-lg border border-border bg-background-secondary/50 p-8">
         <div className="mb-6 text-center">
           <Logo className="justify-center" />
           <h1 className="mt-4 font-display text-2xl font-bold uppercase tracking-tight">
@@ -55,7 +55,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         </div>
 
         {error && (
-          <p className="mb-4 border border-error/20 bg-error/5 px-3 py-2 text-sm text-error">
+          <p className="mb-4 rounded-lg border border-error/20 bg-error/5 px-3 py-2 text-sm text-error">
             {error}
           </p>
         )}
@@ -77,7 +77,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           <button
             type="submit"
             disabled={loading}
-            className="h-11 w-full bg-cta font-display text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-cta-hover active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+            className="h-11 w-full rounded-lg bg-cta font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover active:scale-[0.99] disabled:opacity-60 cursor-pointer"
           >
             {loading ? "Procesando..." : isLogin ? "Entrar" : "Crear cuenta"}
           </button>
@@ -116,7 +116,7 @@ function Field({
       </span>
       <input
         {...props}
-        className="h-11 w-full border border-border bg-background-secondary px-3 text-sm outline-none transition-colors focus:border-border-active"
+        className="h-11 w-full rounded-lg border border-border bg-background-secondary px-3 text-sm outline-none transition-all duration-300 focus:border-border-active"
       />
     </label>
   );

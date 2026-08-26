@@ -126,7 +126,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center border border-dashed border-border py-24 text-center">
+      <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border py-24 text-center">
         <ShoppingBag className="h-10 w-10 text-foreground-disabled" strokeWidth={1.2} />
         <p className="mt-4 font-display text-sm font-semibold uppercase tracking-wide text-foreground-disabled">
           Tu carrito esta vacio
@@ -150,7 +150,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
   return (
     <>
       {canceled && (
-        <p className="mb-6 flex items-center gap-2 border border-warning/20 bg-warning/5 px-3 py-2.5 text-sm text-warning">
+        <p className="mb-6 flex items-center gap-2 rounded-lg border border-warning/20 bg-warning/5 px-3 py-2.5 text-sm text-warning">
           <XCircle className="h-4 w-4 shrink-0" /> El pago fue cancelado. Puedes intentarlo de nuevo.
         </p>
       )}
@@ -161,7 +161,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
             n.type === "out" ? (
               <p
                 key={n.variantId}
-                className="flex flex-wrap items-center gap-2 border border-error/20 bg-error/5 px-3 py-2.5 text-sm text-error"
+                className="flex flex-wrap items-center gap-2 rounded-lg border border-error/20 bg-error/5 px-3 py-2.5 text-sm text-error"
               >
                 <XCircle className="h-4 w-4 shrink-0" />
                 <span>
@@ -169,7 +169,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
                 </span>
                 <button
                   onClick={() => removeItem(n.variantId)}
-                  className="ml-auto border border-error/30 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors hover:bg-error hover:text-white cursor-pointer"
+                  className="ml-auto rounded-lg border border-error/30 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors hover:bg-error hover:text-white cursor-pointer"
                 >
                   Eliminar
                 </button>
@@ -177,7 +177,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
             ) : (
               <p
                 key={n.variantId}
-                className="flex items-center gap-2 border border-cta/20 bg-cta/5 px-3 py-2.5 text-sm text-cta"
+                className="flex items-center gap-2 rounded-lg border border-cta/20 bg-cta/5 px-3 py-2.5 text-sm text-cta"
               >
                 <AlertTriangle className="h-4 w-4 shrink-0" />
                 Ajustamos <strong>{n.label}</strong> a {n.qty} pieza{n.qty === 1 ? "" : "s"}.
@@ -203,7 +203,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
           loggedIn={account.loggedIn}
         />
 
-        <aside className="h-fit border border-border bg-background-secondary/50 p-5 lg:sticky lg:top-24">
+        <aside className="h-fit rounded-lg border border-border bg-background-secondary/50 p-5 lg:sticky lg:top-24">
           <h2 className="mb-1 font-display text-sm font-bold uppercase tracking-widest">Tu pedido</h2>
           <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-foreground-disabled">
             {liveStock === null ? "Verificando disponibilidad..." : "Disponibilidad confirmada"}
@@ -214,7 +214,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
                   <ProductImage
                     src={item.image ?? "/products/generic.svg"}
                     alt={item.name}
-                    className="h-14 w-14 border border-border object-cover"
+                    className="h-14 w-14 rounded-lg border border-border object-cover"
                 />
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-1 font-display text-xs font-bold uppercase">{item.name}</p>

@@ -12,23 +12,26 @@ export function Logo({ className, size = "md" }: { className?: string; size?: Lo
   const s = SIZES[size];
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      {/* Isotype — sharp deck silhouette in precision circle */}
+      {/* Isotype — deck silhouette in precision circle */}
       <svg
         viewBox="0 0 32 32"
         className={cn("shrink-0", s.iso)}
         aria-hidden="true"
         fill="none"
       >
-        <circle cx="16" cy="16" r="14.5" stroke="currentColor" strokeWidth="1.2" opacity="0.4" />
+        <circle cx="16" cy="16" r="14.5" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+        <circle cx="16" cy="16" r="11" stroke="currentColor" strokeWidth="0.5" opacity="0.15" />
         <path
-          d="M12 6L16 4L20 6L21 24L16 27L11 24Z"
+          d="M12.5 7L16 5L19.5 7L20.5 23L16 25.5L11.5 23Z"
           stroke="currentColor"
           strokeWidth="1.2"
           strokeLinejoin="round"
-          opacity="0.6"
+          opacity="0.5"
         />
-        <line x1="13" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth="0.8" opacity="0.3" />
-        <line x1="13" y1="16" x2="19" y2="16" stroke="currentColor" strokeWidth="0.8" opacity="0.3" />
+        <line x1="13" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth="0.7" opacity="0.25" />
+        <line x1="13" y1="16" x2="19" y2="16" stroke="currentColor" strokeWidth="0.7" opacity="0.25" />
+        {/* Star accent */}
+        <path d="M16 2 L16.8 4.5 L16 4 L15.2 4.5 Z" fill="currentColor" opacity="0.2" />
       </svg>
       <span className="flex items-baseline gap-1.5 leading-none">
         <span className={cn("font-display font-black uppercase tracking-tighter", s.text)}>

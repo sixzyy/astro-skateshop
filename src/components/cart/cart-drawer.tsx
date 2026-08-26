@@ -25,14 +25,14 @@ export function CartDrawer() {
     <div className="fixed inset-0 z-50">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={close} />
       <aside className="animate-slide-in absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-border bg-background">
-        <div className="flex items-center justify-between border-b border-border px-5 py-4">
+        <div className="flex items-center justify-between border-b border-border-subtle px-5 py-4">
           <h2 className="font-display text-sm font-bold uppercase tracking-wide">
             Tu carrito ({items.length})
           </h2>
           <button
             onClick={close}
             aria-label="Cerrar carrito"
-            className="inline-flex h-8 w-8 items-center justify-center text-foreground-secondary transition-colors hover:bg-background-secondary cursor-pointer"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-foreground-secondary transition-colors duration-200 hover:bg-background-secondary cursor-pointer"
           >
             <X className="h-4 w-4" />
           </button>
@@ -47,7 +47,7 @@ export function CartDrawer() {
             <Link
               href="/products"
               onClick={close}
-              className="bg-cta px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-cta-hover"
+              className="rounded-lg bg-cta px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white transition-colors duration-300 hover:bg-cta-hover"
             >
               Ver productos
             </Link>
@@ -59,21 +59,21 @@ export function CartDrawer() {
                 <li key={item.variantId} className="flex gap-3 py-4">
                   <Link href={`/products/${item.slug}`} onClick={close} className="shrink-0">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={item.image ?? "/products/generic.svg"} alt={item.name} className="h-20 w-20 border border-border object-cover" />
+                    <img src={item.image ?? "/products/generic.svg"} alt={item.name} className="h-20 w-20 rounded-lg border border-border object-cover" />
                   </Link>
                   <div className="flex min-w-0 flex-1 flex-col justify-between py-0.5">
                     <div>
                       <Link
                         href={`/products/${item.slug}`}
                         onClick={close}
-                        className="line-clamp-1 font-display text-sm font-bold uppercase tracking-tight transition-colors hover:text-foreground"
+                        className="line-clamp-1 font-display text-sm font-bold uppercase tracking-tight transition-colors duration-200 hover:text-foreground"
                       >
                         {item.name}
                       </Link>
                       <p className="text-xs text-foreground-secondary">{item.variantTitle}</p>
                     </div>
                     <div className="flex items-center justify-between gap-2">
-                      <div className="inline-flex items-center border border-border">
+                      <div className="inline-flex items-center rounded-lg border border-border">
                         <button
                           onClick={() => setQuantity(item.variantId, item.quantity - 1)}
                           disabled={item.quantity <= 1}
@@ -99,7 +99,7 @@ export function CartDrawer() {
                   </div>
                   <button
                     onClick={() => remove(item.variantId)}
-                    className="self-start p-1 text-foreground-disabled transition-colors hover:text-error cursor-pointer"
+                    className="self-start p-1 text-foreground-disabled transition-colors duration-200 hover:text-error cursor-pointer"
                     aria-label="Eliminar del carrito"
                   >
                     <Trash2 className="h-4 w-4" />
@@ -108,7 +108,7 @@ export function CartDrawer() {
               ))}
             </ul>
 
-            <div className="border-t border-border px-5 py-4">
+            <div className="border-t border-border-subtle px-5 py-4">
               <div className="mb-1.5 flex justify-between text-sm">
                 <span className="text-foreground-secondary">Subtotal</span>
                 <span className="font-display font-bold">{formatMoney(subtotal, currencyCode, rates)}</span>
@@ -121,7 +121,7 @@ export function CartDrawer() {
               <Link
                 href="/checkout"
                 onClick={close}
-                className="block w-full bg-cta py-3 text-center font-display text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-cta-hover active:scale-[0.99]"
+                className="block w-full rounded-lg bg-cta py-3 text-center font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover active:scale-[0.99]"
               >
                 Ir a pagar
               </Link>

@@ -79,7 +79,7 @@ export default async function HomePage() {
   return (
     <>
       {announcement.trim() && (
-        <div className="mx-auto mt-6 w-[calc(100%-1.5rem)] max-w-7xl border border-border bg-background-secondary px-4 py-2.5 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-foreground-secondary sm:w-full">
+        <div className="mx-auto mt-6 w-[calc(100%-1.5rem)] max-w-7xl rounded-lg border border-border bg-background-secondary px-4 py-2.5 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-foreground-secondary sm:w-full">
           {announcement}
         </div>
       )}
@@ -103,7 +103,7 @@ export default async function HomePage() {
           ].map((f) => (
             <div
               key={f.title}
-              className="flex items-start gap-4 border border-border bg-background-secondary/50 p-6"
+              className="flex items-start gap-4 rounded-lg border border-border bg-background-secondary/50 p-6"
             >
               <f.icon className="mt-0.5 h-5 w-5 shrink-0 text-foreground-disabled" strokeWidth={1.5} />
               <div>
@@ -126,9 +126,9 @@ export default async function HomePage() {
                 <Link
                   key={cat.id}
                   href={`/products?category=${cat.slug}`}
-                  className="group flex flex-col items-center gap-3 border border-border bg-background-secondary/30 p-6 text-center transition-all duration-250 hover:border-border-active hover:-translate-y-0.5"
+                  className="group flex flex-col items-center gap-3 rounded-lg border border-border bg-background-secondary/30 p-6 text-center transition-all duration-300 hover:border-border-active hover:-translate-y-0.5"
                 >
-                  <span className="inline-flex h-11 w-11 items-center justify-center border border-border text-foreground-secondary transition-colors group-hover:border-border-active group-hover:text-foreground">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-colors duration-300 group-hover:border-border-active group-hover:text-foreground">
                     <Icon className="h-5 w-5" strokeWidth={1.5} />
                   </span>
                   <span className="font-display text-sm font-bold uppercase tracking-wide">{cat.name}</span>
@@ -161,15 +161,15 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Setup section */}
-      <section className="border-y border-border-subtle bg-background-secondary/30">
+      {/* Editorial setup section — cosmic violet atmosphere */}
+      <section className="cosmic-violet border-y border-border-subtle">
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">
             Tu setup, tu forma
           </p>
           <h2 className="mt-3 max-w-xl font-display text-3xl font-extrabold uppercase leading-tight tracking-tight md:text-4xl">
             El setup completo,{" "}
-            <span className="text-foreground-disabled">sin excusas</span>
+            <span className="text-foreground-muted">sin excusas</span>
           </h2>
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-foreground-secondary">
             Arma tu skate pieza por pieza con producto original. Nuestro equipo te asesora gratis
@@ -177,7 +177,7 @@ export default async function HomePage() {
           </p>
           <Link
             href="/armador"
-            className="mt-8 inline-flex h-12 items-center gap-2 border border-border px-7 font-display text-sm font-bold uppercase tracking-wide text-foreground transition-colors hover:border-border-active"
+            className="mt-8 inline-flex h-12 items-center gap-2 rounded-lg border border-border px-7 font-display text-sm font-bold uppercase tracking-wide text-foreground transition-all duration-300 hover:border-border-active"
           >
             Arma tu setup <ArrowUpRight className="h-4 w-4" />
           </Link>
@@ -205,10 +205,10 @@ export default async function HomePage() {
           <div className="mt-10 flex justify-center">
             <Link
               href="/products"
-              className="group inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.2em] text-foreground-secondary transition-colors hover:text-foreground"
+              className="group inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.2em] text-foreground-secondary transition-colors duration-200 hover:text-foreground"
             >
               Explorar todo el catalogo
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </section>
@@ -242,7 +242,7 @@ function SectionHeading({
       </div>
       <Link
         href={href}
-        className="hidden shrink-0 font-mono text-xs uppercase tracking-[0.2em] text-foreground-secondary underline decoration-border underline-offset-4 transition-colors hover:text-foreground hover:decoration-border-active sm:inline-flex"
+        className="hidden shrink-0 font-mono text-xs uppercase tracking-[0.2em] text-foreground-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-foreground hover:decoration-border-active sm:inline-flex"
       >
         {linkText} &rarr;
       </Link>

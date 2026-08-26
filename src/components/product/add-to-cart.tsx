@@ -60,7 +60,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
               }}
               disabled={v.stock <= 0}
               className={cn(
-                "min-w-14 border px-3 py-2 font-mono text-sm transition-all cursor-pointer",
+                "min-w-14 rounded-lg border px-3 py-2 font-mono text-sm transition-all duration-300 cursor-pointer",
                 v.id === variantId
                   ? "border-foreground bg-foreground text-background"
                   : "border-border hover:border-border-active",
@@ -85,7 +85,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <div className="inline-flex h-12 items-center border border-border">
+        <div className="inline-flex h-12 items-center rounded-lg border border-border">
           <button
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
             disabled={quantity <= 1}
@@ -106,13 +106,13 @@ export function AddToCart({ product }: { product: ProductDTO }) {
         </div>
 
         {outOfStock ? (
-          <div className="flex h-12 min-w-52 flex-1 flex-wrap items-center justify-between gap-2 border border-error/20 bg-error/5 px-4">
+          <div className="flex h-12 min-w-52 flex-1 flex-wrap items-center justify-between gap-2 rounded-lg border border-error/20 bg-error/5 px-4">
             <span className="font-mono text-sm uppercase tracking-wide text-error">Agotado</span>
             <a
               href={`mailto:hola@astroskate.mx?subject=${encodeURIComponent(
                 "Notificar disponibilidad: " + product.name
               )}&body=${encodeURIComponent("Hola, quiero que me avisen cuando regrese a orbita este producto.")}`}
-              className="inline-flex items-center gap-1.5 border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground-secondary transition-colors hover:border-border-active hover:text-foreground"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground-secondary transition-colors duration-200 hover:border-border-active hover:text-foreground"
             >
               Notificar
             </a>
@@ -122,7 +122,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
             onClick={handleAdd}
             disabled={outOfStock}
             className={cn(
-              "group/btn flex h-12 flex-1 min-w-52 items-center justify-center gap-2 bg-cta font-display text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-cta-hover active:scale-[0.98] cursor-pointer",
+              "group/btn flex h-12 flex-1 min-w-52 items-center justify-center gap-2 rounded-lg bg-cta font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover active:scale-[0.98] cursor-pointer",
               added && "animate-pop"
             )}
           >
@@ -132,7 +132,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
               </>
             ) : (
               <>
-                <ShoppingBag className="h-5 w-5 transition-transform group-hover/btn:-rotate-12" />
+                <ShoppingBag className="h-5 w-5 transition-transform duration-300 group-hover/btn:-rotate-12" />
                 Agregar — {formatMoney(product.price * quantity, currencyCode, rates)}
               </>
             )}

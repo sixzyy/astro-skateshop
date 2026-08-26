@@ -71,28 +71,28 @@ export default function TrackOrderPage() {
           onChange={(e) => setNumber(e.target.value.toUpperCase())}
           placeholder="AST-XXXXXXXX"
           aria-label="Numero de orden"
-          className="h-12 flex-1 border border-border bg-background-secondary px-4 font-mono text-sm uppercase tracking-wider outline-none transition-colors placeholder:text-foreground-disabled focus:border-border-active"
+          className="h-12 flex-1 border border-border rounded-lg bg-background-secondary px-4 font-mono text-sm uppercase tracking-wider outline-none transition-all duration-300 placeholder:text-foreground-disabled focus:border-border-active"
         />
         <button
           type="submit"
           disabled={loading || !number.trim()}
-          className="inline-flex h-12 items-center gap-2 bg-cta px-6 font-display text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-cta-hover disabled:opacity-50"
+          className="inline-flex h-12 items-center gap-2 rounded-lg bg-cta px-6 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover disabled:opacity-50"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />} Buscar
         </button>
       </form>
 
       {error && (
-        <p className="mt-5 flex items-start gap-2 border border-error/20 bg-error/5 px-3 py-2.5 text-sm text-error">
+        <p className="mt-5 flex items-start gap-2 border border-error/20 rounded-lg bg-error/5 px-3 py-2.5 text-sm text-error">
           <XCircle className="h-4 w-4 shrink-0" /> {error}
         </p>
       )}
 
       {result && (
-        <section className="mt-8 border border-border bg-background-secondary/50 p-6">
+        <section className="mt-8 border border-border rounded-lg bg-background-secondary/50 p-6">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-display font-bold tracking-widest">{result.number}</h2>
-            <span className="border border-border px-2.5 py-1 font-display text-xs font-bold uppercase tracking-wider text-foreground-secondary">
+            <span className="border border-border rounded-lg px-2.5 py-1 font-display text-xs font-bold uppercase tracking-wider text-foreground-secondary">
               {result.statusLabel}
             </span>
           </div>
@@ -108,7 +108,7 @@ export default function TrackOrderPage() {
                 )}
                 <span
                   className={cn(
-                    "relative z-10 flex h-7 w-7 items-center justify-center border-2 font-mono text-xs",
+                    "relative z-10 flex h-7 w-7 items-center justify-center border-2 rounded-lg font-mono text-xs",
                     i < currentIndex
                       ? "border-foreground bg-foreground text-background"
                       : i === currentIndex
@@ -131,7 +131,7 @@ export default function TrackOrderPage() {
           </ol>
 
           {result.trackingNumber && result.status === "SHIPPED" && (
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border border-border bg-background-secondary px-4 py-3">
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border border-border rounded-lg bg-background-secondary px-4 py-3">
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-foreground-disabled">Guia de rastreo</p>
                 <p className="font-mono text-sm font-bold tracking-wider">{result.trackingNumber}</p>
@@ -140,7 +140,7 @@ export default function TrackOrderPage() {
                 href={trackUrl(result.trackingNumber, result.carrier)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-9 items-center border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-colors hover:border-border-active hover:text-foreground"
+                className="inline-flex h-9 items-center border border-border rounded-lg px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground"
               >
                 Rastrear paquete &rarr;
               </a>
@@ -153,7 +153,7 @@ export default function TrackOrderPage() {
                 <ProductImage
                   src={item.image ?? "/products/generic.svg"}
                   alt=""
-                  className="h-11 w-11 border border-border object-cover"
+                  className="h-11 w-11 border border-border rounded-lg object-cover"
                 />
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-1 text-sm font-semibold">{item.productName}</p>

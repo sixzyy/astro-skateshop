@@ -1,39 +1,47 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   ASTRO SKATESHOP — DESIGN SYSTEM v4
-   Minimalist Brutalism + Editorial Streetwear
+   ASTRO SKATESHOP — DESIGN SYSTEM v6
+   Minimalist Brutalism + Cosmic Streetwear
    ═══════════════════════════════════════════ */
 
 :root {
-  /* Surfaces */
-  --background: #050608;
-  --background-secondary: #0b0d12;
-  --card: #0e1017;
-  --card-elevated: #151821;
+  /* Core Surfaces */
+  --background: #05060a;
+  --background-secondary: #0a0d16;
+  --card: #0e121d;
+  --card-elevated: #151a29;
 
-  /* Typography & Foreground */
-  --foreground: #f1f3f5;
-  --foreground-secondary: #9496a1;
-  --foreground-disabled: #4b4e5c;
+  /* Cosmic Surfaces */
+  --cosmic-blue: #101a35;
+  --cosmic-indigo: #171536;
+  --cosmic-violet: #211b46;
+  --cosmic-purple: #2a2050;
 
-  /* Borders & Technical Grids */
-  --border: #1a1d26;
-  --border-subtle: #242838;
-  --border-active: #40465d;
+  /* Typography */
+  --foreground: #f4f1ea;
+  --foreground-secondary: #aaa9b4;
+  --foreground-muted: #737583;
+  --foreground-disabled: #484b59;
 
-  /* Controlled Focus Accents */
-  --accent: #22d3ee;
-  --accent-muted: #083344;
-  --violet: #6366f1;
-  --violet-deep: #1e1b4b;
+  /* Structure */
+  --border: #202536;
+  --border-subtle: #292f42;
+  --border-active: #4b5572;
 
-  /* Tactical Signals */
-  --cta: #ff5500;
-  --cta-hover: #e04b00;
-  --success: #10b981;
-  --error: #f43f5e;
-  --warning: #f59e0b;
+  /* Astro Accents */
+  --accent: #54d8ff;
+  --accent-secondary: #818cf8;
+  --accent-deep: #18344a;
+
+  /* Skate / Commerce */
+  --cta: #ff5a1f;
+  --cta-hover: #e94d15;
+
+  /* System */
+  --success: #35c98b;
+  --error: #ff5575;
+  --warning: #f5b942;
 
   /* Legacy aliases */
   --muted: var(--card);
@@ -46,6 +54,7 @@
   --color-background-secondary: var(--background-secondary);
   --color-foreground: var(--foreground);
   --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-muted: var(--foreground-muted);
   --color-foreground-disabled: var(--foreground-disabled);
   --color-card: var(--card);
   --color-card-elevated: var(--card-elevated);
@@ -55,15 +64,18 @@
   --color-border-subtle: var(--border-subtle);
   --color-border-active: var(--border-active);
   --color-accent: var(--accent);
-  --color-accent-muted: var(--accent-muted);
-  --color-violet: var(--violet);
-  --color-violet-deep: var(--violet-deep);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-deep: var(--accent-deep);
   --color-cta: var(--cta);
   --color-cta-hover: var(--cta-hover);
   --color-success: var(--success);
   --color-error: var(--error);
   --color-warning: var(--warning);
   --color-white: var(--white);
+  --color-cosmic-blue: var(--cosmic-blue);
+  --color-cosmic-indigo: var(--cosmic-indigo);
+  --color-cosmic-violet: var(--cosmic-violet);
+  --color-cosmic-purple: var(--cosmic-purple);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
@@ -93,6 +105,60 @@ body {
 }
 
 /* ═══════════════════════════════════════════
+   COSMIC ATMOSPHERE — ambient gradients
+   ═══════════════════════════════════════════ */
+
+.cosmic-atmosphere {
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 70% 10%,
+      rgba(84, 216, 255, 0.06),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 20% 80%,
+      rgba(129, 140, 248, 0.06),
+      transparent 50%
+    ),
+    var(--background);
+}
+
+.cosmic-violet {
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 30% 20%,
+      rgba(129, 140, 248, 0.08),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 70%,
+      rgba(84, 216, 255, 0.04),
+      transparent 50%
+    ),
+    var(--cosmic-violet);
+}
+
+.cosmic-indigo {
+  background:
+    radial-gradient(
+      ellipse 70% 50% at 60% 30%,
+      rgba(84, 216, 255, 0.05),
+      transparent 45%
+    ),
+    var(--cosmic-indigo);
+}
+
+.cosmic-blue {
+  background:
+    radial-gradient(
+      ellipse 60% 40% at 50% 40%,
+      rgba(129, 140, 248, 0.06),
+      transparent 40%
+    ),
+    var(--cosmic-blue);
+}
+
+/* ═══════════════════════════════════════════
    TECHNICAL GRID BACKGROUND
    ═══════════════════════════════════════════ */
 
@@ -115,7 +181,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: 0.03;
+  opacity: 0.025;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 128px;
@@ -123,11 +189,11 @@ body {
 }
 
 /* ═══════════════════════════════════════════
-   ANIMATIONS
+   MOTION — Fluid easing
    ═══════════════════════════════════════════ */
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -151,16 +217,21 @@ body {
   to { transform: translateX(0); }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
 .animate-fade-up {
-  animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-fade-in {
-  animation: fade-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-slide-in {
-  animation: slide-in-right 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slide-in-right 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-marquee {
@@ -172,12 +243,16 @@ body {
 }
 
 .animate-pop {
-  animation: pop 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: pop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-float {
+  animation: float 4s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
 }
 
 @keyframes pop {
   0% { transform: scale(1); }
-  50% { transform: scale(1.08); }
+  50% { transform: scale(1.06); }
   100% { transform: scale(1); }
 }
 

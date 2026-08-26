@@ -77,7 +77,7 @@ export function CatalogFilters({ categories, brands }: Props) {
             onChange={(e) => setMinPrice(e.target.value)}
             inputMode="numeric"
             placeholder="Min"
-            className="h-9 w-full border border-border bg-background-secondary px-2.5 text-sm outline-none transition-colors focus:border-border-active"
+            className="h-9 w-full border border-border rounded-lg bg-background-secondary px-2.5 text-sm outline-none transition-all duration-300 focus:border-border-active"
           />
           <span className="text-foreground-disabled">&mdash;</span>
           <input
@@ -85,11 +85,11 @@ export function CatalogFilters({ categories, brands }: Props) {
             onChange={(e) => setMaxPrice(e.target.value)}
             inputMode="numeric"
             placeholder="Max"
-            className="h-9 w-full border border-border bg-background-secondary px-2.5 text-sm outline-none transition-colors focus:border-border-active"
+            className="h-9 w-full border border-border rounded-lg bg-background-secondary px-2.5 text-sm outline-none transition-all duration-300 focus:border-border-active"
           />
           <button
             type="submit"
-            className="h-9 shrink-0 bg-cta px-3 font-display text-xs font-bold uppercase text-white cursor-pointer transition-colors hover:bg-cta-hover"
+            className="h-9 shrink-0 rounded-lg bg-cta px-3 font-display text-xs font-bold uppercase text-white cursor-pointer transition-all duration-300 hover:bg-cta-hover"
           >
             OK
           </button>
@@ -112,7 +112,7 @@ export function CatalogFilters({ categories, brands }: Props) {
         <select
           value={sort}
           onChange={(e) => updateParam("sort", e.target.value === "newest" ? null : e.target.value)}
-          className="h-9 w-full border border-border bg-background-secondary px-2.5 text-sm outline-none transition-colors focus:border-border-active cursor-pointer"
+          className="h-9 w-full border border-border rounded-lg bg-background-secondary px-2.5 text-sm outline-none transition-all duration-300 focus:border-border-active cursor-pointer"
         >
           <option value="newest">Mas recientes</option>
           <option value="price_asc">Menor a mayor</option>
@@ -125,7 +125,7 @@ export function CatalogFilters({ categories, brands }: Props) {
 
 function FilterBlock({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="border border-border bg-background-secondary/50 p-4">
+    <div className="border border-border rounded-lg bg-background-secondary/50 p-4">
       <h3 className="mb-3 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">{title}</h3>
       <div className="space-y-1.5">{children}</div>
     </div>
@@ -136,7 +136,7 @@ function FilterRow({ label, active, onClick }: { label: string; active?: boolean
   return (
     <button
       onClick={onClick}
-      className={`block w-full text-left text-sm transition-colors cursor-pointer ${
+      className={`block w-full text-left text-sm transition-all duration-300 cursor-pointer ${
         active ? "font-display font-bold text-foreground" : "text-foreground-secondary hover:text-foreground"
       }`}
     >

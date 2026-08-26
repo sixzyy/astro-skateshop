@@ -58,7 +58,7 @@ export default async function AccountPage() {
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
-      <header className="mb-10 flex flex-wrap items-center justify-between gap-4 border border-border bg-background-secondary/50 p-6">
+      <header className="mb-10 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-border bg-background-secondary/50 p-6">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground-disabled">Mi cuenta</p>
           <h1 className="mt-1 font-display text-2xl font-bold uppercase tracking-tight">{session.name}</h1>
@@ -68,7 +68,7 @@ export default async function AccountPage() {
           {session.role === "ADMIN" && (
             <Link
               href="/admin"
-              className="inline-flex h-10 items-center border border-border px-5 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-colors hover:border-border-active hover:text-foreground"
+              className="inline-flex h-10 items-center rounded-lg border border-border px-5 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground"
             >
               Panel admin
             </Link>
@@ -89,7 +89,7 @@ export default async function AccountPage() {
           <p className="text-sm text-foreground-disabled">An no tienes pedidos.</p>
           <Link
             href="/products"
-            className="mt-4 inline-block bg-cta px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-cta-hover"
+            className="mt-4 inline-block rounded-lg bg-cta px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover"
           >
             Explorar la tienda
           </Link>
@@ -97,7 +97,7 @@ export default async function AccountPage() {
       ) : (
         <ul className="space-y-4">
           {orders.map((order) => (
-            <li key={order.id} className="border border-border bg-background-secondary/50">
+            <li key={order.id} className="rounded-lg border border-border bg-background-secondary/50">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-3.5">
                 <div>
                   <p className="font-display text-sm font-bold tracking-wide">{order.number}</p>
@@ -120,7 +120,7 @@ export default async function AccountPage() {
                       <ProductImage
                         src={item.image}
                         alt={item.productName}
-                        className="h-11 w-11 border border-border object-cover"
+                        className="h-11 w-11 rounded-lg border border-border object-cover"
                       />
                     )}
                     <div className="min-w-0 flex-1">

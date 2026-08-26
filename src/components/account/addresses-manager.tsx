@@ -97,7 +97,7 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
   }
 
   return (
-    <div className="border border-border bg-background-secondary/50 p-5">
+    <div className="rounded-lg border border-border bg-background-secondary/50 p-5">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="flex items-center gap-2 font-display text-sm font-bold uppercase tracking-wide">
           <MapPin className="h-4 w-4 text-foreground-disabled" /> Mis direcciones
@@ -105,7 +105,7 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
         {editing === null && list.length < 10 && (
           <button
             onClick={openNew}
-            className="inline-flex h-8 cursor-pointer items-center gap-1 border border-border px-3 text-xs font-bold text-foreground-secondary hover:border-border-active hover:text-foreground"
+            className="inline-flex h-8 cursor-pointer items-center gap-1 rounded-lg border border-border px-3 text-xs font-bold text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground"
           >
             <Plus className="h-3.5 w-3.5" /> Agregar
           </button>
@@ -136,13 +136,13 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
             <button
               onClick={save}
               disabled={!valid || busy}
-              className="inline-flex h-9 items-center bg-cta px-5 font-display text-xs font-bold uppercase tracking-wide text-white hover:bg-cta-hover disabled:opacity-50"
+              className="inline-flex h-9 items-center rounded-lg bg-cta px-5 font-display text-xs font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover disabled:opacity-50"
             >
               Guardar direccion
             </button>
             <button
               onClick={() => setEditing(null)}
-              className="inline-flex h-9 cursor-pointer items-center gap-1 border border-border px-4 text-xs text-foreground-secondary hover:text-foreground"
+              className="inline-flex h-9 cursor-pointer items-center gap-1 rounded-lg border border-border px-4 text-xs text-foreground-secondary transition-all duration-300 hover:text-foreground"
             >
               <X className="h-3.5 w-3.5" /> Cancelar
             </button>
@@ -155,7 +155,7 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
       ) : (
         <ul className="space-y-2">
           {list.map((a) => (
-            <li key={a.id} className={cn("flex items-start justify-between gap-3 border p-3", a.isDefault ? "border-border-active bg-foreground/5" : "border-border")}>
+            <li key={a.id} className={cn("flex items-start justify-between gap-3 rounded-lg border p-3 transition-all duration-300", a.isDefault ? "border-border-active bg-foreground/5" : "border-border")}>
               <div className="min-w-0">
                 <p className="text-sm font-semibold">
                   {a.label}
@@ -188,7 +188,7 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
         </ul>
       )}
 
-      <style>{`.address-field{height:2.5rem;width:100%;border:1px solid var(--border,#1a1d26);background:var(--background-secondary,#0b0d12);padding:0 .75rem;font-size:.875rem;outline:none;transition:border-color .2s}.address-field:focus{border-color:var(--border-active,#40465d)}`}</style>
+      <style>{`.address-field{height:2.5rem;width:100%;border:1px solid var(--border,#1a1d26);border-radius:0.5rem;background:var(--background-secondary,#0b0d12);padding:0 .75rem;font-size:.875rem;outline:none;transition:border-color .3s}.address-field:focus{border-color:var(--border-active,#40465d)}`}</style>
     </div>
   );
 }

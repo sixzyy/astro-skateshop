@@ -14,7 +14,7 @@ export function CosmosHero() {
     const tick = () => {
       const y = window.scrollY;
       if (titleRef.current) {
-        titleRef.current.style.translate = `0 ${y * 0.15}px`;
+        titleRef.current.style.translate = `0 ${y * 0.12}px`;
       }
       raf = requestAnimationFrame(tick);
     };
@@ -24,20 +24,22 @@ export function CosmosHero() {
 
   return (
     <section className="relative flex min-h-[90vh] items-center overflow-hidden">
-      <Starfield density={35} />
+      <Starfield density={30} />
 
       {/* Technical grid background */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.15]"
+        className="pointer-events-none absolute inset-0 opacity-[0.12]"
         style={{
           backgroundImage: "radial-gradient(var(--border-subtle) 1px, transparent 0)",
           backgroundSize: "24px 24px",
         }}
       />
 
-      {/* Subtle nebula */}
+      {/* Cosmic atmosphere — cyan top-right, violet bottom-left */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-40 top-1/4 h-[30rem] w-[30rem] rounded-full bg-violet-deep/30 blur-[120px]" />
+        <div className="absolute -right-32 top-1/4 h-[28rem] w-[28rem] rounded-full bg-accent/[0.05] blur-[120px]" />
+        <div className="absolute -left-40 bottom-1/4 h-[32rem] w-[32rem] rounded-full bg-accent-secondary/[0.06] blur-[140px]" />
+        <div className="absolute left-1/3 top-1/2 h-[20rem] w-[20rem] rounded-full bg-cosmic-violet/40 blur-[100px]" />
       </div>
 
       <div className="texture-grain pointer-events-none absolute inset-0" />
@@ -50,13 +52,13 @@ export function CosmosHero() {
 
           <h1
             ref={titleRef}
-            className="mt-4 font-display text-6xl font-extrabold uppercase leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl"
+            className="mt-4 font-display text-6xl font-extrabold uppercase leading-[0.9] tracking-tighter sm:text-7xl lg:text-8xl"
           >
             SKATE
             <br />
             BEYOND
             <br />
-            <span className="text-foreground-disabled">THE ORDINARY.</span>
+            <span className="text-foreground-muted">THE ORDINARY.</span>
           </h1>
 
           <p className="mt-6 max-w-md text-base leading-relaxed text-foreground-secondary">
@@ -67,14 +69,14 @@ export function CosmosHero() {
           <div className="mt-10 flex flex-wrap items-center gap-5">
             <Link
               href="/products"
-              className="group inline-flex h-12 items-center gap-2 bg-cta px-7 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-250 hover:bg-cta-hover active:scale-[0.98]"
+              className="group inline-flex h-12 items-center gap-2 rounded-lg bg-cta px-7 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover active:scale-[0.98]"
             >
               Explore Boards
-              <ArrowRight className="h-4 w-4 transition-transform duration-250 group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
             <Link
               href="/armador"
-              className="inline-flex h-12 items-center gap-2 border border-border px-7 font-display text-sm font-bold uppercase tracking-wide text-foreground transition-all duration-250 hover:border-border-active"
+              className="inline-flex h-12 items-center gap-2 rounded-lg border border-border px-7 font-display text-sm font-bold uppercase tracking-wide text-foreground transition-all duration-300 hover:border-border-active"
             >
               Build Your Board
             </Link>
@@ -95,7 +97,7 @@ export function CosmosHero() {
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">
             Scroll to explore
           </span>
-          <div className="mx-auto mt-2 h-8 w-px bg-gradient-to-b from-foreground-disabled to-transparent" />
+          <div className="mx-auto mt-2 h-8 w-px bg-gradient-to-b from-foreground-disabled/50 to-transparent" />
         </div>
       </div>
     </section>

@@ -36,94 +36,96 @@ export function Footer() {
       </div>
 
       {/* Main footer */}
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-        {/* Brand */}
-        <div className="lg:col-span-1">
-          <Logo size="md" />
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-foreground-secondary">
-            Skate y streetwear independiente. Equipo real, cultura real.
-          </p>
-          <div className="mt-5 flex gap-3">
-            {[
-              { icon: InstagramIcon, label: "Instagram", href: "https://instagram.com/astroskateshop" },
-              { icon: YoutubeIcon, label: "YouTube", href: "https://youtube.com/@astroskateshop" },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={s.label}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-colors hover:border-border-active hover:text-foreground"
-              >
-                <s.icon className="h-4 w-4" strokeWidth={1.5} />
-              </a>
-            ))}
+      <div className="cosmic-atmosphere">
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+          {/* Brand */}
+          <div className="lg:col-span-1">
+            <Logo size="md" />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-foreground-secondary">
+              Skate y streetwear independiente. Equipo real, cultura real.
+            </p>
+            <div className="mt-5 flex gap-3">
+              {[
+                { icon: InstagramIcon, label: "Instagram", href: "https://instagram.com/astroskateshop" },
+                { icon: YoutubeIcon, label: "YouTube", href: "https://youtube.com/@astroskateshop" },
+              ].map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={s.label}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground"
+                >
+                  <s.icon className="h-4 w-4" strokeWidth={1.5} />
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Shop */}
-        <div>
-          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-disabled">
-            Shop
-          </h3>
-          <ul className="mt-4 space-y-2.5">
-            {SHOP_LINKS.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="text-sm text-foreground-secondary transition-colors hover:text-foreground"
-                >
-                  {l.label}
-                </Link>
+          {/* Shop */}
+          <div>
+            <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-disabled">
+              Shop
+            </h3>
+            <ul className="mt-4 space-y-2.5">
+              {SHOP_LINKS.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className="text-sm text-foreground-secondary transition-colors duration-200 hover:text-foreground"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Help */}
+          <div>
+            <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-disabled">
+              Help
+            </h3>
+            <ul className="mt-4 space-y-2.5">
+              {HELP_LINKS.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className="text-sm text-foreground-secondary transition-colors duration-200 hover:text-foreground"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <span className="text-sm text-foreground-secondary">
+                  Envios a todo Mexico
+                </span>
               </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Help */}
-        <div>
-          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-disabled">
-            Help
-          </h3>
-          <ul className="mt-4 space-y-2.5">
-            {HELP_LINKS.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="text-sm text-foreground-secondary transition-colors hover:text-foreground"
-                >
-                  {l.label}
-                </Link>
+              <li>
+                <span className="text-sm text-foreground-secondary">
+                  Envio gratis desde $999 MXN
+                </span>
               </li>
-            ))}
-            <li>
-              <span className="text-sm text-foreground-secondary">
-                Envios a todo Mexico
-              </span>
-            </li>
-            <li>
-              <span className="text-sm text-foreground-secondary">
-                Envio gratis desde $999 MXN
-              </span>
-            </li>
-          </ul>
-        </div>
+            </ul>
+          </div>
 
-        {/* Contact */}
-        <div>
-          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-disabled">
-            Contacto
-          </h3>
-          <ul className="mt-4 space-y-2.5 text-sm text-foreground-secondary">
-            <li>
-              <a href="mailto:hola@astroskate.mx" className="transition-colors hover:text-foreground">
-                hola@astroskate.mx
-              </a>
-            </li>
-            <li>Roma Norte, CDMX</li>
-            <li>Lun - Sab / 11am - 8pm</li>
-          </ul>
+          {/* Contact */}
+          <div>
+            <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-disabled">
+              Contacto
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-sm text-foreground-secondary">
+              <li>
+                <a href="mailto:hola@astroskate.mx" className="transition-colors duration-200 hover:text-foreground">
+                  hola@astroskate.mx
+                </a>
+              </li>
+              <li>Roma Norte, CDMX</li>
+              <li>Lun - Sab / 11am - 8pm</li>
+            </ul>
+          </div>
         </div>
       </div>
 

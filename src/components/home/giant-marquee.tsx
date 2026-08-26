@@ -15,8 +15,8 @@ export function GiantMarquee({
       {items.map((item, i) => (
         <span key={`${item}-${i}`} className="flex items-center">
           <span
-            className={`whitespace-nowrap font-display font-extrabold uppercase tracking-tight ${sizeCls} ${
-              i % 2 === 0 ? "text-foreground/[0.07]" : "text-foreground/[0.12]"
+            className={`whitespace-nowrap font-display font-extrabold uppercase tracking-tighter ${sizeCls} ${
+              i % 2 === 0 ? "text-foreground/[0.06]" : "text-foreground/[0.10]"
             }`}
           >
             {item}
@@ -30,7 +30,7 @@ export function GiantMarquee({
   );
 
   return (
-    <section className="relative overflow-hidden border-y border-border-subtle py-8 md:py-12">
+    <section className="relative overflow-hidden border-y border-border-subtle bg-background-secondary/30 py-8 md:py-12">
       <div className={`flex w-max ${anim}`}>
         {row(false)}
         {row(true)}

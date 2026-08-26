@@ -31,20 +31,20 @@ export function ProfileForm({ initialName }: { initialName: string }) {
   }
 
   return (
-    <div className="border border-border bg-background-secondary/50 p-5">
+    <div className="rounded-lg border border-border bg-background-secondary/50 p-5">
       <h3 className="mb-4 font-display text-sm font-bold uppercase tracking-wide">Datos personales</h3>
       <label className="mb-1 block text-xs text-foreground-secondary">Nombre</label>
       <div className="flex gap-2">
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="h-10 flex-1 border border-border bg-background-secondary px-3 text-sm outline-none focus:border-border-active"
+          className="h-10 flex-1 rounded-lg border border-border bg-background-secondary px-3 text-sm outline-none transition-all duration-300 focus:border-border-active"
         />
         <button
           onClick={saveName}
           disabled={busy || name.trim().length < 2}
           className={cn(
-            "inline-flex h-10 cursor-pointer items-center gap-1.5 bg-cta px-4 font-display text-xs font-bold uppercase tracking-wide text-white hover:bg-cta-hover disabled:opacity-50",
+            "inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-lg bg-cta px-4 font-display text-xs font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover disabled:opacity-50",
             saved && "bg-success",
           )}
         >
@@ -96,19 +96,19 @@ function PasswordForm() {
         placeholder="Contrasena actual"
         value={currentPassword}
         onChange={(e) => setCurrent(e.target.value)}
-        className="mb-2 h-10 w-full border border-border bg-background-secondary px-3 text-sm outline-none focus:border-border-active"
+        className="mb-2 h-10 w-full rounded-lg border border-border bg-background-secondary px-3 text-sm outline-none transition-all duration-300 focus:border-border-active"
       />
       <input
         type="password"
         placeholder="Nueva contrasena (8+ caracteres, con numero)"
         value={newPassword}
         onChange={(e) => setNext(e.target.value)}
-        className="mb-2 h-10 w-full border border-border bg-background-secondary px-3 text-sm outline-none focus:border-border-active"
+        className="mb-2 h-10 w-full rounded-lg border border-border bg-background-secondary px-3 text-sm outline-none transition-all duration-300 focus:border-border-active"
       />
       <button
         onClick={submit}
         disabled={!valid || busy}
-        className="inline-flex h-9 cursor-pointer items-center border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-colors hover:border-border-active hover:text-foreground disabled:opacity-50"
+        className="inline-flex h-9 cursor-pointer items-center rounded-lg border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground disabled:opacity-50"
       >
         Actualizar contrasena
       </button>

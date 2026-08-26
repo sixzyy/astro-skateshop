@@ -14,7 +14,7 @@ export function LogoutButton() {
   return (
     <button
       onClick={logout}
-      className="inline-flex h-10 cursor-pointer items-center border border-border px-5 font-display text-xs font-bold uppercase tracking-wide transition-colors hover:border-error hover:text-error"
+      className="inline-flex h-10 cursor-pointer items-center rounded-lg border border-border px-5 font-display text-xs font-bold uppercase tracking-wide transition-all duration-300 hover:border-error hover:text-error"
     >
       Cerrar sesion
     </button>

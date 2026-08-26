@@ -127,7 +127,7 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
                 <Layers className="h-3.5 w-3.5" /> {section.title}
               </h2>
               {section.items.length === 0 ? (
-                <p className="border border-dashed border-border px-3 py-2 text-xs text-foreground-disabled">
+                <p className="border border-dashed border-border rounded-lg px-3 py-2 text-xs text-foreground-disabled">
                   Sin productos disponibles aun.
                 </p>
               ) : (
@@ -142,7 +142,7 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
                         disabled={out}
                         title={out ? "Sin stock" : item.name}
                         className={cn(
-                          "group relative overflow-hidden border p-1.5 text-left transition-all cursor-pointer",
+                          "group relative overflow-hidden border rounded-lg p-1.5 text-left transition-all duration-300 cursor-pointer",
                           active
                             ? "border-foreground bg-foreground/5"
                             : "border-border hover:border-border-active",
@@ -166,18 +166,18 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
         </aside>
 
         <div className="order-1 lg:order-2">
-          <div className="relative h-[52vh] overflow-hidden border border-border bg-background-secondary sm:h-[60vh] lg:h-[68vh]">
+          <div className="relative h-[52vh] overflow-hidden border border-border rounded-lg bg-background-secondary sm:h-[60vh] lg:h-[68vh]">
             <BoardScene config={config} />
 
             <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-3">
-              <span className="border border-border bg-background-secondary/80 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-foreground-disabled backdrop-blur">
+              <span className="border border-border rounded-lg bg-background-secondary/80 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-foreground-disabled backdrop-blur">
                 Setup en vivo
               </span>
               <div className="pointer-events-auto flex gap-2">
                 <button
                   onClick={() => setExploded((v) => !v)}
                   className={cn(
-                    "inline-flex cursor-pointer items-center gap-1.5 border px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur transition-colors",
+                    "inline-flex cursor-pointer items-center gap-1.5 border rounded-lg px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur transition-all duration-300",
                     exploded
                       ? "border-cta bg-cta/10 text-cta"
                       : "border-border bg-background-secondary/80 text-foreground-secondary hover:text-foreground"
@@ -188,7 +188,7 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
                 <button
                   onClick={() => setSpin((v) => !v)}
                   className={cn(
-                    "inline-flex cursor-pointer items-center gap-1.5 border px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur transition-colors",
+                    "inline-flex cursor-pointer items-center gap-1.5 border rounded-lg px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur transition-all duration-300",
                     spin
                       ? "border-border-active bg-foreground/10 text-foreground"
                       : "border-border bg-background-secondary/80 text-foreground-secondary"
@@ -200,7 +200,7 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
             </div>
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-4 border border-border bg-background-secondary/50 p-4">
+          <div className="mt-4 flex flex-wrap items-center gap-4 border border-border rounded-lg bg-background-secondary/50 p-4">
             <div className="flex-1">
               {missing.length > 0 ? (
                 <p className="text-sm text-foreground-secondary">
@@ -218,7 +218,7 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
               onClick={addSetup}
               disabled={!allAvailable || added}
               className={cn(
-                "inline-flex h-11 items-center gap-2 bg-cta px-6 font-display text-sm font-bold uppercase tracking-wide text-white transition-all hover:bg-cta-hover active:scale-[0.98] disabled:opacity-60",
+                "inline-flex h-11 items-center gap-2 rounded-lg bg-cta px-6 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover active:scale-[0.98] disabled:opacity-60",
                 added && "animate-pop"
               )}
             >

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 function Cell({ value, label }: { value: number | null; label: string }) {
   return (
     <span className="flex flex-col items-center">
-      <span className="min-w-[3.5rem] border border-border bg-background-secondary px-3 py-2 font-mono text-2xl font-bold tabular-nums text-foreground sm:text-3xl">
+      <span className="min-w-[3.5rem] rounded-lg border border-border bg-background-secondary px-3 py-2 font-mono text-2xl font-bold tabular-nums text-foreground sm:text-3xl">
         {value === null ? "--" : String(value).padStart(2, "0")}
       </span>
       <span className="mt-1.5 font-mono text-[10px] uppercase tracking-widest text-foreground-disabled">
@@ -33,7 +33,7 @@ export function DropCountdown({ date }: { date: string }) {
   const seconds = left === null ? null : Math.floor((total % 60000) / 1000);
 
   return (
-    <div className="border border-border bg-background-secondary/50 p-5">
+    <div className="rounded-lg border border-border bg-background-secondary/50 p-5">
       <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.25em] text-foreground-disabled">
         El drop cae en
       </p>

@@ -85,7 +85,7 @@ export default async function ProductDetailPage({ params }: Props) {
       />
       <Link
           href="/products"
-          className="mb-6 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-foreground-secondary transition-colors hover:text-foreground"
+          className="mb-6 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-foreground-secondary transition-all duration-300 hover:text-foreground"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver
         </Link>
@@ -95,7 +95,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">{product.brand.name}</p>
-            <span className="mt-3 inline-flex items-center gap-1.5 border border-cta/30 bg-cta/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-cta">
+            <span className="mt-3 inline-flex items-center gap-1.5 border border-cta/30 rounded-lg bg-cta/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-cta">
               <Zap className="h-3 w-3" /> Drop proximamente
             </span>
             <h1 className="mt-2 font-display text-3xl font-bold uppercase leading-tight tracking-tight sm:text-4xl">
@@ -112,7 +112,7 @@ export default async function ProductDetailPage({ params }: Props) {
               <DropCountdown date={product.publishedAt.toISOString()} />
             </div>
 
-            <p className="mt-4 border border-border bg-background-secondary px-4 py-3 text-sm text-foreground-secondary">
+            <p className="mt-4 border border-border rounded-lg bg-background-secondary px-4 py-3 text-sm text-foreground-secondary">
               Se libera automaticamente el{" "}
               <strong className="text-foreground">{launch}</strong>. Vuelve en ese momento y estara
               disponible para comprar.
@@ -126,7 +126,7 @@ export default async function ProductDetailPage({ params }: Props) {
               ].map((f) => (
                 <li
                   key={f.label}
-                  className="flex items-center gap-2 border border-border bg-background-secondary/50 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-foreground-secondary"
+                  className="flex items-center gap-2 border border-border rounded-lg bg-background-secondary/50 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-foreground-secondary"
                 >
                   <f.icon className="h-4 w-4 shrink-0 text-foreground-disabled" /> {f.label}
                 </li>
@@ -173,7 +173,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
       <Link
         href="/products"
-        className="mb-6 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-foreground-secondary transition-colors hover:text-foreground"
+        className="mb-6 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-foreground-secondary transition-all duration-300 hover:text-foreground"
       >
         <ArrowLeft className="h-3.5 w-3.5" /> Volver
       </Link>
@@ -217,7 +217,7 @@ export default async function ProductDetailPage({ params }: Props) {
                 <span className="text-lg text-foreground-disabled line-through">
                   <Price amount={product.compareAtPrice} />
                 </span>
-                <span className="bg-foreground px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-background">
+                <span className="rounded-lg bg-foreground px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-background">
                   Ahorra{" "}
                   {Math.round((1 - product.price / product.compareAtPrice) * 100)}%
                 </span>
@@ -237,7 +237,7 @@ export default async function ProductDetailPage({ params }: Props) {
               { icon: ShieldCheck, label: "Pago seguro" },
               { icon: RefreshCcw, label: "Cambios en 30 dias" },
             ].map((f) => (
-              <li key={f.label} className="flex items-center gap-2 border border-border bg-background-secondary/50 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-foreground-secondary">
+              <li key={f.label} className="flex items-center gap-2 border border-border rounded-lg bg-background-secondary/50 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-foreground-secondary">
                 <f.icon className="h-4 w-4 shrink-0 text-foreground-disabled" /> {f.label}
               </li>
             ))}
@@ -246,7 +246,7 @@ export default async function ProductDetailPage({ params }: Props) {
           {specs && Object.keys(specs).length > 0 && (
             <div className="mt-8">
               <h2 className="mb-3 font-display text-sm font-bold uppercase tracking-widest">Especificaciones</h2>
-              <dl className="divide-y divide-border border border-border bg-background-secondary/50 px-4">
+              <dl className="divide-y divide-border border border-border rounded-lg bg-background-secondary/50 px-4">
                 {Object.entries(specs).map(([key, value]) => (
                   <div key={key} className="flex justify-between gap-4 py-3 text-sm">
                     <dt className="font-display font-bold uppercase tracking-wide text-foreground-secondary">{key}</dt>

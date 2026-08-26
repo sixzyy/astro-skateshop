@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { href: "/products", label: "Shop" },
   { href: "/products?category=tablas", label: "Decks" },
   { href: "/products?category=ropa", label: "Apparel" },
-  { href: "/armador", label: "Armador" },
+  { href: "/armador", label: "Builder" },
 ];
 
 export function Header() {
@@ -47,19 +47,24 @@ export function Header() {
     <>
       <header
         ref={headerRef}
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
+          backdropFilter: "blur(20px) saturate(1.2)",
+          WebkitBackdropFilter: "blur(20px) saturate(1.2)",
         }}
       >
         <div
-          className={`mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
+          className={`mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 transition-all duration-500 ${
             scrolled
-              ? "h-14 border-b border-border-subtle bg-background/75"
-              : "h-16 bg-transparent"
+              ? "h-14 border-b border-border-subtle"
+              : "h-16"
           }`}
-          style={{ maxWidth: "1400px" }}
+          style={{
+            maxWidth: "1400px",
+            background: scrolled
+              ? "rgba(10, 13, 22, 0.9)"
+              : "transparent",
+          }}
         >
           {/* Mobile menu */}
           <button
@@ -86,10 +91,10 @@ export function Header() {
                 )}
                 <Link
                   href={link.href}
-                  className="relative px-2 py-1 text-sm font-medium text-foreground-secondary transition-colors hover:text-foreground group"
+                  className="relative px-2 py-1 text-sm font-medium text-foreground-secondary transition-colors duration-200 hover:text-foreground group"
                 >
                   {link.label}
-                  <span className="absolute -bottom-0.5 left-2 right-2 h-px w-0 bg-accent transition-all duration-200 group-hover:w-full" />
+                  <span className="absolute -bottom-0.5 left-2 right-2 h-px w-0 bg-accent transition-all duration-300 ease-out group-hover:w-full" />
                 </Link>
               </span>
             ))}
@@ -98,7 +103,7 @@ export function Header() {
                 <span className="font-mono text-[10px] text-foreground-disabled select-none">/</span>
                 <Link
                   href="/admin"
-                  className="px-2 py-1 text-sm font-medium text-cta transition-colors hover:text-cta-hover"
+                  className="px-2 py-1 text-sm font-medium text-cta transition-colors duration-200 hover:text-cta-hover"
                 >
                   Admin
                 </Link>
@@ -118,7 +123,7 @@ export function Header() {
 
             <Link
               href="/wishlist"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-card"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors duration-200 hover:bg-card"
               aria-label="Wishlist"
             >
               <Heart className="h-[18px] w-[18px]" />
@@ -126,7 +131,7 @@ export function Header() {
 
             <Link
               href={user ? "/account" : "/login"}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-card"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors duration-200 hover:bg-card"
               aria-label={user ? "Mi cuenta" : "Iniciar sesion"}
             >
               <User className="h-[18px] w-[18px]" />
@@ -134,7 +139,7 @@ export function Header() {
 
             <button
               onClick={openCart}
-              className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-card"
+              className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg transition-colors duration-200 hover:bg-card"
               aria-label="Carrito"
             >
               <ShoppingBag className="h-[18px] w-[18px]" />
@@ -155,7 +160,7 @@ export function Header() {
             className="absolute inset-0 bg-background/90 backdrop-blur-sm"
             onClick={() => setMenuOpen(false)}
           />
-          <div className="animate-slide-in absolute left-0 top-0 h-full w-72 border-r border-border bg-background p-6">
+          <div className="animate-slide-in absolute left-0 top-0 h-full w-72 border-r border-border bg-background-secondary p-6">
             <div className="mb-8">
               <Logo size="sm" />
             </div>
@@ -166,7 +171,7 @@ export function Header() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground-secondary transition-colors hover:bg-card hover:text-foreground"
+                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground-secondary transition-colors duration-200 hover:bg-card hover:text-foreground"
                 >
                   {link.label}
                 </Link>

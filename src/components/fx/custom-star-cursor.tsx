@@ -1,56 +1,58 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 
 /**
- * Reticle cursor — dot + crosshair. Desktop only. No particles.
+ * Celestial four-point star cursor. Desktop only. Fluid motion.
  */
 export function CustomStarCursor() {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-
-  const onMove = useCallback((e: MouseEvent) => {
-    const dot = dotRef.current;
-    const ring = ringRef.current;
-    if (!dot || !ring) return;
-    dot.style.transform = `translate(${e.clientX - 3}px, ${e.clientY - 3}px)`;
-    ring.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
-  }, []);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
-    const dot = dotRef.current;
-    const ring = ringRef.current;
-    if (!dot || !ring) return;
+    const svg = svgRef.current;
+    if (!svg) return;
 
     document.body.classList.add("cosmos-cursor");
-    let frame = 0;
 
-    const handler = (e: MouseEvent) => {
-      if (!frame) {
-        frame = requestAnimationFrame(() => {
-          frame = 0;
-          onMove(e);
-        });
-      }
+    const pos = { x: 0, y: 0 };
+    const target = { x: 0, y: 0 };
+    let isHover = false;
+    let raf = 0;
+
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+    function tick() {
+      const smooth = 0.18;
+      pos.x = lerp(pos.x, target.x, smooth);
+      pos.y = lerp(pos.y, target.y, smooth);
+
+      const rotation = isHover ? 45 : 0;
+      if (svg) svg.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${rotation}deg)`;
+
+      raf = requestAnimationFrame(tick);
+    }
+
+    const onMove = (e: MouseEvent) => {
+      target.x = e.clientX;
+      target.y = e.clientY;
     };
 
-    const onEnterInteractive = () => {
-      ring.style.width = "44px";
-      ring.style.height = "44px";
-      ring.style.borderColor = "var(--accent)";
-      ring.style.opacity = "0.6";
+    const onDown = () => {
+      svg.style.transform += " scale(0.75)";
+      svg.style.transition = "transform 0.15s cubic-bezier(0.22, 1, 0.36, 1)";
+      setTimeout(() => {
+        svg.style.transition = "";
+      }, 150);
     };
 
-    const onLeaveInteractive = () => {
-      ring.style.width = "36px";
-      ring.style.height = "36px";
-      ring.style.borderColor = "var(--foreground)";
-      ring.style.opacity = "0.25";
-    };
+    const onEnterInteractive = () => { isHover = true; };
+    const onLeaveInteractive = () => { isHover = false; };
 
-    window.addEventListener("mousemove", handler, { passive: true });
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mousedown", onDown);
+    raf = requestAnimationFrame(tick);
 
     const observeHover = () => {
       document.querySelectorAll("a, button, [role='button'], input, select, textarea, label").forEach((el) => {
@@ -63,38 +65,31 @@ export function CustomStarCursor() {
     observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
-      window.removeEventListener("mousemove", handler);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mousedown", onDown);
       document.body.classList.remove("cosmos-cursor");
-      if (frame) cancelAnimationFrame(frame);
+      cancelAnimationFrame(raf);
       observer.disconnect();
     };
-  }, [onMove]);
+  }, []);
 
   return (
-    <>
-      {/* Reticle ring — square crosshair */}
-      <div
-        ref={ringRef}
-        aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[101] h-9 w-9 rounded-sm border transition-[width,height,border-color,opacity] duration-200 ease-out"
-        style={{ borderColor: "var(--foreground)", opacity: 0.25, willChange: "transform" }}
-      >
-        {/* Top tick */}
-        <div className="absolute left-1/2 top-0 h-1.5 w-px -translate-x-1/2 bg-current opacity-50" />
-        {/* Bottom tick */}
-        <div className="absolute bottom-0 left-1/2 h-1.5 w-px -translate-x-1/2 bg-current opacity-50" />
-        {/* Left tick */}
-        <div className="absolute left-0 top-1/2 h-px w-1.5 -translate-y-1/2 bg-current opacity-50" />
-        {/* Right tick */}
-        <div className="absolute right-0 top-1/2 h-px w-1.5 -translate-y-1/2 bg-current opacity-50" />
-      </div>
-      {/* Dot */}
-      <div
-        ref={dotRef}
-        aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[102] h-1.5 w-1.5 rounded-full"
-        style={{ background: "var(--foreground)", willChange: "transform" }}
+    <svg
+      ref={svgRef}
+      aria-hidden="true"
+      className="pointer-events-none fixed left-0 top-0 z-[101]"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      style={{ willChange: "transform", marginLeft: "-10px", marginTop: "-10px" }}
+    >
+      {/* Four-point star — elegant celestial shape */}
+      <path
+        d="M10 0 L11.5 7.5 L20 10 L11.5 12.5 L10 20 L8.5 12.5 L0 10 L8.5 7.5 Z"
+        fill="var(--foreground)"
+        opacity="0.9"
       />
-    </>
+    </svg>
   );
 }
