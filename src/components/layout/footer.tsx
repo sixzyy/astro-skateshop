@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { InstagramIcon, YoutubeIcon } from "@/components/ui/social-icons";
 import { Logo } from "@/components/layout/logo";
@@ -27,7 +29,7 @@ export function Footer() {
           {[0, 1].map((n) => (
             <span
               key={n}
-              className="shrink-0 whitespace-nowrap font-display text-[11px] font-medium uppercase tracking-[0.2em] text-foreground-muted"
+              className="shrink-0 whitespace-nowrap font-display text-[11px] font-medium uppercase tracking-[0.2em] text-foreground-disabled"
               aria-hidden={n === 1}
             >
               ride your own orbit &nbsp;&nbsp;&middot;&nbsp;&nbsp; est. 2016 &nbsp;&nbsp;&middot;&nbsp;&nbsp; skate culture &nbsp;&nbsp;&middot;&nbsp;&nbsp; streetwear &nbsp;&nbsp;&middot;&nbsp;&nbsp;
@@ -100,7 +102,7 @@ export function Footer() {
             ))}
             <li>
               <span className="text-sm text-foreground-secondary">
-                Envio gratis desde $999
+                Envio gratis desde $999 COP
               </span>
             </li>
           </ul>

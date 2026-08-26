@@ -2,12 +2,12 @@ import { Heart, Star } from "lucide-react";
 import { InstagramIcon, YoutubeIcon } from "@/components/ui/social-icons";
 
 const POSTS = [
-  { handle: "@astro.rita", likes: "12.4k", caption: "Sesion nocturna", color: "bg-accent-light" },
-  { handle: "@nico_ollies", likes: "8.1k", caption: "Kickflip orbital", color: "bg-cta-light" },
-  { handle: "@astro.skateshop", likes: "3.2k", caption: "Setup de la semana", color: "bg-background-secondary" },
-  { handle: "@luna.grinds", likes: "21.9k", caption: "Nosegrind smooth", color: "bg-accent-light" },
-  { handle: "@astro.crew", likes: "6.7k", caption: "Drop 03 behind the scenes", color: "bg-background-secondary" },
-  { handle: "@pablo.bowl", likes: "15.3k", caption: "Bowl session", color: "bg-cta-light" },
+  { handle: "@astro.rita", likes: "12.4k", caption: "Sesion nocturna", color: "bg-cosmic-violet" },
+  { handle: "@nico_ollies", likes: "8.1k", caption: "Kickflip orbital", color: "bg-cosmic-blue" },
+  { handle: "@astro.skateshop", likes: "3.2k", caption: "Setup de la semana", color: "bg-card-elevated" },
+  { handle: "@luna.grinds", likes: "21.9k", caption: "Nosegrind smooth", color: "bg-cosmic-indigo" },
+  { handle: "@astro.crew", likes: "6.7k", caption: "Drop 03 behind the scenes", color: "bg-card" },
+  { handle: "@pablo.bowl", likes: "15.3k", caption: "Bowl session", color: "bg-cosmic-purple" },
 ];
 
 export function AstroCommunity() {
@@ -16,10 +16,10 @@ export function AstroCommunity() {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <span className="text-[11px] font-medium uppercase tracking-wider text-foreground-muted">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">
               Community
             </span>
-            <h2 className="mt-1 font-display text-2xl font-bold tracking-tight sm:text-3xl">
+            <h2 className="mt-1 font-display text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
               Sigue el flow
             </h2>
           </div>
@@ -34,7 +34,7 @@ export function AstroCommunity() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={s.label}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-all duration-200 hover:border-border-active hover:text-foreground hover:bg-card"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-all duration-200 hover:border-border-active hover:text-foreground hover:bg-background-secondary"
               >
                 <s.icon className="h-4 w-4" strokeWidth={1.5} />
               </a>
@@ -49,9 +49,9 @@ export function AstroCommunity() {
               href="https://instagram.com/astroskateshop"
               target="_blank"
               rel="noreferrer"
-              className={`group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-xl p-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${post.color}`}
+              className={`group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-lg p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(84,216,255,0.06)] ${post.color}`}
             >
-              <div className="relative font-mono text-[10px] font-medium uppercase tracking-wider text-foreground-secondary/60">
+              <div className="relative font-mono text-[10px] font-medium uppercase tracking-wider text-foreground-disabled">
                 {post.handle}
               </div>
               <div className="relative">

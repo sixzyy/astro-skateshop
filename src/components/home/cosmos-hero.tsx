@@ -1,75 +1,107 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { Starfield } from "@/components/home/starfield";
 
 export function CosmosHero() {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const tick = () => {
+      const y = window.scrollY;
+      if (titleRef.current) {
+        titleRef.current.style.translate = `0 ${y * 0.12}px`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   return (
-    <section className="relative flex min-h-[85vh] items-center overflow-hidden bg-background">
-      {/* Subtle background accents */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-40 top-1/4 h-[500px] w-[500px] rounded-full bg-accent/[0.04] blur-[120px]" />
-        <div className="absolute -left-32 bottom-1/3 h-[400px] w-[400px] rounded-full bg-cta/[0.03] blur-[100px]" />
+    <section className="relative flex min-h-[90vh] items-center overflow-hidden">
+      <Starfield density={30} />
+
+      {/* Technical grid background */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.12]"
+        style={{
+          backgroundImage: "radial-gradient(var(--border-subtle) 1px, transparent 0)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      {/* Cosmic atmosphere */}
+      <div className="pointer-events-none absolute inset-0 animate-fade-in" style={{ animationDuration: "1.2s" }}>
+        <div className="absolute -right-32 top-1/4 h-[32rem] w-[32rem] rounded-full bg-accent/[0.06] blur-[140px]" />
+        <div className="absolute -left-40 bottom-1/4 h-[36rem] w-[36rem] rounded-full bg-accent-secondary/[0.07] blur-[160px]" />
+        <div className="absolute left-1/3 top-1/2 h-[24rem] w-[24rem] rounded-full bg-cosmic-violet/40 blur-[120px]" />
       </div>
 
+      <div className="texture-grain pointer-events-none absolute inset-0" />
+
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-20 pt-32 sm:px-6 lg:px-8">
-        <div className="max-w-2xl">
-          {/* Badge */}
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-foreground-secondary animate-entrance animate-stagger-1">
-            <Star className="h-3 w-3 fill-accent text-accent" />
-            Skate Shop Premium
+        <div className="max-w-3xl">
+          {/* Kicker */}
+          <span className="inline-block font-mono text-[11px] uppercase tracking-[0.3em] text-foreground-disabled animate-entrance animate-stagger-1">
+            Skateshop &amp; Streetwear
           </span>
 
-          {/* Title */}
-          <h1 className="mt-6 font-display text-5xl font-bold uppercase leading-[0.95] tracking-tight sm:text-6xl lg:text-7xl">
-            <span className="block animate-entrance animate-stagger-2">Ride</span>
-            <span className="block animate-entrance animate-stagger-3">Your Own</span>
-            <span className="block text-accent animate-entrance animate-stagger-4">Orbit.</span>
+          {/* Title — text-9xl, parallax */}
+          <h1
+            ref={titleRef}
+            className="mt-4 font-display text-[clamp(3.5rem,10vw,9rem)] font-extrabold uppercase leading-[0.85] tracking-tighter animate-entrance animate-stagger-2"
+          >
+            SKATE
+            <br />
+            BEYOND
+            <br />
+            <span className="text-foreground-muted">THE ORDINARY.</span>
           </h1>
 
           {/* Description */}
-          <p className="mt-6 max-w-md text-base leading-relaxed text-foreground-secondary animate-entrance animate-stagger-5">
-            Equipo seleccionado. Marcas reales. Tablas, trucks, ruedas y streetwear
-            para riders que marcan su propia ruta.
+          <p className="mt-6 max-w-md text-base leading-relaxed text-foreground-secondary animate-entrance animate-stagger-3">
+            Equipo seleccionado. Marcas reales. Cultura autentica.
+            Tablas, trucks, ruedas y streetwear para riders que no siguen orbitas ajenas.
           </p>
 
           {/* CTA buttons */}
-          <div className="mt-8 flex flex-wrap items-center gap-3 animate-entrance animate-stagger-6">
+          <div className="mt-10 flex flex-wrap items-center gap-5 animate-entrance animate-stagger-4">
             <Link
               href="/products"
-              className="group inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-sm font-semibold text-background transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-black hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98]"
+              className="group inline-flex min-h-[52px] items-center gap-2 rounded-lg bg-cta px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:bg-cta-hover hover:shadow-[0_8px_30px_rgba(255,90,31,0.25)] active:scale-[0.98]"
             >
-              Explorar Tienda
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              Explore Boards
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1" />
             </Link>
             <Link
               href="/armador"
-              className="inline-flex h-12 items-center gap-2 rounded-full border border-border px-6 text-sm font-semibold text-foreground transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-foreground/30 hover:-translate-y-0.5 active:scale-[0.98]"
+              className="inline-flex min-h-[52px] items-center gap-2 rounded-lg border border-border px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-foreground transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:border-border-active hover:shadow-[0_8px_30px_rgba(84,216,255,0.08)] active:scale-[0.98]"
             >
-              Arma tu Board
+              Build Your Board
             </Link>
           </div>
 
-          {/* Trust strip */}
-          <div className="mt-14 flex items-center gap-5 text-xs text-foreground-muted animate-entrance animate-stagger-7">
-            <span className="flex items-center gap-1.5">
-              <span className="h-1 w-1 rounded-full bg-success" />
-              Envio gratis +$999
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="h-1 w-1 rounded-full bg-success" />
-              Pago seguro
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="h-1 w-1 rounded-full bg-success" />
-              30 dias cambios
-            </span>
+          {/* Telemetry bar */}
+          <div className="mt-16 flex items-center gap-6 font-mono text-[10px] uppercase tracking-[0.25em] text-foreground-disabled animate-entrance animate-stagger-5">
+            <span>Envio gratis +$999 COP</span>
+            <span className="h-px w-4 bg-border" />
+            <span>Pago seguro</span>
+            <span className="h-px w-4 bg-border" />
+            <span>30 dias cambios</span>
           </div>
         </div>
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <div className="h-8 w-px bg-gradient-to-b from-foreground-muted/40 to-transparent" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">
+            Scroll to explore
+          </span>
+          <div className="mx-auto mt-2 h-8 w-px bg-gradient-to-b from-foreground-disabled/50 to-transparent" />
         </div>
       </div>
     </section>

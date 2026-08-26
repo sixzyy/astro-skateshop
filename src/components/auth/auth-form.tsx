@@ -43,7 +43,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
     <div className="mx-auto flex min-h-[70vh] w-full max-w-md flex-col justify-center px-4 py-16">
       <div className="rounded-lg border border-border bg-background-secondary/50 p-8">
         <div className="mb-6 text-center">
-          <Logo className="justify-center" />
+          <div className="flex justify-center"><Logo /></div>
           <h1 className="mt-4 font-display text-2xl font-bold uppercase tracking-tight">
             {isLogin ? "Inicia sesion" : "Crea tu cuenta"}
           </h1>
@@ -77,7 +77,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           <button
             type="submit"
             disabled={loading}
-            className="h-12 w-full rounded-full bg-foreground font-semibold text-sm text-background transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-black hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+            className="min-h-[48px] w-full rounded-lg bg-cta px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:bg-cta-hover hover:shadow-[0_8px_30px_rgba(255,90,31,0.25)] active:scale-[0.98] disabled:opacity-60 cursor-pointer"
           >
             {loading ? "Procesando..." : isLogin ? "Entrar" : "Crear cuenta"}
           </button>

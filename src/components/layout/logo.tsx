@@ -1,40 +1,58 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-type LogoSize = "sm" | "md" | "lg";
+export function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
+  const text = "Astro Skate";
+  const [revealed, setRevealed] = useState(false);
 
-const SIZES: Record<LogoSize, { text: string; sub: string; iso: string }> = {
-  sm: { text: "text-base", sub: "text-[8px]", iso: "h-5 w-5" },
-  md: { text: "text-lg", sub: "text-[9px]", iso: "h-6 w-6" },
-  lg: { text: "text-xl", sub: "text-[10px]", iso: "h-7 w-7" },
-};
+  useEffect(() => {
+    const t = setTimeout(() => setRevealed(true), 100);
+    return () => clearTimeout(t);
+  }, []);
 
-export function Logo({ className, size = "md" }: { className?: string; size?: LogoSize }) {
-  const s = SIZES[size];
+  const sizeMap = {
+    sm: { star: 14, text: "text-sm", gap: "gap-1" },
+    md: { star: 18, text: "text-lg", gap: "gap-1.5" },
+    lg: { star: 24, text: "text-2xl", gap: "gap-2" },
+  };
+
+  const s = sizeMap[size];
+
   return (
-    <span className={cn("group/logo inline-flex items-center gap-2", className)}>
-      {/* Star — clean four-point */}
+    <Link href="/" className={`flex items-center ${s.gap}`}>
+      {/* Four-point star */}
       <svg
         viewBox="0 0 24 24"
-        className={cn("shrink-0 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/logo:rotate-90", s.iso)}
-        aria-hidden="true"
+        width={s.star}
+        height={s.star}
         fill="none"
+        className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:rotate-90"
       >
         <path
-          d="M12 2 L13.2 9.5 L20 12 L13.2 14.5 L12 22 L10.8 14.5 L4 12 L10.8 9.5 Z"
-          fill="currentColor"
-          className="text-foreground"
+          d="M12 0 L13.8 9.8 L24 12 L13.8 14.2 L12 24 L10.2 14.2 L0 12 L10.2 9.8 Z"
+          fill="#54d8ff"
+          opacity="0.8"
         />
       </svg>
-      <span className="flex items-baseline gap-1 leading-none">
-        <span className={cn("font-display font-bold uppercase tracking-tight", s.text)}>
-          Astro
-        </span>
-        <span className={cn("font-mono uppercase tracking-[0.15em] text-foreground-muted", s.sub)}>
-          Skate
-        </span>
+
+      {/* Text — char-by-char entrance */}
+      <span className={`font-display font-bold uppercase tracking-tight ${s.text}`}>
+        {text.split("").map((char, i) => (
+          <span
+            key={`${char}-${i}`}
+            className="inline-block"
+            style={{
+              opacity: revealed ? 1 : 0,
+              transform: revealed ? "translateY(0)" : "translateY(6px)",
+              transition: `opacity 0.35s cubic-bezier(0.22,1,0.36,1) ${i * 0.03}s, transform 0.35s cubic-bezier(0.22,1,0.36,1) ${i * 0.03}s`,
+            }}
+          >
+            {char === " " ? "\u00A0" : char}
+          </span>
+        ))}
       </span>
-    </span>
+    </Link>
   );
 }

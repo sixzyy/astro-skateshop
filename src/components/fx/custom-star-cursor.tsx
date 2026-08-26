@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Clean four-point star cursor. Desktop only. Subtle motion.
+ * Four-point star cursor with scale/rotate on hover. Desktop only.
  */
 export function CustomStarCursor() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -25,7 +25,7 @@ export function CustomStarCursor() {
     function tick() {
       pos.x = lerp(pos.x, target.x, 0.15);
       pos.y = lerp(pos.y, target.y, 0.15);
-      const scale = isHover ? 1.4 : 1;
+      const scale = isHover ? 1.5 : 1;
       const rotation = isHover ? 45 : 0;
       if (svg) svg.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${scale}) rotate(${rotation}deg)`;
       raf = requestAnimationFrame(tick);
@@ -61,16 +61,16 @@ export function CustomStarCursor() {
       ref={svgRef}
       aria-hidden="true"
       className="pointer-events-none fixed left-0 top-0 z-[101]"
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
-      style={{ willChange: "transform", marginLeft: "-8px", marginTop: "-8px" }}
+      style={{ willChange: "transform", marginLeft: "-12px", marginTop: "-12px" }}
     >
       <path
-        d="M8 0 L9.2 6.5 L16 8 L9.2 9.5 L8 16 L6.8 9.5 L0 8 L6.8 6.5 Z"
-        fill="var(--foreground)"
-        opacity="0.7"
+        d="M12 0 L13.8 9.8 L24 12 L13.8 14.2 L12 24 L10.2 14.2 L0 12 L10.2 9.8 Z"
+        fill="#54d8ff"
+        opacity="0.8"
       />
     </svg>
   );

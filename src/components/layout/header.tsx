@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Heart, Menu, ShoppingBag, User, X } from "lucide-react";
 import { cartCount, useCartStore } from "@/store/cart";
@@ -23,6 +23,7 @@ export function Header() {
   const items = useCartStore((s) => s.items);
   const openCart = useCartStore((s) => s.open);
   const count = cartCount(items);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let active = true;
@@ -37,7 +38,7 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -45,23 +46,29 @@ export function Header() {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        ref={headerRef}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          backdropFilter: scrolled ? "blur(12px)" : undefined,
-          WebkitBackdropFilter: scrolled ? "blur(12px)" : undefined,
+          backdropFilter: "blur(20px) saturate(1.2)",
+          WebkitBackdropFilter: "blur(20px) saturate(1.2)",
         }}
       >
         <div
-          className={`mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
+          className={`mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 transition-all duration-500 ${
             scrolled
-              ? "h-16 border-b border-border bg-background/90"
+              ? "h-[72px] border-b border-border-subtle"
               : "h-[72px]"
           }`}
-          style={{ maxWidth: "1280px" }}
+          style={{
+            maxWidth: "1400px",
+            background: scrolled
+              ? "rgba(10, 13, 22, 0.92)"
+              : "transparent",
+          }}
         >
           {/* Mobile menu */}
           <button
-            className="inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors hover:bg-background-secondary md:hidden"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-lg transition-colors hover:bg-card md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Menu"
           >
@@ -74,23 +81,34 @@ export function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden items-center gap-0.5 lg:flex">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="relative px-3 py-2 text-sm font-medium text-foreground-secondary transition-colors duration-200 hover:text-foreground rounded-lg hover:bg-background-secondary"
-              >
-                {link.label}
-              </Link>
+          <nav className="hidden items-center gap-1 lg:flex">
+            {NAV_LINKS.map((link, i) => (
+              <span key={link.label} className="inline-flex items-center gap-1">
+                {i > 0 && (
+                  <span className="font-mono text-[10px] text-foreground-disabled select-none">
+                    {"//"}
+                  </span>
+                )}
+                <Link
+                  href={link.href}
+                  className="group relative inline-flex min-h-[48px] items-center gap-1.5 px-3 py-1.5 font-mono text-xs sm:text-sm uppercase tracking-[0.12em] font-medium text-foreground-secondary transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-foreground hover:-translate-y-[2px] animate-stagger-in animate-fade-in"
+                  style={{ animationDelay: `${0.1 + i * 0.06}s` }}
+                >
+                  <span className="absolute -bottom-0.5 left-3 right-3 h-px w-0 bg-accent transition-all duration-300 ease-out group-hover:w-full" />
+                  {link.label}
+                </Link>
+              </span>
             ))}
             {user?.role === "ADMIN" && (
-              <Link
-                href="/admin"
-                className="px-3 py-2 text-sm font-medium text-cta transition-colors duration-200 hover:text-cta-hover rounded-lg hover:bg-cta-light"
-              >
-                Admin
-              </Link>
+              <span className="inline-flex items-center gap-1">
+                <span className="font-mono text-[10px] text-foreground-disabled select-none">/</span>
+                <Link
+                  href="/admin"
+                  className="inline-flex min-h-[48px] items-center px-3 py-1.5 font-mono text-xs sm:text-sm uppercase tracking-[0.12em] font-medium text-cta transition-all duration-300 hover:text-cta-hover"
+                >
+                  Admin
+                </Link>
+              </span>
             )}
           </nav>
 
@@ -106,26 +124,26 @@ export function Header() {
 
             <Link
               href="/wishlist"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors duration-200 hover:bg-background-secondary"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-lg transition-all duration-300 hover:bg-card"
               aria-label="Wishlist"
             >
-              <Heart className="h-[18px] w-[18px]" />
+              <Heart className="h-[20px] w-[20px]" />
             </Link>
 
             <Link
               href={user ? "/account" : "/login"}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors duration-200 hover:bg-background-secondary"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-lg transition-all duration-300 hover:bg-card"
               aria-label={user ? "Mi cuenta" : "Iniciar sesion"}
             >
-              <User className="h-[18px] w-[18px]" />
+              <User className="h-[20px] w-[20px]" />
             </Link>
 
             <button
               onClick={openCart}
-              className="relative inline-flex h-11 w-11 items-center justify-center rounded-lg transition-colors duration-200 hover:bg-background-secondary"
+              className="relative inline-flex h-12 w-12 items-center justify-center rounded-lg transition-all duration-300 hover:bg-card"
               aria-label="Carrito"
             >
-              <ShoppingBag className="h-[18px] w-[18px]" />
+              <ShoppingBag className="h-[20px] w-[20px]" />
               {count > 0 && (
                 <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-cta px-1 text-[10px] font-bold text-white">
                   {count}
@@ -140,21 +158,21 @@ export function Header() {
       {menuOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
           <div
-            className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+            className="absolute inset-0 bg-background/90 backdrop-blur-sm"
             onClick={() => setMenuOpen(false)}
           />
-          <div className="animate-slide-in absolute left-0 top-0 h-full w-72 border-r border-border bg-background p-6">
+          <div className="animate-slide-in absolute left-0 top-0 h-full w-72 border-r border-border bg-background-secondary p-6">
             <div className="mb-8">
               <Logo size="sm" />
             </div>
             <LiveSearch className="mb-6" />
-            <nav className="flex flex-col gap-0.5">
+            <nav className="flex flex-col gap-1">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground-secondary transition-colors duration-200 hover:bg-background-secondary hover:text-foreground"
+                  className="flex min-h-[56px] items-center rounded-lg px-3 text-lg font-medium text-foreground-secondary transition-colors duration-200 hover:bg-card hover:text-foreground"
                 >
                   {link.label}
                 </Link>
@@ -163,7 +181,7 @@ export function Header() {
                 <Link
                   href="/admin"
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-cta"
+                  className="flex min-h-[56px] items-center rounded-lg px-3 text-lg font-medium text-cta"
                 >
                   Admin
                 </Link>

@@ -22,7 +22,7 @@ function CountdownCell({ value, label }: { value: number; label: string }) {
           {String(value).padStart(2, "0")}
         </span>
       </span>
-      <span className="mt-1.5 text-[10px] font-medium uppercase tracking-wider text-foreground-muted">
+      <span className="mt-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground-disabled">
         {label}
       </span>
     </span>
@@ -46,12 +46,12 @@ export function DropBanner({ name, slug, date }: { name: string; slug: string; d
     <div className="mx-auto mb-6 mt-6 w-[calc(100%-2rem)] max-w-7xl sm:w-full">
       <Link
         href={`/products/${slug}`}
-        className="group block rounded-xl border border-border bg-card p-5 transition-all duration-300 hover:border-border-active hover:shadow-sm sm:p-6"
+        className="group block rounded-lg border border-border bg-card p-5 transition-all duration-300 hover:border-border-active hover:shadow-[0_8px_30px_rgba(84,216,255,0.04)] sm:p-6"
       >
         {/* Top */}
         <div className="mb-4 flex flex-wrap items-center gap-3 sm:gap-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-cta-light px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-cta">
-            <Star className="h-3 w-3 fill-cta text-cta" />
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-drop-accent/10 px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-drop-accent">
+            <Star className="h-3 w-3 fill-drop-accent text-drop-accent" />
             Proximo drop
           </span>
           <span className="text-sm font-semibold text-foreground">{name}</span>
@@ -60,18 +60,18 @@ export function DropBanner({ name, slug, date }: { name: string; slug: string; d
         {/* Countdown */}
         <div className="flex items-start justify-center gap-2 sm:gap-3" aria-label={`Faltan ${days} dias ${hours} horas ${minutes} minutos ${seconds} segundos`}>
           <CountdownCell value={days} label="dias" />
-          <span className="mt-2.5 text-sm text-foreground-muted">:</span>
+          <span className="mt-2.5 text-sm text-foreground-disabled">:</span>
           <CountdownCell value={hours} label="hrs" />
-          <span className="mt-2.5 text-sm text-foreground-muted">:</span>
+          <span className="mt-2.5 text-sm text-foreground-disabled">:</span>
           <CountdownCell value={minutes} label="min" />
-          <span className="mt-2.5 text-sm text-foreground-muted">:</span>
+          <span className="mt-2.5 text-sm text-foreground-disabled">:</span>
           <CountdownCell value={seconds} label="seg" />
         </div>
 
         {/* CTA */}
-        <div className="mt-4 flex items-center justify-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-foreground-secondary transition-colors duration-200 group-hover:text-foreground">
+        <div className="mt-4 flex items-center justify-center gap-1.5 font-mono text-xs uppercase tracking-wider text-foreground-secondary transition-colors duration-200 group-hover:text-foreground">
           Ver drop
-          <span className="transition-transform duration-200 group-hover:translate-x-0.5">&rarr;</span>
+          <span className="transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1">&rarr;</span>
         </div>
       </Link>
     </div>

@@ -28,7 +28,7 @@ export function ProductCard({
       )}
     >
       {/* Image */}
-      <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-background-secondary">
+      <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-background-secondary">
         <Link href={`/products/${product.slug}`} className="block h-full" aria-label={product.name}>
           <ProductImage
             src={product.images[0]}
@@ -59,9 +59,16 @@ export function ProductCard({
           </div>
         )}
 
+        {/* Discount badge */}
+        {discount > 0 && (
+          <span className="absolute left-3 top-3 z-10 rounded-md bg-cta px-2 py-0.5 text-[10px] font-bold uppercase text-white">
+            -{discount}%
+          </span>
+        )}
+
         {/* Sold out */}
         {outOfStock && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-background/60 backdrop-blur-[2px]">
+          <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-background/60 backdrop-blur-[2px]">
             <span className="text-xs font-medium uppercase tracking-wider text-foreground-muted">
               Agotado
             </span>
@@ -71,7 +78,7 @@ export function ProductCard({
 
       {/* Info */}
       <Link href={`/products/${product.slug}`} className="flex flex-1 flex-col gap-0.5 px-1 pt-3 pb-1">
-        <p className="text-[11px] font-medium uppercase tracking-wider text-foreground-muted">
+        <p className="text-[11px] font-medium uppercase tracking-wider text-foreground-disabled">
           {product.brand.name}
         </p>
         <h3 className="line-clamp-1 text-sm font-semibold text-foreground transition-colors duration-200 group-hover:text-accent">
@@ -82,7 +89,6 @@ export function ProductCard({
           {discount > 0 && (
             <>
               <Price amount={product.compareAtPrice!} className="text-xs text-foreground-muted line-through" />
-              <span className="text-xs font-semibold text-cta">-{discount}%</span>
             </>
           )}
         </div>

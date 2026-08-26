@@ -121,7 +121,7 @@ export function CartDrawer() {
               <Link
                 href="/checkout"
                 onClick={close}
-                className="block w-full rounded-full bg-foreground py-3 text-center font-semibold text-sm text-background transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-black hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98]"
+                className="block w-full rounded-lg bg-cta py-3.5 text-center font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:bg-cta-hover hover:shadow-[0_8px_30px_rgba(255,90,31,0.25)] active:scale-[0.98]"
               >
                 Ir a pagar
               </Link>

@@ -133,7 +133,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
         </p>
         <Link
           href="/products"
-          className="mt-6 inline-flex h-12 items-center rounded-full bg-foreground px-6 font-semibold text-sm text-background transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-black hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98]"
+          className="mt-6 inline-flex min-h-[48px] items-center rounded-lg bg-cta px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:bg-cta-hover active:scale-[0.98]"
         >
           Ir a la tienda
         </Link>
