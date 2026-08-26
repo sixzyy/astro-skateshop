@@ -25,6 +25,7 @@ export function LiveSearch({ className }: { className?: string }) {
   const [loading, setLoading] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
 
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     const q = query.trim();
     if (q.length < 2) {

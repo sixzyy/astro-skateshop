@@ -23,7 +23,7 @@ export function GiantMarquee({
           >
             {item}
           </span>
-          <span className="mx-8 select-none font-mono text-xl text-cta md:text-2xl">//</span>
+          <span className="mx-8 select-none font-mono text-xl text-cta md:text-2xl">{"//"}</span>
         </span>
       ))}
     </div>

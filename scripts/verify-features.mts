@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /** Verificación end-to-end de las features nuevas (cuenta, direcciones, clientes, guía). */
 import { loadEnvFile } from "node:process";
 loadEnvFile();

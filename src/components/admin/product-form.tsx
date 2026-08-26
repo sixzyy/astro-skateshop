@@ -213,7 +213,7 @@ export function ProductForm({ categories, brands, initial }: Props) {
       <Card title="Imágenes (una URL por línea)">
         <p className="text-xs leading-relaxed text-muted-foreground">
           Pega el enlace <strong className="text-accent">directo</strong> a la foto (debe terminar en .jpg, .png o
-          .webp). Truco: abre la imagen, clic derecho sobre ella → "Copiar dirección de la imagen". Los enlaces de
+          .webp). Truco: abre la imagen, clic derecho sobre ella → {"\"Copiar dirección de la imagen\""}. Los enlaces de
           búsqueda de Google, Brave o Pinterest no sirven.
         </p>
         <textarea

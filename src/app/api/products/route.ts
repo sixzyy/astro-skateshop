@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { productInputSchema } from "@/lib/validators";
 import { slugify, extractProxiedImageUrl } from "@/lib/utils";
-import { withImagesAll, withImages } from "@/lib/types";
+import { withImagesAll } from "@/lib/types";
 
 function sanitizeImages(images: string[]): string[] {
   return images

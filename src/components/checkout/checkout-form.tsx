@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check, Loader2, Lock, Tag } from "lucide-react";
 import type { CartItem } from "@/store/cart";
 import { useCurrencyStore } from "@/store/currency";
@@ -57,7 +58,7 @@ const FIELD_LABELS: Record<FieldKey, { label: string; placeholder: string; autoC
 
 export function CheckoutForm({
   items,
-  subtotal,
+  subtotal: _subtotal,
   shipping,
   total,
   expressAvailable,
@@ -75,6 +76,7 @@ export function CheckoutForm({
   const [couponInput, setCouponInput] = useState("");
   const [couponBusy, setCouponBusy] = useState(false);
   const [couponMessage, setCouponMessage] = useState<{ ok: boolean; text: string } | null>(null);
+  const router = useRouter();
   const [values, setValues] = useState<Record<FieldKey, string>>({
     name: "",
     email: "",
@@ -160,7 +162,7 @@ export function CheckoutForm({
         return;
       }
 
-      window.location.href = `/checkout/success?number=${data.number}`;
+      router.push(`/checkout/success?number=${data.number}`);
     } catch {
       setServerError("Error de conexión. Intenta de nuevo.");
       setLoading(false);

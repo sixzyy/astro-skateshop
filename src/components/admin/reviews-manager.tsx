@@ -45,6 +45,7 @@ export function ReviewsManager() {
     setLoading(false);
   }
 
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     load(tab);
   }, [tab]);

@@ -65,7 +65,7 @@ export function AstroCommunity() {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <span className="font-mono text-xs uppercase tracking-[0.3em] text-accent">// astro community</span>
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-accent">{"// astro community"}</span>
             <h2 className="font-display text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
               Sigue el flow
             </h2>

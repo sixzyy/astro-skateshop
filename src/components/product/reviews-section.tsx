@@ -33,8 +33,8 @@ export function ReviewsSection({
   initialReviews: ReviewDTO[];
   initialAverage: number | null;
 }) {
-  const [reviews, setReviews] = useState(initialReviews);
-  const [average, setAverage] = useState(initialAverage);
+  const [reviews] = useState(initialReviews);
+  const [average] = useState(initialAverage);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [name, setName] = useState("");

@@ -53,7 +53,7 @@ export function CosmosHero() {
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-14 px-4 pb-20 pt-28 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8">
         <div>
           <span className="inline-flex items-center gap-2 rounded-sm border border-accent/40 bg-accent/5 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.25em] text-accent">
-            // Temporada órbita · Drop 03
+            {"// Temporada órbita · Drop 03"}
           </span>
           <h1
             ref={titleRef}

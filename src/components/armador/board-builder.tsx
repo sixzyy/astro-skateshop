@@ -110,7 +110,7 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
       <header className="mb-6">
-        <span className="font-mono text-xs uppercase tracking-[0.3em] text-accent">// configurador orbital</span>
+        <span className="font-mono text-xs uppercase tracking-[0.3em] text-accent">{"// configurador orbital"}</span>
         <h1 className="mt-1 font-display text-3xl font-extrabold uppercase tracking-tight sm:text-4xl">
           Arma tu tabla <span className="text-stroke">en 3D</span>
         </h1>
