@@ -49,14 +49,14 @@ export function Header() {
         ref={headerRef}
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
         }}
       >
         <div
           className={`mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
             scrolled
-              ? "h-14 border-b border-border-subtle bg-background/80"
+              ? "h-14 border-b border-border-subtle bg-background/75"
               : "h-16 bg-transparent"
           }`}
           style={{ maxWidth: "1400px" }}
@@ -71,29 +71,38 @@ export function Header() {
           </button>
 
           {/* Logo */}
-          <Link href="/" aria-label="ASTRO — Inicio" className="shrink-0">
+          <Link href="/" aria-label="ASTRO - Inicio" className="shrink-0">
             <Logo size={scrolled ? "sm" : "md"} />
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden items-center gap-8 lg:flex">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="relative text-sm font-medium text-foreground-secondary transition-colors hover:text-foreground group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-foreground transition-all duration-250 group-hover:w-full" />
-              </Link>
+          {/* Desktop nav — monospace bullets */}
+          <nav className="hidden items-center gap-1 lg:flex">
+            {NAV_LINKS.map((link, i) => (
+              <span key={link.label} className="inline-flex items-center gap-1">
+                {i > 0 && (
+                  <span className="font-mono text-[10px] text-foreground-disabled select-none">
+                    {"//"}
+                  </span>
+                )}
+                <Link
+                  href={link.href}
+                  className="relative px-2 py-1 text-sm font-medium text-foreground-secondary transition-colors hover:text-foreground group"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-0.5 left-2 right-2 h-px w-0 bg-accent transition-all duration-200 group-hover:w-full" />
+                </Link>
+              </span>
             ))}
             {user?.role === "ADMIN" && (
-              <Link
-                href="/admin"
-                className="text-sm font-medium text-cta transition-colors hover:text-cta-strong"
-              >
-                Admin
-              </Link>
+              <span className="inline-flex items-center gap-1">
+                <span className="font-mono text-[10px] text-foreground-disabled select-none">/</span>
+                <Link
+                  href="/admin"
+                  className="px-2 py-1 text-sm font-medium text-cta transition-colors hover:text-cta-hover"
+                >
+                  Admin
+                </Link>
+              </span>
             )}
           </nav>
 

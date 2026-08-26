@@ -97,15 +97,15 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
   }
 
   return (
-    <div className="border border-border-subtle bg-background-secondary/50 p-5">
+    <div className="border border-border bg-background-secondary/50 p-5">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="flex items-center gap-2 font-display text-sm font-bold uppercase tracking-wide">
-          <MapPin className="h-4 w-4 text-foreground-secondary/50" /> Mis direcciones
+          <MapPin className="h-4 w-4 text-foreground-disabled" /> Mis direcciones
         </h3>
         {editing === null && list.length < 10 && (
           <button
             onClick={openNew}
-            className="inline-flex h-8 cursor-pointer items-center gap-1 rounded-lg border border-border px-3 text-xs font-bold text-foreground-secondary hover:border-foreground/30 hover:text-foreground"
+            className="inline-flex h-8 cursor-pointer items-center gap-1 border border-border px-3 text-xs font-bold text-foreground-secondary hover:border-border-active hover:text-foreground"
           >
             <Plus className="h-3.5 w-3.5" /> Agregar
           </button>
@@ -131,55 +131,55 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
               Predeterminada
             </label>
           </div>
-          {error && <p className="text-xs text-red-400">{error}</p>}
+          {error && <p className="text-xs text-error">{error}</p>}
           <div className="flex gap-2 pt-1">
             <button
               onClick={save}
               disabled={!valid || busy}
-              className="inline-flex h-9 items-center rounded-lg bg-foreground px-5 font-display text-xs font-bold uppercase tracking-wide text-background hover:opacity-90 disabled:opacity-50"
+              className="inline-flex h-9 items-center bg-cta px-5 font-display text-xs font-bold uppercase tracking-wide text-white hover:bg-cta-hover disabled:opacity-50"
             >
               Guardar direccion
             </button>
             <button
               onClick={() => setEditing(null)}
-              className="inline-flex h-9 cursor-pointer items-center gap-1 rounded-lg border border-border px-4 text-xs text-foreground-secondary hover:text-foreground"
+              className="inline-flex h-9 cursor-pointer items-center gap-1 border border-border px-4 text-xs text-foreground-secondary hover:text-foreground"
             >
               <X className="h-3.5 w-3.5" /> Cancelar
             </button>
           </div>
         </div>
       ) : list.length === 0 ? (
-        <p className="py-6 text-center text-sm text-foreground-secondary/50">
+        <p className="py-6 text-center text-sm text-foreground-disabled">
           Sin direcciones guardadas.
         </p>
       ) : (
         <ul className="space-y-2">
           {list.map((a) => (
-            <li key={a.id} className={cn("flex items-start justify-between gap-3 rounded-lg border p-3", a.isDefault ? "border-foreground/20 bg-foreground/5" : "border-border-subtle")}>
+            <li key={a.id} className={cn("flex items-start justify-between gap-3 border p-3", a.isDefault ? "border-border-active bg-foreground/5" : "border-border")}>
               <div className="min-w-0">
                 <p className="text-sm font-semibold">
                   {a.label}
                   {a.isDefault && (
-                    <span className="ml-2 inline-flex items-center gap-0.5 text-[10px] font-bold uppercase tracking-wider text-foreground-secondary/50">
+                    <span className="ml-2 inline-flex items-center gap-0.5 text-[10px] font-bold uppercase tracking-wider text-foreground-disabled">
                       <Star className="h-3 w-3" /> Predeterminada
                     </span>
                   )}
                 </p>
                 <p className="mt-0.5 truncate text-xs text-foreground-secondary">
-                  {a.name} · {a.address}, {a.city}, {a.state}, C.P. {a.postalCode}
-                  {a.phone ? ` · ${a.phone}` : ""}
+                  {a.name} . {a.address}, {a.city}, {a.state}, C.P. {a.postalCode}
+                  {a.phone ? ` . ${a.phone}` : ""}
                 </p>
               </div>
               <div className="flex shrink-0 gap-1">
                 {!a.isDefault && (
-                  <button onClick={() => makeDefault(a.id)} title="Predeterminar" className="cursor-pointer rounded p-1.5 text-foreground-secondary/40 hover:text-foreground">
+                  <button onClick={() => makeDefault(a.id)} title="Predeterminar" className="cursor-pointer p-1.5 text-foreground-disabled hover:text-foreground">
                     <Star className="h-4 w-4" />
                   </button>
                 )}
-                <button onClick={() => openEdit(a)} title="Editar" className="cursor-pointer rounded p-1.5 text-foreground-secondary/40 hover:text-foreground">
+                <button onClick={() => openEdit(a)} title="Editar" className="cursor-pointer p-1.5 text-foreground-disabled hover:text-foreground">
                   <Pencil className="h-4 w-4" />
                 </button>
-                <button onClick={() => remove(a.id)} title="Eliminar" className="cursor-pointer rounded p-1.5 text-foreground-secondary/40 hover:text-red-400">
+                <button onClick={() => remove(a.id)} title="Eliminar" className="cursor-pointer p-1.5 text-foreground-disabled hover:text-error">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
@@ -188,7 +188,7 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
         </ul>
       )}
 
-      <style>{`.address-field{height:2.5rem;width:100%;border-radius:.5rem;border:1px solid var(--border,#1e202b);background:var(--background-secondary,#0e0f14);padding:0 .75rem;font-size:.875rem;outline:none;transition:border-color .2s}.address-field:focus{border-color:rgba(255,255,255,.4)}`}</style>
+      <style>{`.address-field{height:2.5rem;width:100%;border:1px solid var(--border,#1a1d26);background:var(--background-secondary,#0b0d12);padding:0 .75rem;font-size:.875rem;outline:none;transition:border-color .2s}.address-field:focus{border-color:var(--border-active,#40465d)}`}</style>
     </div>
   );
 }

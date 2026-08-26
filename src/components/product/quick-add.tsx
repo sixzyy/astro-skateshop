@@ -37,8 +37,8 @@ export function QuickAdd({ product, className }: { product: ProductDTO; classNam
       onClick={onAdd}
       aria-label={`Anadir ${product.name} al carrito`}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-lg border border-border bg-background-secondary/90 px-3 py-2 font-display text-[11px] font-bold uppercase tracking-wider text-foreground backdrop-blur transition-all hover:border-foreground/30 hover:text-foreground active:scale-95 cursor-pointer",
-        added && "border-emerald-400/50 text-emerald-400",
+        "inline-flex items-center gap-1.5 border border-border bg-background/90 px-3 py-2 font-mono text-[11px] uppercase tracking-wider text-foreground backdrop-blur transition-all hover:border-border-active hover:text-foreground active:scale-95 cursor-pointer",
+        added && "border-success/50 text-success",
         className
       )}
     >

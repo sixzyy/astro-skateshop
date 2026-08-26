@@ -21,8 +21,8 @@ export function GiantMarquee({
           >
             {item}
           </span>
-          <span className="mx-6 font-mono text-sm text-foreground-secondary/20 md:mx-10">
-            &bull;
+          <span className="mx-6 font-mono text-sm text-foreground-disabled md:mx-10">
+            {"//"}
           </span>
         </span>
       ))}

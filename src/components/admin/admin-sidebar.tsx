@@ -35,7 +35,7 @@ export function AdminSidebar() {
 
   return (
     <aside>
-      <div className="mb-2 px-3 font-display text-[10px] font-bold uppercase tracking-[0.25em] text-foreground-secondary/50">
+      <div className="mb-2 px-3 font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-foreground-disabled">
         Administracion
       </div>
       <nav className="flex gap-1 overflow-x-auto lg:flex-col">
@@ -46,8 +46,8 @@ export function AdminSidebar() {
               key={link.href}
               href={link.href}
               className={cn(
-                "flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 font-display text-sm font-semibold uppercase tracking-wide transition-colors",
-                active ? "bg-foreground text-background" : "text-foreground-secondary hover:bg-background-secondary hover:text-foreground"
+                "flex shrink-0 items-center gap-2.5 px-3 py-2.5 font-display text-sm font-semibold uppercase tracking-wide transition-colors",
+                active ? "bg-foreground text-background" : "text-foreground-secondary bg-background-secondary hover:text-foreground"
               )}
             >
               <link.icon className="h-4 w-4" />

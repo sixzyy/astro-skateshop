@@ -69,7 +69,6 @@ export default async function ProductDetailPage({ params }: Props) {
     },
   };
 
-  // Drop programado
   if (product.publishedAt && product.publishedAt > new Date()) {
     const launch = product.publishedAt.toLocaleString("es-MX", {
       weekday: "long",
@@ -95,8 +94,8 @@ export default async function ProductDetailPage({ params }: Props) {
           <Gallery images={product.images} name={product.name} />
 
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-secondary/50">{product.brand.name}</p>
-            <span className="mt-3 inline-flex items-center gap-1.5 rounded-lg border border-cta/30 bg-cta/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-cta">
+            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">{product.brand.name}</p>
+            <span className="mt-3 inline-flex items-center gap-1.5 border border-cta/30 bg-cta/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-cta">
               <Zap className="h-3 w-3" /> Drop proximamente
             </span>
             <h1 className="mt-2 font-display text-3xl font-bold uppercase leading-tight tracking-tight sm:text-4xl">
@@ -104,7 +103,7 @@ export default async function ProductDetailPage({ params }: Props) {
             </h1>
             <div className="mt-4 flex items-baseline gap-3">
               <Price amount={product.price} className="font-display text-3xl font-bold" />
-              <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/50">precio de lanzamiento</span>
+              <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-disabled">precio de lanzamiento</span>
             </div>
 
             <p className="mt-5 leading-relaxed text-foreground-secondary">{product.description}</p>
@@ -113,7 +112,7 @@ export default async function ProductDetailPage({ params }: Props) {
               <DropCountdown date={product.publishedAt.toISOString()} />
             </div>
 
-            <p className="mt-4 rounded-lg border border-border bg-background-secondary px-4 py-3 text-sm text-foreground-secondary">
+            <p className="mt-4 border border-border bg-background-secondary px-4 py-3 text-sm text-foreground-secondary">
               Se libera automaticamente el{" "}
               <strong className="text-foreground">{launch}</strong>. Vuelve en ese momento y estara
               disponible para comprar.
@@ -127,9 +126,9 @@ export default async function ProductDetailPage({ params }: Props) {
               ].map((f) => (
                 <li
                   key={f.label}
-                  className="flex items-center gap-2 border border-border-subtle bg-background-secondary/50 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-foreground-secondary"
+                  className="flex items-center gap-2 border border-border bg-background-secondary/50 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-foreground-secondary"
                 >
-                  <f.icon className="h-4 w-4 shrink-0 text-foreground-secondary/50" /> {f.label}
+                  <f.icon className="h-4 w-4 shrink-0 text-foreground-disabled" /> {f.label}
                 </li>
               ))}
             </ul>
@@ -167,6 +166,11 @@ export default async function ProductDetailPage({ params }: Props) {
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <Link
         href="/products"
         className="mb-6 inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-foreground-secondary transition-colors hover:text-foreground"
@@ -178,7 +182,7 @@ export default async function ProductDetailPage({ params }: Props) {
         <Gallery images={product.images} name={product.name} />
 
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-secondary/50">{product.brand.name}</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">{product.brand.name}</p>
           <div className="mt-1 flex items-start justify-between gap-3">
             <h1 className="font-display text-3xl font-bold uppercase leading-tight tracking-tight sm:text-4xl">
               {product.name}
@@ -198,10 +202,10 @@ export default async function ProductDetailPage({ params }: Props) {
             <a href="#resenas" className="mt-2 inline-flex items-center gap-2 text-sm">
               <span className="tracking-wide text-cta">
                 {"★".repeat(Math.round(average))}
-                <span className="text-foreground-secondary/20">{"★".repeat(5 - Math.round(average))}</span>
+                <span className="text-foreground-disabled">{"★".repeat(5 - Math.round(average))}</span>
               </span>
               <span className="text-foreground-secondary underline underline-offset-4 hover:text-foreground">
-                {average} · {reviews.length} resena{reviews.length === 1 ? "" : "s"}
+                {average} . {reviews.length} resena{reviews.length === 1 ? "" : "s"}
               </span>
             </a>
           )}
@@ -210,10 +214,10 @@ export default async function ProductDetailPage({ params }: Props) {
             <Price amount={product.price} className="font-display text-3xl font-bold" />
             {product.compareAtPrice && product.compareAtPrice > product.price && (
               <>
-                <span className="text-lg text-foreground-secondary/40 line-through">
+                <span className="text-lg text-foreground-disabled line-through">
                   <Price amount={product.compareAtPrice} />
                 </span>
-                <span className="rounded-md bg-foreground px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-background">
+                <span className="bg-foreground px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-background">
                   Ahorra{" "}
                   {Math.round((1 - product.price / product.compareAtPrice) * 100)}%
                 </span>
@@ -223,7 +227,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
           <p className="mt-5 leading-relaxed text-foreground-secondary">{product.description}</p>
 
-          <div className="mt-7 border-t border-border-subtle pt-7">
+          <div className="mt-7 border-t border-border pt-7">
             <AddToCart product={product as unknown as ProductDTO} />
           </div>
 
@@ -233,8 +237,8 @@ export default async function ProductDetailPage({ params }: Props) {
               { icon: ShieldCheck, label: "Pago seguro" },
               { icon: RefreshCcw, label: "Cambios en 30 dias" },
             ].map((f) => (
-              <li key={f.label} className="flex items-center gap-2 border border-border-subtle bg-background-secondary/50 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-foreground-secondary">
-                <f.icon className="h-4 w-4 shrink-0 text-foreground-secondary/50" /> {f.label}
+              <li key={f.label} className="flex items-center gap-2 border border-border bg-background-secondary/50 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-foreground-secondary">
+                <f.icon className="h-4 w-4 shrink-0 text-foreground-disabled" /> {f.label}
               </li>
             ))}
           </ul>
@@ -242,7 +246,7 @@ export default async function ProductDetailPage({ params }: Props) {
           {specs && Object.keys(specs).length > 0 && (
             <div className="mt-8">
               <h2 className="mb-3 font-display text-sm font-bold uppercase tracking-widest">Especificaciones</h2>
-              <dl className="divide-y divide-border-subtle border border-border-subtle bg-background-secondary/50 px-4">
+              <dl className="divide-y divide-border border border-border bg-background-secondary/50 px-4">
                 {Object.entries(specs).map(([key, value]) => (
                   <div key={key} className="flex justify-between gap-4 py-3 text-sm">
                     <dt className="font-display font-bold uppercase tracking-wide text-foreground-secondary">{key}</dt>

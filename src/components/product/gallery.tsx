@@ -9,11 +9,11 @@ export function Gallery({ images, name }: { images: string[]; name: string }) {
 
   return (
     <div className="space-y-3">
-      <div className="relative overflow-hidden rounded-lg border border-border bg-background-secondary">
+      <div className="relative overflow-hidden border border-border bg-background-secondary">
         <ProductImage
           src={images[active] ?? images[0]}
           alt={`${name} — vista ${active + 1}`}
-          className="aspect-square w-full object-cover"
+          className="aspect-[3/4] w-full object-cover"
         />
       </div>
       {images.length > 1 && (
@@ -23,7 +23,7 @@ export function Gallery({ images, name }: { images: string[]; name: string }) {
               key={i}
               onClick={() => setActive(i)}
               className={cn(
-                "overflow-hidden rounded-lg border-2 transition-colors cursor-pointer",
+                "overflow-hidden border-2 transition-colors cursor-pointer",
                 i === active ? "border-foreground" : "border-transparent hover:border-border"
               )}
               aria-label={`Ver imagen ${i + 1}`}

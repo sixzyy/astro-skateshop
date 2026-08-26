@@ -202,12 +202,12 @@ export function CheckoutForm({
           <li key={label} className="flex flex-1 items-center gap-2">
             <span
               className={cn(
-                "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border font-mono text-[11px]",
+                "flex h-7 w-7 shrink-0 items-center justify-center border font-mono text-[11px]",
                 i === step
                   ? "border-foreground bg-foreground text-background"
                   : i < step
-                    ? "border-foreground/30 bg-foreground/10 text-foreground"
-                    : "border-border text-foreground-secondary/40"
+                    ? "border-accent bg-accent-muted text-accent"
+                    : "border-border text-foreground-disabled"
               )}
             >
               {i < step ? <Check className="h-3.5 w-3.5" /> : i + 1}
@@ -215,32 +215,32 @@ export function CheckoutForm({
             <span
               className={cn(
                 "hidden font-mono text-[10px] uppercase tracking-widest sm:block",
-                i === step ? "text-foreground" : "text-foreground-secondary/50"
+                i === step ? "text-foreground" : "text-foreground-disabled"
               )}
             >
               {label}
             </span>
             {i < STEPS.length - 1 && (
-              <span className={cn("h-px flex-1", i < step ? "bg-foreground/30" : "bg-border-subtle")} />
+              <span className={cn("h-px flex-1", i < step ? "bg-accent" : "bg-border")} />
             )}
           </li>
         ))}
       </ol>
 
       {serverError && (
-        <p className="rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2.5 text-sm text-red-500">{serverError}</p>
+        <p className="border border-error/20 bg-error/5 px-3 py-2.5 text-sm text-error">{serverError}</p>
       )}
 
       {blocked && (
-        <p className="rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2.5 text-sm text-red-500">
+        <p className="border border-error/20 bg-error/5 px-3 py-2.5 text-sm text-error">
           Hay articulos agotados en tu carrito. Eliminalos para poder pagar.
         </p>
       )}
 
       {step === 0 && (
         <div className="space-y-4">
-          <fieldset className="border border-border-subtle bg-background-secondary/50 p-5">
-            <legend className="px-1 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
+          <fieldset className="border border-border bg-background-secondary/50 p-5">
+            <legend className="px-1 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">
               Datos de contacto
             </legend>
             <div className="grid gap-4 pt-1 sm:grid-cols-2">
@@ -249,8 +249,8 @@ export function CheckoutForm({
             </div>
           </fieldset>
 
-          <fieldset className="border border-border-subtle bg-background-secondary/50 p-5">
-            <legend className="px-1 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
+          <fieldset className="border border-border bg-background-secondary/50 p-5">
+            <legend className="px-1 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">
               Direccion de envio
             </legend>
             {loggedIn && savedAddresses.length > 0 && (
@@ -261,21 +261,21 @@ export function CheckoutForm({
                     type="button"
                     onClick={() => pickAddress(a.id)}
                     className={cn(
-                      "rounded-lg border p-3 text-left text-xs transition-colors cursor-pointer",
+                      "border p-3 text-left text-xs transition-colors cursor-pointer",
                       selectedAddressId === a.id
                         ? "border-foreground bg-foreground/5"
-                        : "border-border hover:border-foreground/20"
+                        : "border-border hover:border-border-active"
                     )}
                   >
                     <span className="flex items-center justify-between font-bold">
                       {a.label}
                       {selectedAddressId === a.id && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
                       {a.isDefault && selectedAddressId !== a.id && (
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-foreground-secondary/50">Predeterminada</span>
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-foreground-disabled">Predeterminada</span>
                       )}
                     </span>
                     <span className="mt-1 block text-foreground-secondary">
-                      {a.name} · {a.address}, {a.city}, {a.state} C.P. {a.postalCode}
+                      {a.name} . {a.address}, {a.city}, {a.state} C.P. {a.postalCode}
                     </span>
                   </button>
                 ))}
@@ -310,10 +310,10 @@ export function CheckoutForm({
               setTouched({ name: true, email: true, address: true, city: true, state: true, postalCode: true });
             }}
             className={cn(
-              "inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg font-display text-sm font-bold uppercase tracking-wide transition-all active:scale-[0.99] sm:w-auto sm:px-10 cursor-pointer",
+              "inline-flex h-12 w-full items-center justify-center gap-2 font-display text-sm font-bold uppercase tracking-wide transition-all active:scale-[0.99] sm:w-auto sm:px-10 cursor-pointer",
               shippingValid
-                ? "bg-foreground text-background hover:opacity-90"
-                : "cursor-not-allowed bg-background-secondary text-foreground-secondary/50"
+                ? "bg-cta text-white hover:bg-cta-hover"
+                : "cursor-not-allowed bg-background-secondary text-foreground-disabled"
             )}
           >
             Continuar al pago <ArrowRight className="h-4 w-4" />
@@ -323,15 +323,15 @@ export function CheckoutForm({
 
       {step === 1 && (
         <div className="space-y-4">
-          <fieldset className="border border-border-subtle bg-background-secondary/50 p-5">
-            <legend className="px-1 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
+          <fieldset className="border border-border bg-background-secondary/50 p-5">
+            <legend className="px-1 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">
               Pago rapido
             </legend>
             <div className="grid grid-cols-2 gap-3 pt-1 sm:grid-cols-3">
               {[
                 { label: "Apple Pay", cls: "bg-black text-white border-white/25 hover:border-white/60" },
-                { label: "G Pay", cls: "bg-white text-zinc-900 border-border hover:border-foreground/30" },
-                { label: "PayPal", cls: "bg-[#ffc439] text-[#003087] border-transparent hover:border-foreground/20" },
+                { label: "G Pay", cls: "bg-white text-zinc-900 border-border hover:border-border-active" },
+                { label: "PayPal", cls: "bg-[#ffc439] text-[#003087] border-transparent hover:border-border" },
               ].map((w) => (
                 <button
                   key={w.label}
@@ -346,7 +346,7 @@ export function CheckoutForm({
                   }
                   onClick={() => void submit()}
                   className={cn(
-                    "h-11 rounded-lg border font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer",
+                    "h-11 border font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer",
                     w.cls
                   )}
                 >
@@ -355,25 +355,25 @@ export function CheckoutForm({
               ))}
             </div>
             {!expressAvailable && (
-              <p className="mt-2 text-[11px] leading-snug text-foreground-secondary/60">
+              <p className="mt-2 text-[11px] leading-snug text-foreground-disabled">
                 Los pagos rapidos se activan al configurar Stripe.
               </p>
             )}
           </fieldset>
 
           <div className="flex items-center gap-3">
-            <span className="h-px flex-1 bg-border-subtle" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/40">o paga con tarjeta</span>
-            <span className="h-px flex-1 bg-border-subtle" />
+            <span className="h-px flex-1 bg-border" />
+            <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-disabled">o paga con tarjeta</span>
+            <span className="h-px flex-1 bg-border" />
           </div>
 
-          <div className="border border-border-subtle bg-background-secondary/50 p-4">
-            <h3 className="mb-3 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
+          <div className="border border-border bg-background-secondary/50 p-4">
+            <h3 className="mb-3 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">
               Tienes un cupon?
             </h3>
             {coupon ? (
               <div className="flex items-center justify-between gap-3">
-                <span className="flex items-center gap-2 font-mono text-sm font-bold text-emerald-400">
+                <span className="flex items-center gap-2 font-mono text-sm font-bold text-success">
                   <Tag className="h-4 w-4" /> {coupon.code}
                 </span>
                 {removeCoupon && (
@@ -383,7 +383,7 @@ export function CheckoutForm({
                       removeCoupon();
                       setCouponMessage(null);
                     }}
-                    className="rounded-lg border border-border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-foreground-secondary transition-colors hover:border-red-500/60 hover:text-red-500 cursor-pointer"
+                    className="border border-border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-foreground-secondary transition-colors hover:border-error hover:text-error cursor-pointer"
                   >
                     Quitar
                   </button>
@@ -403,13 +403,13 @@ export function CheckoutForm({
                   placeholder="ASTRO10"
                   maxLength={24}
                   aria-label="Codigo de cupon"
-                  className="h-10 flex-1 rounded-lg border border-border bg-background-secondary px-3 font-mono text-sm uppercase outline-none transition-colors placeholder:text-foreground-secondary/30 focus:border-foreground/40"
+                  className="h-10 flex-1 border border-border bg-background-secondary px-3 font-mono text-sm uppercase outline-none transition-colors placeholder:text-foreground-disabled focus:border-border-active"
                 />
                 <button
                   type="button"
                   onClick={() => void submitCoupon()}
                   disabled={couponBusy || !couponInput.trim()}
-                  className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-colors hover:border-foreground/30 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
+                  className="inline-flex h-10 items-center gap-1.5 border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-colors hover:border-border-active hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
                 >
                   {couponBusy && <Loader2 className="h-3.5 w-3.5 animate-spin" />} Aplicar
                 </button>
@@ -418,10 +418,10 @@ export function CheckoutForm({
             {couponMessage && (
               <p
                 className={cn(
-                  "mt-2 rounded-lg border px-3 py-1.5 text-xs",
+                  "mt-2 border px-3 py-1.5 text-xs",
                   couponMessage.ok
-                    ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-400"
-                    : "border-red-500/20 bg-red-500/5 text-red-400"
+                    ? "border-success/20 bg-success/5 text-success"
+                    : "border-error/20 bg-error/5 text-error"
                 )}
               >
                 {couponMessage.text}
@@ -429,10 +429,10 @@ export function CheckoutForm({
             )}
           </div>
 
-          <div className="border border-border-subtle bg-background-secondary/50 p-4">
+          <div className="border border-border bg-background-secondary/50 p-4">
             <div className="mb-3 flex items-center justify-between text-sm">
               <span className="text-foreground-secondary">
-                {itemCount} articulo{itemCount === 1 ? "" : "s"} · envio{" "}
+                {itemCount} articulo{itemCount === 1 ? "" : "s"} . envio{" "}
                 {shipping === 0 ? "gratis" : formatMoney(shipping, currencyCode, rates)}
               </span>
               <span className="font-mono font-bold">{formatMoney(total, currencyCode, rates)}</span>
@@ -440,7 +440,7 @@ export function CheckoutForm({
             <button
               type="submit"
               disabled={loading || blocked}
-              className="h-12 w-full rounded-lg bg-foreground font-display text-sm font-bold uppercase tracking-wide text-background transition-opacity hover:opacity-90 active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+              className="h-12 w-full bg-cta font-display text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-cta-hover active:scale-[0.99] disabled:opacity-60 cursor-pointer"
             >
               {loading ? (
                 "Procesando pago..."
@@ -464,7 +464,7 @@ export function CheckoutForm({
         </div>
       )}
 
-      <p className="text-center text-xs leading-relaxed text-foreground-secondary/50">
+      <p className="text-center text-xs leading-relaxed text-foreground-disabled">
         {currencyCode !== "MXN" && (
           <>
             Monto informativo en tu moneda. El cargo se procesa en pesos mexicanos (MXN).{" "}
@@ -499,7 +499,7 @@ function WizardField({
     <label className={cn("block", meta.span)}>
       <span className="mb-1.5 flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-foreground-secondary">
         {meta.label}
-        {valid && <Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={3} />}
+        {valid && <Check className="h-3.5 w-3.5 text-success" strokeWidth={3} />}
       </span>
       <input
         value={values[fieldKey]}
@@ -511,16 +511,16 @@ function WizardField({
         aria-invalid={invalid}
         required
         className={cn(
-          "h-11 w-full rounded-lg border bg-background-secondary px-3 text-sm outline-none transition-colors",
+          "h-11 w-full border bg-background-secondary px-3 text-sm outline-none transition-colors",
           invalid
-            ? "border-red-500/50 focus:border-red-500"
+            ? "border-error focus:border-error"
             : valid
-              ? "border-emerald-500/40 focus:border-emerald-400"
-              : "border-border focus:border-foreground/40"
+              ? "border-success focus:border-success"
+              : "border-border focus:border-border-active"
         )}
       />
       {invalid && (
-        <span className="mt-1 block text-[11px] text-red-400">
+        <span className="mt-1 block text-[11px] text-error">
           {fieldKey === "email"
             ? "Escribe un correo valido"
             : fieldKey === "postalCode"

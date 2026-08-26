@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { JetBrains_Mono, Space_Grotesk, Syne } from "next/font/google";
+import { Inter, JetBrains_Mono, Syne } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -8,9 +8,9 @@ import { CartDrawer } from "@/components/cart/cart-drawer";
 import { CustomStarCursor } from "@/components/fx/custom-star-cursor";
 import { FloatingChat } from "@/components/layout/floating-chat";
 
-const spaceGrotesk = Space_Grotesk({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-inter",
   weight: ["400", "500", "600", "700"],
 });
 
@@ -31,11 +31,11 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: "ASTRO — Ride Your Own Orbit",
+    default: "ASTRO — Skateshop & Streetwear",
     template: "%s | ASTRO",
   },
   description:
-    "Skate y streetwear premium. Tablas, trucks, ruedas, tenis y ropa de marca. Armador 3D. Envío gratis desde $999 MXN.",
+    "Skate y streetwear premium. Tablas, trucks, ruedas, tenis y ropa de marca. Armador 3D. Envio gratis desde $999 MXN.",
   openGraph: {
     type: "website",
     locale: "es_MX",
@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${spaceGrotesk.variable} ${syne.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${syne.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <body className="flex min-h-screen flex-col antialiased" suppressHydrationWarning>

@@ -27,15 +27,15 @@ export function ProductCard({
         className
       )}
     >
-      {/* Image */}
-      <div className="relative aspect-square overflow-hidden bg-card">
+      {/* Image — grayscale by default, color on hover */}
+      <div className="relative aspect-[3/4] overflow-hidden bg-card">
         <Link href={`/products/${product.slug}`} className="block h-full" aria-label={product.name}>
           <ProductImage
             src={product.images[0]}
             alt={product.name}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
-            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            className="object-cover transition-all duration-500 ease-out grayscale group-hover:grayscale-0 group-hover:scale-[1.03]"
           />
         </Link>
 
@@ -52,17 +52,22 @@ export function ProductCard({
           />
         </div>
 
-        {/* Quick add — bottom */}
+        {/* SKU tag — bottom left */}
+        <span className="absolute bottom-3 left-3 z-10 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground-disabled opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          {product.slug}
+        </span>
+
+        {/* Quick add — bottom right */}
         {!outOfStock && (
-          <div className="absolute bottom-3 left-3 right-3 translate-y-2 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-            <QuickAdd product={product} className="w-full" />
+          <div className="absolute bottom-3 right-3 z-10 translate-y-2 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+            <QuickAdd product={product} />
           </div>
         )}
 
         {/* Sold out overlay */}
         {outOfStock && (
           <div className="absolute inset-0 flex items-center justify-center bg-background/70 backdrop-blur-[2px]">
-            <span className="font-mono text-xs uppercase tracking-[0.3em] text-foreground-secondary">
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-foreground-disabled">
               Agotado
             </span>
           </div>
@@ -71,7 +76,7 @@ export function ProductCard({
 
       {/* Info */}
       <Link href={`/products/${product.slug}`} className="flex flex-1 flex-col gap-1 px-1 pt-3 pb-1">
-        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground-secondary/60">
+        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground-disabled">
           {product.brand.name}
         </p>
         <h3 className="line-clamp-1 font-display text-sm font-bold uppercase leading-tight tracking-tight text-foreground transition-colors group-hover:text-accent">
@@ -86,7 +91,7 @@ export function ProductCard({
             <>
               <Price
                 amount={product.compareAtPrice!}
-                className="text-xs text-foreground-secondary/50 line-through"
+                className="text-xs text-foreground-disabled line-through"
               />
               <span className="text-xs font-medium text-cta">
                 -{discount}%

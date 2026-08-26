@@ -58,9 +58,9 @@ export default async function AccountPage() {
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
-      <header className="mb-10 flex flex-wrap items-center justify-between gap-4 border border-border-subtle bg-background-secondary/50 p-6">
+      <header className="mb-10 flex flex-wrap items-center justify-between gap-4 border border-border bg-background-secondary/50 p-6">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground-secondary/50">Mi cuenta</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground-disabled">Mi cuenta</p>
           <h1 className="mt-1 font-display text-2xl font-bold uppercase tracking-tight">{session.name}</h1>
           <p className="mt-0.5 text-sm text-foreground-secondary">{session.email}</p>
         </div>
@@ -68,7 +68,7 @@ export default async function AccountPage() {
           {session.role === "ADMIN" && (
             <Link
               href="/admin"
-              className="inline-flex h-10 items-center rounded-lg border border-border px-5 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-colors hover:border-foreground/30 hover:text-foreground"
+              className="inline-flex h-10 items-center border border-border px-5 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-colors hover:border-border-active hover:text-foreground"
             >
               Panel admin
             </Link>
@@ -86,10 +86,10 @@ export default async function AccountPage() {
 
       {orders.length === 0 ? (
         <div className="border border-dashed border-border py-16 text-center">
-          <p className="text-sm text-foreground-secondary/50">An no tienes pedidos.</p>
+          <p className="text-sm text-foreground-disabled">An no tienes pedidos.</p>
           <Link
             href="/products"
-            className="mt-4 inline-block rounded-lg bg-foreground px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-background transition-opacity hover:opacity-80"
+            className="mt-4 inline-block bg-cta px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-cta-hover"
           >
             Explorar la tienda
           </Link>
@@ -97,8 +97,8 @@ export default async function AccountPage() {
       ) : (
         <ul className="space-y-4">
           {orders.map((order) => (
-            <li key={order.id} className="border border-border-subtle bg-background-secondary/50">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-subtle px-5 py-3.5">
+            <li key={order.id} className="border border-border bg-background-secondary/50">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-3.5">
                 <div>
                   <p className="font-display text-sm font-bold tracking-wide">{order.number}</p>
                   <p className="text-xs text-foreground-secondary">{formatDate(order.createdAt)}</p>
@@ -113,20 +113,20 @@ export default async function AccountPage() {
                   <StatusBadge status={order.status} />
                 </div>
               </div>
-              <ul className="divide-y divide-border-subtle px-5">
+              <ul className="divide-y divide-border px-5">
                 {order.items.map((item) => (
                   <li key={item.id} className="flex items-center gap-3 py-3">
                     {item.image && (
                       <ProductImage
                         src={item.image}
                         alt={item.productName}
-                        className="h-11 w-11 rounded-lg border border-border object-cover"
+                        className="h-11 w-11 border border-border object-cover"
                       />
                     )}
                     <div className="min-w-0 flex-1">
                       <p className="line-clamp-1 text-sm font-semibold">{item.productName}</p>
                       <p className="text-xs text-foreground-secondary">
-                        {item.variantTitle} × {item.quantity}
+                        {item.variantTitle} x {item.quantity}
                       </p>
                     </div>
                   </li>

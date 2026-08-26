@@ -18,7 +18,7 @@ const POSTS = [
     handle: "@astro.skateshop",
     likes: "3.2k",
     caption: "Setup de la semana",
-    color: "bg-accent-dark/30",
+    color: "bg-accent-muted",
   },
   {
     handle: "@luna.grinds",
@@ -46,7 +46,7 @@ export function AstroCommunity() {
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-secondary/50">
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">
               Community
             </span>
             <h2 className="mt-1 font-display text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
@@ -64,7 +64,7 @@ export function AstroCommunity() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={s.label}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-colors hover:border-foreground/30 hover:text-foreground"
+                className="inline-flex h-9 w-9 items-center justify-center border border-border text-foreground-secondary transition-colors hover:border-border-active hover:text-foreground"
               >
                 <s.icon className="h-4 w-4" strokeWidth={1.5} />
               </a>
@@ -79,7 +79,7 @@ export function AstroCommunity() {
               href="https://instagram.com/astroskateshop"
               target="_blank"
               rel="noreferrer"
-              className={`group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-lg p-3 transition-all duration-300 hover:-translate-y-0.5 ${post.color}`}
+              className={`group relative flex aspect-[4/5] flex-col justify-between overflow-hidden p-3 transition-all duration-300 hover:-translate-y-0.5 ${post.color}`}
             >
               <div className="relative flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/70">
                 {post.handle}

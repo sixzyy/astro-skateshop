@@ -36,7 +36,7 @@ export function HeartButton({ product, className }: Props) {
       aria-label={active ? "Quitar de wishlist" : "Agregar a wishlist"}
       aria-pressed={active}
       className={cn(
-        "inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg border border-border bg-background-secondary/80 backdrop-blur transition-all hover:border-foreground/30 hover:text-foreground",
+        "inline-flex h-8 w-8 cursor-pointer items-center justify-center border border-border bg-background/80 backdrop-blur transition-all hover:border-border-active hover:text-foreground",
         active && "border-cta text-cta",
         pop && "scale-125",
         className

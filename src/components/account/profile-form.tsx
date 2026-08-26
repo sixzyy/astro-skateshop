@@ -31,27 +31,27 @@ export function ProfileForm({ initialName }: { initialName: string }) {
   }
 
   return (
-    <div className="border border-border-subtle bg-background-secondary/50 p-5">
+    <div className="border border-border bg-background-secondary/50 p-5">
       <h3 className="mb-4 font-display text-sm font-bold uppercase tracking-wide">Datos personales</h3>
       <label className="mb-1 block text-xs text-foreground-secondary">Nombre</label>
       <div className="flex gap-2">
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="h-10 flex-1 rounded-lg border border-border bg-background-secondary px-3 text-sm outline-none focus:border-foreground/40"
+          className="h-10 flex-1 border border-border bg-background-secondary px-3 text-sm outline-none focus:border-border-active"
         />
         <button
           onClick={saveName}
           disabled={busy || name.trim().length < 2}
           className={cn(
-            "inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-lg bg-foreground px-4 font-display text-xs font-bold uppercase tracking-wide text-background hover:opacity-90 disabled:opacity-50",
-            saved && "bg-emerald-500",
+            "inline-flex h-10 cursor-pointer items-center gap-1.5 bg-cta px-4 font-display text-xs font-bold uppercase tracking-wide text-white hover:bg-cta-hover disabled:opacity-50",
+            saved && "bg-success",
           )}
         >
           <Save className="h-3.5 w-3.5" /> {saved ? "Guardado" : "Guardar"}
         </button>
       </div>
-      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
+      {error && <p className="mt-2 text-xs text-error">{error}</p>}
       <PasswordForm />
     </div>
   );
@@ -87,32 +87,32 @@ function PasswordForm() {
   const valid = currentPassword.length >= 8 && newPassword.length >= 8 && /[A-Za-z]/.test(newPassword) && /\d/.test(newPassword);
 
   return (
-    <div className="mt-6 border-t border-border-subtle pt-5">
+    <div className="mt-6 border-t border-border pt-5">
       <h3 className="mb-3 flex items-center gap-2 font-display text-sm font-bold uppercase tracking-wide">
-        <KeyRound className="h-4 w-4 text-foreground-secondary/50" /> Cambiar contrasena
+        <KeyRound className="h-4 w-4 text-foreground-disabled" /> Cambiar contrasena
       </h3>
       <input
         type="password"
         placeholder="Contrasena actual"
         value={currentPassword}
         onChange={(e) => setCurrent(e.target.value)}
-        className="mb-2 h-10 w-full rounded-lg border border-border bg-background-secondary px-3 text-sm outline-none focus:border-foreground/40"
+        className="mb-2 h-10 w-full border border-border bg-background-secondary px-3 text-sm outline-none focus:border-border-active"
       />
       <input
         type="password"
         placeholder="Nueva contrasena (8+ caracteres, con numero)"
         value={newPassword}
         onChange={(e) => setNext(e.target.value)}
-        className="mb-2 h-10 w-full rounded-lg border border-border bg-background-secondary px-3 text-sm outline-none focus:border-foreground/40"
+        className="mb-2 h-10 w-full border border-border bg-background-secondary px-3 text-sm outline-none focus:border-border-active"
       />
       <button
         onClick={submit}
         disabled={!valid || busy}
-        className="inline-flex h-9 cursor-pointer items-center rounded-lg border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-colors hover:border-foreground/30 hover:text-foreground disabled:opacity-50"
+        className="inline-flex h-9 cursor-pointer items-center border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-colors hover:border-border-active hover:text-foreground disabled:opacity-50"
       >
         Actualizar contrasena
       </button>
-      {msg && <p className={cn("mt-2 text-xs", msg.ok ? "text-emerald-400" : "text-red-400")}>{msg.text}</p>}
+      {msg && <p className={cn("mt-2 text-xs", msg.ok ? "text-success" : "text-error")}>{msg.text}</p>}
     </div>
   );
 }

@@ -41,7 +41,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
 
   return (
     <div className="mx-auto flex min-h-[70vh] w-full max-w-md flex-col justify-center px-4 py-16">
-      <div className="border border-border-subtle bg-background-secondary/50 p-8">
+      <div className="border border-border bg-background-secondary/50 p-8">
         <div className="mb-6 text-center">
           <Logo className="justify-center" />
           <h1 className="mt-4 font-display text-2xl font-bold uppercase tracking-tight">
@@ -55,7 +55,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         </div>
 
         {error && (
-          <p className="mb-4 rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2 text-sm text-red-500">
+          <p className="mb-4 border border-error/20 bg-error/5 px-3 py-2 text-sm text-error">
             {error}
           </p>
         )}
@@ -69,7 +69,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
             label="Contrasena"
             name="password"
             type="password"
-            placeholder={isLogin ? "••••••••" : "Minimo 8 caracteres"}
+            placeholder={isLogin ? "********" : "Minimo 8 caracteres"}
             required
             minLength={isLogin ? undefined : 8}
           />
@@ -77,7 +77,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           <button
             type="submit"
             disabled={loading}
-            className="h-11 w-full rounded-lg bg-foreground font-display text-sm font-bold uppercase tracking-wide text-background transition-opacity hover:opacity-90 active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+            className="h-11 w-full bg-cta font-display text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-cta-hover active:scale-[0.99] disabled:opacity-60 cursor-pointer"
           >
             {loading ? "Procesando..." : isLogin ? "Entrar" : "Crear cuenta"}
           </button>
@@ -111,12 +111,12 @@ function Field({
 }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <label className="block">
-      <span className="mb-1.5 block font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
+      <span className="mb-1.5 block font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">
         {label}
       </span>
       <input
         {...props}
-        className="h-11 w-full rounded-lg border border-border bg-background-secondary px-3 text-sm outline-none transition-colors focus:border-foreground/40"
+        className="h-11 w-full border border-border bg-background-secondary px-3 text-sm outline-none transition-colors focus:border-border-active"
       />
     </label>
   );

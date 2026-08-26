@@ -102,7 +102,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <header className="mb-8">
-        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-secondary/50">Catalogo</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">Catalogo</span>
         <h1 className="mt-1 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
           {q ? `Resultados para "${q}"` : category ? `Categoria: ${category}` : "Toda la tienda"}
         </h1>
@@ -114,10 +114,10 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
           <Link
             key={f.label}
             href={f.href}
-            className={`whitespace-nowrap rounded-lg border px-4 py-2 font-mono text-xs uppercase tracking-wider transition-colors ${
+            className={`whitespace-nowrap border px-4 py-2 font-mono text-xs uppercase tracking-wider transition-colors ${
               f.active
                 ? "border-foreground bg-foreground text-background"
-                : "border-border text-foreground-secondary hover:border-foreground/30 hover:text-foreground"
+                : "border-border text-foreground-secondary hover:border-border-active hover:text-foreground"
             }`}
           >
             {f.label}
@@ -131,7 +131,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
         <div>
           {products.length === 0 ? (
             <div className="flex flex-col items-center justify-center border border-dashed border-border py-24 text-center">
-              <span className="font-display text-3xl font-bold uppercase tracking-widest text-foreground-secondary/30">
+              <span className="font-display text-3xl font-bold uppercase tracking-widest text-foreground-disabled">
                 Sin resultados
               </span>
               <p className="mt-3 max-w-sm text-sm text-foreground-secondary">
@@ -139,7 +139,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
               </p>
               <Link
                 href="/products"
-                className="mt-6 rounded-lg bg-foreground px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-background transition-opacity hover:opacity-80"
+                className="mt-6 bg-cta px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-cta-hover"
               >
                 Limpiar filtros
               </Link>
@@ -157,7 +157,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
                   {page > 1 && (
                     <Link
                       href={buildHref({ page: String(page - 1) })}
-                      className="rounded-lg border border-border px-4 py-2 font-display text-sm font-semibold uppercase transition-colors hover:border-foreground/30 hover:text-foreground"
+                      className="border border-border px-4 py-2 font-display text-sm font-semibold uppercase transition-colors hover:border-border-active hover:text-foreground"
                     >
                       Anterior
                     </Link>
@@ -166,10 +166,10 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
                     <Link
                       key={p}
                       href={buildHref({ page: String(p) })}
-                      className={`rounded-lg border px-4 py-2 font-display text-sm font-semibold transition-colors ${
+                      className={`border px-4 py-2 font-display text-sm font-semibold transition-colors ${
                         p === page
                           ? "border-foreground bg-foreground text-background"
-                          : "border-border hover:border-foreground/30 hover:text-foreground"
+                          : "border-border hover:border-border-active hover:text-foreground"
                       }`}
                     >
                       {p}
@@ -178,7 +178,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
                   {page < pages && (
                     <Link
                       href={buildHref({ page: String(page + 1) })}
-                      className="rounded-lg border border-border px-4 py-2 font-display text-sm font-semibold uppercase transition-colors hover:border-foreground/30 hover:text-foreground"
+                      className="border border-border px-4 py-2 font-display text-sm font-semibold uppercase transition-colors hover:border-border-active hover:text-foreground"
                     >
                       Siguiente
                     </Link>

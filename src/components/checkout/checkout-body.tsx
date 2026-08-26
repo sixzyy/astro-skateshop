@@ -127,13 +127,13 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
   if (items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center border border-dashed border-border py-24 text-center">
-        <ShoppingBag className="h-10 w-10 text-foreground-secondary/30" strokeWidth={1.2} />
-        <p className="mt-4 font-display text-sm font-semibold uppercase tracking-wide text-foreground-secondary/50">
+        <ShoppingBag className="h-10 w-10 text-foreground-disabled" strokeWidth={1.2} />
+        <p className="mt-4 font-display text-sm font-semibold uppercase tracking-wide text-foreground-disabled">
           Tu carrito esta vacio
         </p>
         <Link
           href="/products"
-          className="mt-6 rounded-lg bg-foreground px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-background transition-opacity hover:opacity-80"
+          className="mt-6 bg-cta px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-cta-hover"
         >
           Ir a la tienda
         </Link>
@@ -150,7 +150,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
   return (
     <>
       {canceled && (
-        <p className="mb-6 flex items-center gap-2 rounded-lg border border-yellow-500/20 bg-yellow-500/5 px-3 py-2.5 text-sm text-yellow-500">
+        <p className="mb-6 flex items-center gap-2 border border-warning/20 bg-warning/5 px-3 py-2.5 text-sm text-warning">
           <XCircle className="h-4 w-4 shrink-0" /> El pago fue cancelado. Puedes intentarlo de nuevo.
         </p>
       )}
@@ -161,7 +161,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
             n.type === "out" ? (
               <p
                 key={n.variantId}
-                className="flex flex-wrap items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2.5 text-sm text-red-400"
+                className="flex flex-wrap items-center gap-2 border border-error/20 bg-error/5 px-3 py-2.5 text-sm text-error"
               >
                 <XCircle className="h-4 w-4 shrink-0" />
                 <span>
@@ -169,7 +169,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
                 </span>
                 <button
                   onClick={() => removeItem(n.variantId)}
-                  className="ml-auto rounded-lg border border-red-400/30 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors hover:bg-red-500 hover:text-white cursor-pointer"
+                  className="ml-auto border border-error/30 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors hover:bg-error hover:text-white cursor-pointer"
                 >
                   Eliminar
                 </button>
@@ -177,7 +177,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
             ) : (
               <p
                 key={n.variantId}
-                className="flex items-center gap-2 rounded-lg border border-cta/20 bg-cta/5 px-3 py-2.5 text-sm text-cta"
+                className="flex items-center gap-2 border border-cta/20 bg-cta/5 px-3 py-2.5 text-sm text-cta"
               >
                 <AlertTriangle className="h-4 w-4 shrink-0" />
                 Ajustamos <strong>{n.label}</strong> a {n.qty} pieza{n.qty === 1 ? "" : "s"}.
@@ -203,9 +203,9 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
           loggedIn={account.loggedIn}
         />
 
-        <aside className="h-fit border border-border-subtle bg-background-secondary/50 p-5 lg:sticky lg:top-24">
+        <aside className="h-fit border border-border bg-background-secondary/50 p-5 lg:sticky lg:top-24">
           <h2 className="mb-1 font-display text-sm font-bold uppercase tracking-widest">Tu pedido</h2>
-          <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/50">
+          <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-foreground-disabled">
             {liveStock === null ? "Verificando disponibilidad..." : "Disponibilidad confirmada"}
           </p>
           <ul className="mb-4 max-h-72 space-y-3 overflow-y-auto pr-1">
@@ -214,31 +214,31 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
                   <ProductImage
                     src={item.image ?? "/products/generic.svg"}
                     alt={item.name}
-                    className="h-14 w-14 rounded-lg border border-border object-cover"
+                    className="h-14 w-14 border border-border object-cover"
                 />
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-1 font-display text-xs font-bold uppercase">{item.name}</p>
                   <p className="text-xs text-foreground-secondary">
-                    {item.variantTitle} × {item.quantity}
+                    {item.variantTitle} x {item.quantity}
                   </p>
                 </div>
                 <span className="font-display text-sm font-bold">{formatMoney(item.price * item.quantity, currencyCode, rates)}</span>
               </li>
             ))}
           </ul>
-          <dl className="space-y-1.5 border-t border-border-subtle pt-3 text-sm">
+          <dl className="space-y-1.5 border-t border-border pt-3 text-sm">
             <div className="flex justify-between">
               <dt className="text-foreground-secondary">Subtotal</dt>
               <dd>{formatMoney(subtotal, currencyCode, rates)}</dd>
             </div>
             {coupon && discount > 0 && (
-              <div className="flex justify-between text-emerald-400">
+              <div className="flex justify-between text-success">
                 <dt className="flex items-center gap-1.5">
                   Cupon {coupon.code}
                   <button
                     onClick={removeCoupon}
                     aria-label="Quitar cupon"
-                    className="rounded p-0.5 transition-colors hover:bg-red-500/10 hover:text-red-500 cursor-pointer"
+                    className="rounded p-0.5 transition-colors hover:bg-error/10 hover:text-error cursor-pointer"
                   >
                     <XCircle className="h-3.5 w-3.5" />
                   </button>
@@ -250,14 +250,14 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
               <dt className="text-foreground-secondary">Envio</dt>
               <dd>{shipping === 0 ? "Gratis" : formatMoney(shipping, currencyCode, rates)}</dd>
             </div>
-            <div className="flex justify-between border-t border-border-subtle pt-2 font-display text-base font-bold">
+            <div className="flex justify-between border-t border-border pt-2 font-display text-base font-bold">
               <dt>Total</dt>
               <dd>{formatMoney(total, currencyCode, rates)}</dd>
             </div>
           </dl>
-          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border-subtle pt-3 font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/50">
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border pt-3 font-mono text-[10px] uppercase tracking-widest text-foreground-disabled">
             <span className="inline-flex items-center gap-1">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" /> SSL 256-bit
+              <ShieldCheck className="h-3.5 w-3.5 text-success" /> SSL 256-bit
             </span>
             <span className="inline-flex items-center gap-1">
               <Lock className="h-3.5 w-3.5" /> Pago cifrado

@@ -26,7 +26,7 @@ export function Footer() {
           {[0, 1].map((n) => (
             <span
               key={n}
-              className="shrink-0 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-secondary/40"
+              className="shrink-0 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-disabled"
               aria-hidden={n === 1}
             >
               ride your own orbit &nbsp;&nbsp;//&nbsp;&nbsp; est. 2016 &nbsp;&nbsp;//&nbsp;&nbsp; cdmx &nbsp;&nbsp;//&nbsp;&nbsp; skate culture &nbsp;&nbsp;//&nbsp;&nbsp; streetwear &nbsp;&nbsp;//&nbsp;&nbsp;
@@ -54,7 +54,7 @@ export function Footer() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={s.label}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-colors hover:border-foreground/30 hover:text-foreground"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-colors hover:border-border-active hover:text-foreground"
               >
                 <s.icon className="h-4 w-4" strokeWidth={1.5} />
               </a>
@@ -64,7 +64,7 @@ export function Footer() {
 
         {/* Shop */}
         <div>
-          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-secondary/60">
+          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-disabled">
             Shop
           </h3>
           <ul className="mt-4 space-y-2.5">
@@ -83,7 +83,7 @@ export function Footer() {
 
         {/* Help */}
         <div>
-          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-secondary/60">
+          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-disabled">
             Help
           </h3>
           <ul className="mt-4 space-y-2.5">
@@ -112,7 +112,7 @@ export function Footer() {
 
         {/* Contact */}
         <div>
-          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-secondary/60">
+          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-disabled">
             Contacto
           </h3>
           <ul className="mt-4 space-y-2.5 text-sm text-foreground-secondary">
@@ -129,7 +129,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-border-subtle">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-5 text-xs text-foreground-secondary/50 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-5 text-xs text-foreground-disabled sm:px-6 lg:px-8">
           <span className="font-display font-bold uppercase tracking-tight text-foreground-secondary/70">
             Ride Your Own Orbit.
           </span>
