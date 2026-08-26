@@ -8,6 +8,7 @@ import { CartDrawer } from "@/components/cart/cart-drawer";
 import { CustomStarCursor } from "@/components/fx/custom-star-cursor";
 import { FloatingChat } from "@/components/layout/floating-chat";
 import { ScrollRevealProvider } from "@/components/fx/scroll-reveal-provider";
+import { HydrationSuppressor } from "@/components/fx/hydration-suppressor";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="flex min-h-screen flex-col antialiased" suppressHydrationWarning>
+        <HydrationSuppressor />
         <Script
           id="bitdefender-strip"
           strategy="beforeInteractive"
