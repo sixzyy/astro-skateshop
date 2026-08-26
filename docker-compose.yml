@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: astro-skateshop-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: astro_skateshop
+    ports:
+      - "5432:5432"
+    volumes:
+      - astro_pgdata:/var/lib/postgresql/data
+
+volumes:
+  astro_pgdata:

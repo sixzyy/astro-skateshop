@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlserver"
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  name         String
+  role         String        @default("CLIENT")
+  active       Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  orders       Order[]
+  addresses    Address[]
+}
+
+model Address {
+  id         String  @id @default(cuid())
+  userId     String
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label      String  @default("Dirección")
+  name       String
+  address    String
+  city       String
+  state      String
+  postalCode String
+  phone      String?
+  isDefault  Boolean @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  slug     String    @unique
+  products Product[]
+}
+
+model Brand {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  slug     String    @unique
+  products Product[]
+}
+
+model Product {
+  id             String           @id @default(cuid())
+  name           String
+  slug           String           @unique
+  description    String
+  price          Float
+  compareAtPrice Float?
+  images         String
+  specs          String?
+  featured       Boolean          @default(false)
+  published      Boolean          @default(true)
+  publishedAt    DateTime?
+  categoryId     String
+  category       Category         @relation(fields: [categoryId], references: [id])
+  brandId        String
+  brand          Brand            @relation(fields: [brandId], references: [id])
+  variants       ProductVariant[]
+  reviews        Review[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([categoryId])
+  @@index([brandId])
+}
+
+model ProductVariant {
+  id          String       @id @default(cuid())
+  title       String
+  sku         String       @unique
+  stock       Int          @default(0)
+  productId   String
+  product     Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderItems  OrderItem[]
+  stockAlerts StockAlert[]
+}
+
+model Order {
+  id        String       @id @default(cuid())
+  number    String       @unique
+  userId    String?
+  user      User?        @relation(fields: [userId], references: [id])
+  email     String
+  name      String
+  address   String
+  city      String
+  state     String
+  postalCode String
+  status    String       @default("PENDING")
+  currency  String       @default("MXN")
+  exchangeRate Float     @default(1)
+  couponCode   String?
+  trackingNumber String?
+  carrier        String?
+  discount     Float     @default(0)
+  subtotal  Float
+  shipping  Float
+  total     Float
+  items     OrderItem[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+model OrderItem {
+  id           String          @id @default(cuid())
+  orderId      String
+  order        Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variantId    String?
+  variant      ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  productId    String?
+  productName  String
+  variantTitle String
+  image        String?
+  unitPrice    Float
+  quantity     Int
+
+  @@index([orderId])
+}
+
+model Coupon {
+  id          String     @id @default(cuid())
+  code        String     @unique
+  type        String     @default("PERCENT")
+  value       Float
+  minSubtotal Float      @default(0)
+  startsAt    DateTime?
+  expiresAt   DateTime?
+  maxUses     Int?
+  uses        Int        @default(0)
+  active      Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([active])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String?
+  name      String
+  rating    Int
+  comment   String
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([productId, approved])
+}
+
+model StockAlert {
+  id         String         @id @default(cuid())
+  variantId  String
+  variant    ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  email      String
+  notifiedAt DateTime?
+  createdAt  DateTime       @default(now())
+
+  @@unique([variantId, email])
+  @@index([variantId])
+}
+
+model Setting {
+  key   String @id
+  value String
+}
