@@ -95,10 +95,10 @@ function DropCard({ drop, onSaved }: { drop: DropProduct; onSaved: () => void })
             {upcoming ? (
               <>
                 <span className="text-cta">Lanza en {countdown}</span>
-                <span className="text-muted-foreground"> · {new Date(drop.publishedAt).toLocaleString("es-MX", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</span>
+                <span className="text-muted-foreground"> · {new Date(drop.publishedAt).toLocaleString("es-CO", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</span>
               </>
             ) : (
-              <span className="text-muted-foreground">Lanzado el {new Date(drop.publishedAt).toLocaleDateString("es-MX")}</span>
+              <span className="text-muted-foreground">Lanzado el {new Date(drop.publishedAt).toLocaleDateString("es-CO")}</span>
             )}
           </p>
         </div>

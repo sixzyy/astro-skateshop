@@ -57,8 +57,8 @@ export async function createOrderWithItems(input: {
   const threshold = Number(settings.freeShippingThreshold) || 999;
   const flat = Number(settings.shippingFlat) || 149;
 
-  const currency = input.currency ?? "MXN";
-  const exchangeRate = currency === "MXN" ? 1 : await getRateFor(currency);
+  const currency = input.currency ?? "COP";
+  const exchangeRate = currency === "COP" ? 1 : await getRateFor(currency);
 
   let subtotal = 0;
   const lineData = input.items.map((item) => {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Inter, JetBrains_Mono, Syne } from "next/font/google";
+import { DM_Sans, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -10,16 +10,16 @@ import { FloatingChat } from "@/components/layout/floating-chat";
 import { ScrollRevealProvider } from "@/components/fx/scroll-reveal-provider";
 import { HydrationSuppressor } from "@/components/fx/hydration-suppressor";
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-dm-sans",
   weight: ["400", "500", "600", "700"],
 });
 
-const syne = Syne({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-syne",
-  weight: ["600", "700", "800"],
+  variable: "--font-space-grotesk",
+  weight: ["500", "600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -33,14 +33,14 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: "ASTRO — Skateshop & Streetwear",
+    default: "ASTRO — Skate Shop",
     template: "%s | ASTRO",
   },
   description:
-    "Skate y streetwear premium. Tablas, trucks, ruedas, tenis y ropa de marca. Armador 3D. Envio gratis desde $999 MXN.",
+    "Skate shop premium. Tablas, trucks, ruedas, tenis y ropa de marca. Armador 3D. Envio gratis desde $999 COP.",
   openGraph: {
     type: "website",
-    locale: "es_MX",
+    locale: "es_CO",
     siteName: "ASTRO Skateshop",
     url: BASE,
   },
@@ -53,7 +53,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${inter.variable} ${syne.variable} ${jetbrainsMono.variable}`}
+      className={`${dmSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <body className="flex min-h-screen flex-col antialiased" suppressHydrationWarning>

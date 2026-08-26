@@ -92,7 +92,7 @@ export async function POST(req: Request) {
   const currency =
     typeof body?.currency === "string" && isSupported(body.currency.toUpperCase())
       ? body.currency.toUpperCase()
-      : "MXN";
+      : "COP";
 
   // Pre-validate the coupon so Stripe flow fails fast with a clear message.
   let discount = 0;
@@ -138,7 +138,7 @@ export async function POST(req: Request) {
         return {
           quantity: item.quantity,
           price_data: {
-            currency: "mxn",
+            currency: "cop",
             unit_amount: Math.round(variant.product.price * 100),
             product_data: {
               name: `${variant.product.name} — ${variant.title}`,
@@ -151,7 +151,7 @@ export async function POST(req: Request) {
         lineItems.push({
           quantity: 1,
           price_data: {
-            currency: "mxn",
+            currency: "cop",
             unit_amount: Math.round(order.shipping * 100),
             product_data: { name: "Envío" },
           },
@@ -171,7 +171,7 @@ export async function POST(req: Request) {
       if (discount > 0) {
         const coupon = await stripe.coupons.create({
           amount_off: Math.round(discount * 100),
-          currency: "mxn",
+          currency: "cop",
           duration: "once",
           name: `Cupón ${order.couponCode}`,
         });

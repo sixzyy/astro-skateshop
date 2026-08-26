@@ -63,14 +63,14 @@ export default async function ProductDetailPage({ params }: Props) {
     offers: {
       "@type": "Offer",
       url: `${base}/products/${product.slug}`,
-      priceCurrency: "MXN",
+      priceCurrency: "COP",
       price: product.price,
       availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
     },
   };
 
   if (product.publishedAt && product.publishedAt > new Date()) {
-    const launch = product.publishedAt.toLocaleString("es-MX", {
+    const launch = product.publishedAt.toLocaleString("es-CO", {
       weekday: "long",
       day: "numeric",
       month: "long",

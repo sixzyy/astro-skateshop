@@ -49,7 +49,7 @@ const FIELD_VALIDATORS: Record<FieldKey, (v: string) => boolean> = {
 
 const FIELD_LABELS: Record<FieldKey, { label: string; placeholder: string; autoComplete: string; type?: string; span?: string }> = {
   name: { label: "Nombre completo", placeholder: "Tu nombre y apellido", autoComplete: "name" },
-  email: { label: "Correo electronico", placeholder: "tu@correo.mx", autoComplete: "email", type: "email" },
+  email: { label: "Correo electronico", placeholder: "tu@correo.co", autoComplete: "email", type: "email" },
   address: { label: "Calle y numero", placeholder: "Av. Reforma 123, Int. 4", autoComplete: "street-address", span: "sm:col-span-2" },
   city: { label: "Ciudad", placeholder: "CDMX", autoComplete: "address-level2" },
   state: { label: "Estado", placeholder: "CMX", autoComplete: "address-level1" },
@@ -202,12 +202,12 @@ export function CheckoutForm({
           <li key={label} className="flex flex-1 items-center gap-2">
             <span
               className={cn(
-                "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border font-mono text-[11px]",
+                "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border font-mono text-[11px]",
                 i === step
                   ? "border-foreground bg-foreground text-background"
                   : i < step
-                    ? "border-accent bg-accent-muted text-accent"
-                    : "border-border text-foreground-disabled"
+                    ? "border-accent bg-accent-light text-accent"
+                    : "border-border text-foreground-muted"
               )}
             >
               {i < step ? <Check className="h-3.5 w-3.5" /> : i + 1}
@@ -215,7 +215,7 @@ export function CheckoutForm({
             <span
               className={cn(
                 "hidden font-mono text-[10px] uppercase tracking-widest sm:block",
-                i === step ? "text-foreground" : "text-foreground-disabled"
+                i === step ? "text-foreground" : "text-foreground-muted"
               )}
             >
               {label}
@@ -228,19 +228,19 @@ export function CheckoutForm({
       </ol>
 
       {serverError && (
-        <p className="rounded-lg border border-error/20 bg-error/5 px-3 py-2.5 text-sm text-error">{serverError}</p>
+        <p className="rounded-xl border border-error/20 bg-error/5 px-3 py-2.5 text-sm text-error">{serverError}</p>
       )}
 
       {blocked && (
-        <p className="rounded-lg border border-error/20 bg-error/5 px-3 py-2.5 text-sm text-error">
+        <p className="rounded-xl border border-error/20 bg-error/5 px-3 py-2.5 text-sm text-error">
           Hay articulos agotados en tu carrito. Eliminalos para poder pagar.
         </p>
       )}
 
       {step === 0 && (
         <div className="space-y-4">
-          <fieldset className="rounded-lg border border-border bg-background-secondary/50 p-5">
-            <legend className="px-1 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">
+          <fieldset className="rounded-xl border border-border bg-background-secondary/50 p-5">
+            <legend className="px-1 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-secondary">
               Datos de contacto
             </legend>
             <div className="grid gap-4 pt-1 sm:grid-cols-2">
@@ -249,8 +249,8 @@ export function CheckoutForm({
             </div>
           </fieldset>
 
-          <fieldset className="rounded-lg border border-border bg-background-secondary/50 p-5">
-            <legend className="px-1 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">
+          <fieldset className="rounded-xl border border-border bg-background-secondary/50 p-5">
+            <legend className="px-1 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-secondary">
               Direccion de envio
             </legend>
             {loggedIn && savedAddresses.length > 0 && (
@@ -261,7 +261,7 @@ export function CheckoutForm({
                     type="button"
                     onClick={() => pickAddress(a.id)}
                     className={cn(
-                      "rounded-lg border p-3 text-left text-xs transition-all duration-300 cursor-pointer",
+                      "rounded-xl border p-3 text-left text-xs transition-all duration-300 cursor-pointer",
                       selectedAddressId === a.id
                         ? "border-foreground bg-foreground/5"
                         : "border-border hover:border-border-active"
@@ -271,7 +271,7 @@ export function CheckoutForm({
                       {a.label}
                       {selectedAddressId === a.id && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
                       {a.isDefault && selectedAddressId !== a.id && (
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-foreground-disabled">Predeterminada</span>
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-foreground-muted">Predeterminada</span>
                       )}
                     </span>
                     <span className="mt-1 block text-foreground-secondary">
@@ -310,10 +310,10 @@ export function CheckoutForm({
               setTouched({ name: true, email: true, address: true, city: true, state: true, postalCode: true });
             }}
             className={cn(
-              "inline-flex h-12 w-full items-center justify-center gap-2 font-display text-sm font-bold uppercase tracking-wide transition-all active:scale-[0.99] sm:w-auto sm:px-10 cursor-pointer",
+              "inline-flex h-12 w-full items-center justify-center gap-2 rounded-full font-display text-sm font-bold uppercase tracking-wide transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98] sm:w-auto sm:px-10 cursor-pointer",
               shippingValid
                 ? "bg-cta text-white hover:bg-cta-hover"
-                : "cursor-not-allowed bg-background-secondary text-foreground-disabled"
+                : "cursor-not-allowed bg-background-secondary text-foreground-muted"
             )}
           >
             Continuar al pago <ArrowRight className="h-4 w-4" />
@@ -323,8 +323,8 @@ export function CheckoutForm({
 
       {step === 1 && (
         <div className="space-y-4">
-          <fieldset className="rounded-lg border border-border bg-background-secondary/50 p-5">
-            <legend className="px-1 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">
+          <fieldset className="rounded-xl border border-border bg-background-secondary/50 p-5">
+            <legend className="px-1 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-secondary">
               Pago rapido
             </legend>
             <div className="grid grid-cols-2 gap-3 pt-1 sm:grid-cols-3">
@@ -346,7 +346,7 @@ export function CheckoutForm({
                   }
                   onClick={() => void submit()}
                   className={cn(
-                    "h-11 rounded-lg border font-semibold transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer",
+                    "h-11 rounded-full border font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer",
                     w.cls
                   )}
                 >
@@ -355,7 +355,7 @@ export function CheckoutForm({
               ))}
             </div>
             {!expressAvailable && (
-              <p className="mt-2 text-[11px] leading-snug text-foreground-disabled">
+              <p className="mt-2 text-[11px] leading-snug text-foreground-muted">
                 Los pagos rapidos se activan al configurar Stripe.
               </p>
             )}
@@ -363,12 +363,12 @@ export function CheckoutForm({
 
           <div className="flex items-center gap-3">
             <span className="h-px flex-1 bg-border" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-disabled">o paga con tarjeta</span>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-muted">o paga con tarjeta</span>
             <span className="h-px flex-1 bg-border" />
           </div>
 
-          <div className="rounded-lg border border-border bg-background-secondary/50 p-4">
-            <h3 className="mb-3 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">
+          <div className="rounded-xl border border-border bg-background-secondary/50 p-4">
+            <h3 className="mb-3 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-secondary">
               Tienes un cupon?
             </h3>
             {coupon ? (
@@ -383,7 +383,7 @@ export function CheckoutForm({
                       removeCoupon();
                       setCouponMessage(null);
                     }}
-                    className="rounded-lg border border-border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-foreground-secondary transition-all duration-300 hover:border-error hover:text-error cursor-pointer"
+                    className="rounded-full border border-border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-foreground-secondary transition-all duration-300 hover:border-error hover:text-error hover:shadow-sm cursor-pointer"
                   >
                     Quitar
                   </button>
@@ -403,13 +403,13 @@ export function CheckoutForm({
                   placeholder="ASTRO10"
                   maxLength={24}
                   aria-label="Codigo de cupon"
-                  className="h-10 flex-1 rounded-lg border border-border bg-background-secondary px-3 font-mono text-sm uppercase outline-none transition-all duration-300 placeholder:text-foreground-disabled focus:border-border-active"
+                  className="h-10 flex-1 rounded-xl border border-border bg-background-secondary px-3 font-mono text-sm uppercase outline-none transition-all duration-300 placeholder:text-foreground-muted focus:border-border-active"
                 />
                 <button
                   type="button"
                   onClick={() => void submitCoupon()}
                   disabled={couponBusy || !couponInput.trim()}
-                  className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
+                  className="inline-flex h-10 items-center gap-1.5 rounded-full border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
                 >
                   {couponBusy && <Loader2 className="h-3.5 w-3.5 animate-spin" />} Aplicar
                 </button>
@@ -418,7 +418,7 @@ export function CheckoutForm({
             {couponMessage && (
               <p
                 className={cn(
-                  "mt-2 rounded-lg border px-3 py-1.5 text-xs",
+                  "mt-2 rounded-xl border px-3 py-1.5 text-xs",
                   couponMessage.ok
                     ? "border-success/20 bg-success/5 text-success"
                     : "border-error/20 bg-error/5 text-error"
@@ -429,7 +429,7 @@ export function CheckoutForm({
             )}
           </div>
 
-          <div className="rounded-lg border border-border bg-background-secondary/50 p-4">
+          <div className="rounded-xl border border-border bg-background-secondary/50 p-4">
             <div className="mb-3 flex items-center justify-between text-sm">
               <span className="text-foreground-secondary">
                 {itemCount} articulo{itemCount === 1 ? "" : "s"} . envio{" "}
@@ -440,7 +440,7 @@ export function CheckoutForm({
             <button
               type="submit"
               disabled={loading || blocked}
-              className="h-12 w-full rounded-lg bg-cta font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+              className="h-12 w-full rounded-full bg-cta font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-60 cursor-pointer"
             >
               {loading ? (
                 "Procesando pago..."
@@ -464,10 +464,10 @@ export function CheckoutForm({
         </div>
       )}
 
-      <p className="text-center text-xs leading-relaxed text-foreground-disabled">
-        {currencyCode !== "MXN" && (
+      <p className="text-center text-xs leading-relaxed text-foreground-muted">
+        {currencyCode !== "COP" && (
           <>
-            Monto informativo en tu moneda. El cargo se procesa en pesos mexicanos (MXN).{" "}
+            Monto informativo en tu moneda. El cargo se procesa en pesos colombianos (COP).{" "}
           </>
         )}
         Pago cifrado y seguro. Nunca almacenamos los datos de tu tarjeta.
@@ -511,7 +511,7 @@ function WizardField({
         aria-invalid={invalid}
         required
         className={cn(
-          "h-11 w-full rounded-lg border bg-background-secondary px-3 text-sm outline-none transition-all duration-300",
+          "h-11 w-full rounded-xl border bg-background-secondary px-3 text-sm outline-none transition-all duration-300",
           invalid
             ? "border-error focus:border-error"
             : valid

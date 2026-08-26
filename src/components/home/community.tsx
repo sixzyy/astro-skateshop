@@ -1,55 +1,25 @@
-import { Heart } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import { InstagramIcon, YoutubeIcon } from "@/components/ui/social-icons";
 
 const POSTS = [
-  {
-    handle: "@astro.rita",
-    likes: "12.4k",
-    caption: "Sesion nocturna en el crater",
-    color: "bg-cosmic-violet",
-  },
-  {
-    handle: "@nico_ollies",
-    likes: "8.1k",
-    caption: "Kickflip orbital",
-    color: "bg-cta/15",
-  },
-  {
-    handle: "@astro.skateshop",
-    likes: "3.2k",
-    caption: "Setup de la semana",
-    color: "bg-accent-deep",
-  },
-  {
-    handle: "@luna.grinds",
-    likes: "21.9k",
-    caption: "Nosegrind interestelar",
-    color: "bg-cosmic-indigo",
-  },
-  {
-    handle: "@astro.crew",
-    likes: "6.7k",
-    caption: "Drop 03 detras de camaras",
-    color: "bg-cosmic-blue",
-  },
-  {
-    handle: "@pablo.bowl",
-    likes: "15.3k",
-    caption: "Bowl con gravedad cero",
-    color: "bg-card-elevated",
-  },
+  { handle: "@astro.rita", likes: "12.4k", caption: "Sesion nocturna", color: "bg-accent-light" },
+  { handle: "@nico_ollies", likes: "8.1k", caption: "Kickflip orbital", color: "bg-cta-light" },
+  { handle: "@astro.skateshop", likes: "3.2k", caption: "Setup de la semana", color: "bg-background-secondary" },
+  { handle: "@luna.grinds", likes: "21.9k", caption: "Nosegrind smooth", color: "bg-accent-light" },
+  { handle: "@astro.crew", likes: "6.7k", caption: "Drop 03 behind the scenes", color: "bg-background-secondary" },
+  { handle: "@pablo.bowl", likes: "15.3k", caption: "Bowl session", color: "bg-cta-light" },
 ];
 
 export function AstroCommunity() {
   return (
-    <section className="cosmic-indigo py-20">
+    <section className="bg-background-secondary py-20">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">
+            <span className="text-[11px] font-medium uppercase tracking-wider text-foreground-muted">
               Community
             </span>
-            <h2 className="mt-1 font-display text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
+            <h2 className="mt-1 font-display text-2xl font-bold tracking-tight sm:text-3xl">
               Sigue el flow
             </h2>
           </div>
@@ -64,7 +34,7 @@ export function AstroCommunity() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={s.label}
-                className="inline-flex h-12 w-12 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-all duration-200 hover:border-border-active hover:text-foreground hover:bg-card"
               >
                 <s.icon className="h-4 w-4" strokeWidth={1.5} />
               </a>
@@ -73,23 +43,20 @@ export function AstroCommunity() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-          {POSTS.map((post, i) => (
+          {POSTS.map((post) => (
             <a
               key={post.handle + post.caption}
               href="https://instagram.com/astroskateshop"
               target="_blank"
               rel="noreferrer"
-              className={`group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-lg p-3 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:scale-[1.02] ${post.color}`}
-              style={{ animationDelay: `${i * 0.05}s` }}
+              className={`group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-xl p-3 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${post.color}`}
             >
-              <div className="relative flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/70">
+              <div className="relative font-mono text-[10px] font-medium uppercase tracking-wider text-foreground-secondary/60">
                 {post.handle}
               </div>
               <div className="relative">
-                <p className="text-xs font-semibold leading-snug text-foreground">
-                  {post.caption}
-                </p>
-                <p className="mt-1 inline-flex items-center gap-1 font-mono text-[10px] text-foreground-secondary/50">
+                <p className="text-xs font-semibold text-foreground">{post.caption}</p>
+                <p className="mt-1 inline-flex items-center gap-1 text-[10px] text-foreground-muted">
                   <Heart className="h-3 w-3" /> {post.likes}
                 </p>
               </div>

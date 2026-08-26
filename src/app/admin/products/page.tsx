@@ -37,25 +37,25 @@ export default async function AdminProductsPage() {
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="font-display text-2xl font-bold uppercase tracking-tight">Productos</h1>
-          <p className="mt-1 text-sm text-muted-foreground">{products.length} productos en catálogo</p>
+          <p className="mt-1 text-sm text-foreground-secondary">{products.length} productos en catálogo</p>
         </div>
         <Link
           href="/admin/products/new"
-          className="inline-flex h-10 items-center gap-2 rounded-md bg-accent px-5 font-display text-xs font-bold uppercase tracking-wide text-zinc-950 hover:bg-accent-strong"
+          className="inline-flex h-10 items-center gap-2 rounded-full bg-accent px-5 font-display text-xs font-bold uppercase tracking-wide text-background transition-all duration-300 hover:bg-foreground hover:text-background hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98]"
         >
           <Plus className="h-4 w-4" /> Nuevo producto
         </Link>
       </header>
 
       {products.length === 0 ? (
-        <p className="rounded-lg border border-dashed border-border py-16 text-center text-sm text-muted-foreground">
+        <p className="rounded-xl border border-dashed border-border py-16 text-center text-sm text-foreground-secondary">
           No hay productos todavía. Crea el primero.
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-border bg-card">
+        <div className="overflow-x-auto rounded-xl border border-border bg-card">
           <table className="w-full min-w-[760px] text-sm">
             <thead>
-              <tr className="border-b border-border text-left font-display text-[11px] uppercase tracking-widest text-muted-foreground">
+              <tr className="border-b border-border text-left font-display text-[11px] uppercase tracking-widest text-foreground-secondary">
                 <th className="px-5 py-3.5 font-bold">Producto</th>
                 <th className="px-5 py-3.5 font-bold">Categoría</th>
                 <th className="px-5 py-3.5 font-bold">Precio</th>
@@ -76,16 +76,16 @@ export default async function AdminProductsPage() {
                           <img
                             src={p.images[0]}
                             alt=""
-                            className="h-10 w-10 rounded-md border border-border object-cover"
+                            className="h-10 w-10 rounded-xl border border-border object-cover"
                           />
                         )}
                         <div className="min-w-0">
                           <p className="line-clamp-1 font-semibold">{p.name}</p>
-                          <p className="text-xs text-muted-foreground">{p.brand.name}</p>
+                          <p className="text-xs text-foreground-secondary">{p.brand.name}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-5 py-3 text-muted-foreground">{p.category.name}</td>
+                    <td className="px-5 py-3 text-foreground-secondary">{p.category.name}</td>
                     <td className="px-5 py-3 font-display font-bold">{formatPrice(p.price)}</td>
                     <td className="px-5 py-3">
                       <span className={totalStock === 0 ? "text-red-500" : totalStock <= 5 ? "text-yellow-500" : ""}>

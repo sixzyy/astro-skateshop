@@ -109,7 +109,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
           <div className="flex h-12 min-w-52 flex-1 flex-wrap items-center justify-between gap-2 rounded-lg border border-error/20 bg-error/5 px-4">
             <span className="font-mono text-sm uppercase tracking-wide text-error">Agotado</span>
             <a
-              href={`mailto:hola@astroskate.mx?subject=${encodeURIComponent(
+              href={`mailto:hola@astroskate.co?subject=${encodeURIComponent(
                 "Notificar disponibilidad: " + product.name
               )}&body=${encodeURIComponent("Hola, quiero que me avisen cuando regrese a orbita este producto.")}`}
               className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground-secondary transition-colors duration-200 hover:border-border-active hover:text-foreground"
@@ -122,7 +122,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
             onClick={handleAdd}
             disabled={outOfStock}
             className={cn(
-              "group/btn flex min-h-[52px] flex-1 min-w-52 items-center justify-center gap-2 rounded-lg bg-cta px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:bg-cta-hover hover:shadow-[0_8px_30px_rgba(255,90,31,0.25)] active:scale-[0.98] cursor-pointer",
+              "group/btn flex h-12 flex-1 min-w-52 items-center justify-center gap-2 rounded-full bg-foreground font-semibold text-sm text-background transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-black hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer",
               added && "animate-pop"
             )}
           >

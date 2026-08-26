@@ -107,7 +107,7 @@ export function ReviewsSection({
                       <StarsRow value={r.rating} />
                     </div>
                     <time className="font-mono text-[10px] uppercase tracking-widest text-foreground-disabled">
-                      {new Date(r.createdAt).toLocaleDateString("es-MX", { day: "numeric", month: "short", year: "numeric" })}
+                      {new Date(r.createdAt).toLocaleDateString("es-CO", { day: "numeric", month: "short", year: "numeric" })}
                     </time>
                   </div>
                   <p className="mt-2 break-words text-sm leading-relaxed text-foreground-secondary">{r.comment}</p>

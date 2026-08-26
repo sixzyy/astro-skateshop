@@ -35,7 +35,7 @@ export function SalesChart() {
       <div className="mb-4 flex items-baseline justify-between">
         <h2 className="font-display text-sm font-bold uppercase tracking-widest">Ventas · últimos 30 días</h2>
         {!loading && data.length > 0 && (
-          <span className="text-xs text-muted-foreground">MXN por día</span>
+          <span className="text-xs text-muted-foreground">COP por día</span>
         )}
       </div>
       {loading ? (
@@ -74,7 +74,7 @@ export function SalesChart() {
                 tickFormatter={(v: number) => `$${v >= 1000 ? `${Math.round(v / 100) / 10}k` : v}`}
               />
               <Tooltip
-                formatter={(value) => [`$${Number(value).toLocaleString("es-MX", { maximumFractionDigits: 2 })} MXN`, "Ventas"]}
+                formatter={(value) => [`$${Number(value).toLocaleString("es-CO", { maximumFractionDigits: 2 })} COP`, "Ventas"]}
                 labelFormatter={(l) => labelFor(String(l))}
                 contentStyle={{
                   background: "#18181b",

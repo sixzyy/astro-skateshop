@@ -69,7 +69,7 @@ function shell(title: string, body: string, cta?: { label: string; href: string 
 }
 
 const money = (n: number) =>
-  n.toLocaleString("es-MX", { style: "currency", currency: "MXN" });
+  n.toLocaleString("es-CO", { style: "currency", currency: "COP" });
 
 export async function sendOrderConfirmation(input: {
   to: string;

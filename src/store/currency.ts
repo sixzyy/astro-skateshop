@@ -12,7 +12,7 @@ interface CurrencyState {
 export const useCurrencyStore = create<CurrencyState>()(
   persist(
     (set) => ({
-      code: "MXN",
+      code: "COP",
       rates: null,
       updated: 0,
       setCode: (code) => set({ code }),

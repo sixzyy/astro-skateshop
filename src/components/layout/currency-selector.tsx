@@ -64,12 +64,12 @@ export function CurrencySelector() {
             </button>
           ))}
           <p className="mt-1 border-t border-border px-2.5 pb-1 pt-1.5 text-[10px] leading-snug text-muted-foreground">
-            Tipo de cambio informativo. El cobro se procesa en pesos mexicanos.
+            Tipo de cambio informativo. El cobro se procesa en pesos colombianos.
             {updated > 0 && (
               <>
                 {" "}
                 Tasas al{" "}
-                {new Date(updated).toLocaleDateString("es-MX", {
+                {new Date(updated).toLocaleDateString("es-CO", {
                   day: "numeric",
                   month: "short",
                 })}

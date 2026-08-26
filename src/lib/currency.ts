@@ -3,14 +3,13 @@ export interface CurrencyOption {
   label: string;
 }
 
-export const BASE_CURRENCY = "MXN";
+export const BASE_CURRENCY = "COP";
 
 /**
  * Monedas ofrecidas en el selector. Los montos se muestran de forma
- * informativa; el cobro siempre se procesa en pesos mexicanos (MXN).
+ * informativa; el cobro siempre se procesa en pesos colombianos (COP).
  */
 export const SUPPORTED_CURRENCIES: CurrencyOption[] = [
-  { code: "MXN", label: "Peso mexicano" },
   { code: "USD", label: "Dólar estadounidense" },
   { code: "EUR", label: "Euro" },
   { code: "GBP", label: "Libra esterlina" },
@@ -20,7 +19,6 @@ export const SUPPORTED_CURRENCIES: CurrencyOption[] = [
   { code: "CNY", label: "Yuan chino" },
   { code: "CHF", label: "Franco suizo" },
   { code: "BRL", label: "Real brasileño" },
-  { code: "COP", label: "Peso colombiano" },
   { code: "CLP", label: "Peso chileno" },
   { code: "ARS", label: "Peso argentino" },
   { code: "PEN", label: "Sol peruano" },
@@ -28,20 +26,20 @@ export const SUPPORTED_CURRENCIES: CurrencyOption[] = [
 
 /** Último recurso si ninguna API responde (aproximaciones conservadoras). */
 const FALLBACK_RATES: Record<string, number> = {
-  MXN: 1,
-  USD: 0.055,
-  EUR: 0.05,
-  GBP: 0.043,
-  CAD: 0.075,
-  AUD: 0.083,
-  JPY: 8.1,
-  CNY: 0.39,
-  CHF: 0.044,
-  BRL: 0.3,
-  COP: 210,
-  CLP: 52,
-  ARS: 70,
-  PEN: 0.2,
+  COP: 1,
+  USD: 0.00025,
+  EUR: 0.00023,
+  GBP: 0.0002,
+  CAD: 0.00034,
+  AUD: 0.00038,
+  JPY: 0.037,
+  CNY: 0.0018,
+  CHF: 0.0002,
+  BRL: 0.0014,
+  CLP: 0.24,
+  ARS: 0.33,
+  PEN: 0.00095,
+  MXN: 0.0048,
 };
 
 type RatesSnapshot = { rates: Record<string, number>; fetchedAt: number };
@@ -64,7 +62,7 @@ function pickRates(codes: string[], raw: Record<string, number>): Record<string,
 
 /** Fuente primaria: open.er-api.com — gratis, sin llave, 160+ monedas. */
 async function fetchFromErApi(codes: string[]): Promise<Record<string, number>> {
-  const res = await fetch("https://open.er-api.com/v6/latest/MXN", {
+  const res = await fetch("https://open.er-api.com/v6/latest/COP", {
     cache: "no-store",
     headers: { Accept: "application/json" },
   });
@@ -78,7 +76,7 @@ async function fetchFromErApi(codes: string[]): Promise<Record<string, number>> 
 
 /** Respaldo gratuito: frankfurter.app (datos del BCE, ~30 monedas). */
 async function fetchFromFrankfurter(codes: string[]): Promise<Record<string, number>> {
-  const res = await fetch("https://api.frankfurter.app/latest?from=MXN", { cache: "no-store" });
+  const res = await fetch("https://api.frankfurter.app/latest?from=COP", { cache: "no-store" });
   if (!res.ok) throw new Error("frankfurter bad status");
   const data = (await res.json()) as { rates?: Record<string, number> };
   if (!data.rates) throw new Error("frankfurter empty");
@@ -92,7 +90,7 @@ export function isSupported(code: string): boolean {
 }
 
 /**
- * Tasas MXN → X con caché de 6h. Cadena de fuentes:
+ * Tasas COP → X con caché de 6h. Cadena de fuentes:
  * open.er-api.com → frankfurter.app → valores locales de respaldo.
  */
 export async function getRates(): Promise<{ rates: Record<string, number>; source: string }> {
@@ -123,23 +121,23 @@ export async function getRateFor(code: string): Promise<number> {
 }
 
 export function convert(
-  amountMXN: number,
+  amountCOP: number,
   code: string,
   rates?: Record<string, number> | null
 ): number {
-  if (code === BASE_CURRENCY) return amountMXN;
+  if (code === BASE_CURRENCY) return amountCOP;
   const rate = rates?.[code] ?? FALLBACK_RATES[code] ?? 1;
-  return amountMXN * rate;
+  return amountCOP * rate;
 }
 
 export function formatMoney(
-  amountMXN: number,
+  amountCOP: number,
   code: string = BASE_CURRENCY,
   rates?: Record<string, number> | null
 ): string {
-  const value = convert(amountMXN, code, rates);
+  const value = convert(amountCOP, code, rates);
   try {
-    return new Intl.NumberFormat("es-MX", { style: "currency", currency: code }).format(value);
+    return new Intl.NumberFormat("es-CO", { style: "currency", currency: code }).format(value);
   } catch {
     return `${value.toFixed(2)} ${code}`;
   }

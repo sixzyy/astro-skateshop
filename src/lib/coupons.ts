@@ -23,7 +23,7 @@ export async function resolveCoupon(rawCode: string, subtotal: number): Promise<
     throw new CouponError("Este cupón alcanzó su límite de usos.");
   }
   if (subtotal < coupon.minSubtotal) {
-    throw new CouponError(`Este cupón requiere una compra mínima de $${round2(coupon.minSubtotal)} MXN.`);
+    throw new CouponError(`Este cupón requiere una compra mínima de $${round2(coupon.minSubtotal)} COP.`);
   }
 
   const discount =

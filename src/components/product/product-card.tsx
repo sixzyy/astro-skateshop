@@ -23,24 +23,24 @@ export function ProductCard({
   return (
     <div
       className={cn(
-        "group relative flex h-full flex-col transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1",
+        "group relative flex h-full flex-col",
         className
       )}
     >
-      {/* Image — slight grayscale, color on hover, translateY */}
-      <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-card">
+      {/* Image */}
+      <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-background-secondary">
         <Link href={`/products/${product.slug}`} className="block h-full" aria-label={product.name}>
           <ProductImage
             src={product.images[0]}
             alt={product.name}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
-            className="object-cover transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.035]"
+            className="object-cover transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
           />
         </Link>
 
         {/* Top actions */}
-        <div className="absolute right-3 top-3 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <div className="absolute right-3 top-3 z-10 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
           <HeartButton
             product={{
               id: product.id,
@@ -52,22 +52,17 @@ export function ProductCard({
           />
         </div>
 
-        {/* SKU tag — bottom left */}
-        <span className="absolute bottom-3 left-3 z-10 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground-disabled opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          {product.slug}
-        </span>
-
-        {/* Quick add — bottom right */}
+        {/* Quick add */}
         {!outOfStock && (
-          <div className="absolute bottom-3 right-3 z-10 translate-y-2 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0 group-hover:opacity-100">
+          <div className="absolute bottom-3 right-3 z-10 translate-y-1 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
             <QuickAdd product={product} />
           </div>
         )}
 
-        {/* Sold out overlay */}
+        {/* Sold out */}
         {outOfStock && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-lg bg-background/70 backdrop-blur-[2px]">
-            <span className="font-mono text-xs uppercase tracking-[0.3em] text-foreground-disabled">
+          <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-background/60 backdrop-blur-[2px]">
+            <span className="text-xs font-medium uppercase tracking-wider text-foreground-muted">
               Agotado
             </span>
           </div>
@@ -75,27 +70,19 @@ export function ProductCard({
       </div>
 
       {/* Info */}
-      <Link href={`/products/${product.slug}`} className="flex flex-1 flex-col gap-1 px-1 pt-3 pb-1">
-        <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground-disabled">
+      <Link href={`/products/${product.slug}`} className="flex flex-1 flex-col gap-0.5 px-1 pt-3 pb-1">
+        <p className="text-[11px] font-medium uppercase tracking-wider text-foreground-muted">
           {product.brand.name}
         </p>
-        <h3 className="line-clamp-1 font-display text-sm font-bold uppercase leading-tight tracking-tight text-foreground transition-colors duration-300 group-hover:text-accent">
+        <h3 className="line-clamp-1 text-sm font-semibold text-foreground transition-colors duration-200 group-hover:text-accent">
           {product.name}
         </h3>
         <div className="flex items-baseline gap-2 pt-0.5">
-          <Price
-            amount={product.price}
-            className="text-sm font-semibold text-foreground"
-          />
+          <Price amount={product.price} className="text-sm font-semibold text-foreground" />
           {discount > 0 && (
             <>
-              <Price
-                amount={product.compareAtPrice!}
-                className="text-xs text-foreground-disabled line-through"
-              />
-              <span className="text-xs font-medium text-cta">
-                -{discount}%
-              </span>
+              <Price amount={product.compareAtPrice!} className="text-xs text-foreground-muted line-through" />
+              <span className="text-xs font-semibold text-cta">-{discount}%</span>
             </>
           )}
         </div>

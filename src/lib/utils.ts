@@ -6,22 +6,22 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatPrice(value: number) {
-  return new Intl.NumberFormat("es-MX", {
+  return new Intl.NumberFormat("es-CO", {
     style: "currency",
-    currency: "MXN",
+    currency: "COP",
   }).format(value);
 }
 
 export function trackUrl(trackingNumber: string, carrier?: string | null) {
   if (carrier === "estafeta") return `https://www.estafeta.com/Rastreo?guia=${encodeURIComponent(trackingNumber)}`;
-  if (carrier === "dhl") return `https://www.dhl.com/mx-es/home/tracking.html?tracking-id=${encodeURIComponent(trackingNumber)}`;
+  if (carrier === "dhl") return `https://www.dhl.com/co-es/home/tracking.html?tracking-id=${encodeURIComponent(trackingNumber)}`;
   if (carrier === "fedex") return `https://www.fedex.com/fedextrack/?trknbr=${encodeURIComponent(trackingNumber)}`;
   // Rastreador universal gratuito de 17TRACK
   return `https://www.17track.net/es/track#nums=${encodeURIComponent(trackingNumber)}`;
 }
 
 export function formatDate(date: Date | string) {
-  return new Intl.DateTimeFormat("es-MX", {
+  return new Intl.DateTimeFormat("es-CO", {
     dateStyle: "medium",
     timeStyle: "short",
   }).format(new Date(date));

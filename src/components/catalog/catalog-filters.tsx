@@ -43,7 +43,7 @@ export function CatalogFilters({ categories, brands }: Props) {
   return (
     <aside className="space-y-6">
       <div className="flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest">
-        <SlidersHorizontal className="h-4 w-4 text-foreground-disabled" /> Filtros
+        <SlidersHorizontal className="h-4 w-4 text-foreground-muted" /> Filtros
       </div>
 
       <FilterBlock title="Categoria">
@@ -70,7 +70,7 @@ export function CatalogFilters({ categories, brands }: Props) {
         ))}
       </FilterBlock>
 
-      <FilterBlock title="Precio (MXN)">
+      <FilterBlock title="Precio (COP)">
         <form onSubmit={applyPrice} className="flex items-center gap-2">
           <input
             value={minPrice}
@@ -79,7 +79,7 @@ export function CatalogFilters({ categories, brands }: Props) {
             placeholder="Min"
             className="h-9 w-full border border-border rounded-lg bg-background-secondary px-2.5 text-sm outline-none transition-all duration-300 focus:border-border-active"
           />
-          <span className="text-foreground-disabled">&mdash;</span>
+          <span className="text-foreground-muted">&mdash;</span>
           <input
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
@@ -89,7 +89,7 @@ export function CatalogFilters({ categories, brands }: Props) {
           />
           <button
             type="submit"
-            className="h-9 shrink-0 rounded-lg bg-cta px-3 font-display text-xs font-bold uppercase text-white cursor-pointer transition-all duration-300 hover:bg-cta-hover"
+            className="h-9 shrink-0 rounded-full bg-cta px-3 font-display text-xs font-bold uppercase text-white cursor-pointer transition-all duration-300 hover:bg-cta-hover hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98]"
           >
             OK
           </button>
@@ -125,8 +125,8 @@ export function CatalogFilters({ categories, brands }: Props) {
 
 function FilterBlock({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="border border-border rounded-lg bg-background-secondary/50 p-4">
-      <h3 className="mb-3 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-disabled">{title}</h3>
+    <div className="border border-border rounded-xl bg-background-secondary/50 p-4">
+      <h3 className="mb-3 font-mono text-[11px] font-bold uppercase tracking-widest text-foreground-secondary">{title}</h3>
       <div className="space-y-1.5">{children}</div>
     </div>
   );

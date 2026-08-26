@@ -216,7 +216,7 @@ export function CouponsManager() {
                     {c.uses}/{c.maxUses ?? "∞"}
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">
-                    {c.expiresAt ? new Date(c.expiresAt).toLocaleDateString("es-MX") : "—"}
+                    {c.expiresAt ? new Date(c.expiresAt).toLocaleDateString("es-CO") : "—"}
                   </td>
                   <td className="px-4 py-3">
                     <button

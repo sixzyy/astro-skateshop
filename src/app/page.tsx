@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Footprints, Grip, RefreshCcw, Shirt, Truck, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Footprints, Grip, RefreshCcw, Shirt, Truck, ShieldCheck, Zap, Star } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { nextScheduledDrop, scheduledFilter } from "@/lib/schedule";
 import { ProductCard } from "@/components/product/product-card";
@@ -79,7 +79,7 @@ export default async function HomePage() {
   return (
     <>
       {announcement.trim() && (
-        <div className="mx-auto mt-6 w-[calc(100%-1.5rem)] max-w-7xl rounded-lg border border-border bg-background-secondary px-4 py-2.5 text-center font-mono text-[11px] uppercase tracking-[0.2em] text-foreground-secondary sm:w-full">
+        <div className="mx-auto mt-6 w-[calc(100%-1.5rem)] max-w-7xl rounded-full border border-border bg-card px-4 py-2.5 text-center text-[11px] font-medium uppercase tracking-wider text-foreground-secondary sm:w-full">
           {announcement}
         </div>
       )}
@@ -97,17 +97,17 @@ export default async function HomePage() {
       <section className="reveal-section mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-3">
           {[
-            { icon: Truck, title: "Envio gratis", text: "En compras desde $999 MXN" },
+            { icon: Truck, title: "Envio gratis", text: "En compras desde $999" },
             { icon: ShieldCheck, title: "Pago seguro", text: "Stripe + cifrado SSL" },
             { icon: RefreshCcw, title: "Cambios faciles", text: "30 dias para cambios y devoluciones" },
           ].map((f) => (
             <div
               key={f.title}
-              className="flex items-start gap-4 rounded-lg border border-border bg-background-secondary/50 p-6"
+              className="flex items-start gap-4 rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:shadow-sm"
             >
-              <f.icon className="mt-0.5 h-5 w-5 shrink-0 text-foreground-disabled" strokeWidth={1.5} />
+              <f.icon className="mt-0.5 h-5 w-5 shrink-0 text-foreground-muted" strokeWidth={1.5} />
               <div>
-                <h3 className="font-display text-sm font-bold uppercase tracking-wide">{f.title}</h3>
+                <h3 className="text-sm font-semibold text-foreground">{f.title}</h3>
                 <p className="mt-1 text-sm text-foreground-secondary">{f.text}</p>
               </div>
             </div>
@@ -126,13 +126,13 @@ export default async function HomePage() {
                 <Link
                   key={cat.id}
                   href={`/products?category=${cat.slug}`}
-                  className="reveal-section group flex flex-col items-center gap-3 rounded-lg border border-border bg-background-secondary/30 p-6 text-center transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-border-active hover:-translate-y-1"
+                  className="group flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-6 text-center transition-all duration-200 hover:border-border-active hover:-translate-y-0.5 hover:shadow-sm"
                 >
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-colors duration-300 group-hover:border-border-active group-hover:text-foreground">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-background-secondary text-foreground-secondary transition-colors duration-200 group-hover:bg-accent-light group-hover:text-accent">
                     <Icon className="h-5 w-5" strokeWidth={1.5} />
                   </span>
-                  <span className="font-display text-sm font-bold uppercase tracking-wide">{cat.name}</span>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-disabled">
+                  <span className="text-sm font-semibold text-foreground">{cat.name}</span>
+                  <span className="text-[11px] font-medium text-foreground-muted">
                     {cat._count.products} items
                   </span>
                 </Link>
@@ -161,25 +161,26 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Editorial setup section — cosmic violet atmosphere */}
-      <section className="reveal-section cosmic-violet border-y border-border-subtle">
+      {/* Editorial — Board Builder */}
+      <section className="reveal-section bg-background-secondary border-y border-border">
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-foreground-muted">
+            <Star className="h-3 w-3 fill-accent text-accent" />
             Tu setup, tu forma
-          </p>
-          <h2 className="mt-3 max-w-xl font-display text-3xl font-extrabold uppercase leading-tight tracking-tight md:text-4xl">
+          </span>
+          <h2 className="mt-3 max-w-xl text-3xl font-bold leading-tight tracking-tight md:text-4xl">
             El setup completo,{" "}
             <span className="text-foreground-muted">sin excusas</span>
           </h2>
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-foreground-secondary">
             Arma tu skate pieza por pieza con producto original. Nuestro equipo te asesora gratis
-            para elegir la medida correcta antes de tu proximo despegue.
+            para elegir la medida correcta.
           </p>
           <Link
             href="/armador"
-            className="mt-8 inline-flex min-h-[52px] items-center gap-2 rounded-lg border border-border px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-foreground transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:border-border-active hover:shadow-[0_8px_30px_rgba(84,216,255,0.08)] active:scale-[0.98]"
+            className="mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-foreground px-6 text-sm font-semibold text-background transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-black hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98]"
           >
-            Arma tu setup <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            Arma tu setup <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
       </section>
@@ -205,10 +206,10 @@ export default async function HomePage() {
           <div className="mt-10 flex justify-center">
             <Link
               href="/products"
-              className="group inline-flex items-center gap-2 font-mono text-sm uppercase tracking-[0.2em] text-foreground-secondary transition-colors duration-200 hover:text-foreground"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-foreground-secondary transition-colors duration-200 hover:text-foreground"
             >
               Explorar todo el catalogo
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
             </Link>
           </div>
         </section>
@@ -233,16 +234,16 @@ function SectionHeading({
   return (
     <div className="relative mb-10 flex items-end justify-between gap-4">
       <div>
-        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">
+        <span className="text-[11px] font-medium uppercase tracking-wider text-foreground-muted">
           {kicker}
         </span>
-        <h2 className="mt-1 font-display text-2xl font-extrabold uppercase tracking-tight sm:text-3xl">
+        <h2 className="mt-1 font-display text-2xl font-bold tracking-tight sm:text-3xl">
           {title}
         </h2>
       </div>
       <Link
         href={href}
-        className="hidden shrink-0 font-mono text-xs uppercase tracking-[0.2em] text-foreground-secondary underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-foreground hover:decoration-border-active sm:inline-flex"
+        className="hidden shrink-0 text-xs font-medium text-foreground-secondary transition-colors duration-200 hover:text-foreground sm:inline-flex"
       >
         {linkText} &rarr;
       </Link>

@@ -159,7 +159,7 @@ export function ProductForm({ categories, brands, initial }: Props) {
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} required minLength={10} rows={4} className={inputCls} placeholder="Describe el producto, materiales, uso recomendado..." />
         </Field>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Precio (MXN)">
+          <Field label="Precio (COP)">
             <input value={price} onChange={(e) => setPrice(e.target.value)} required type="number" step="0.01" min="1" className={inputCls} />
           </Field>
           <Field label="Precio anterior (opcional, para mostrar descuento)">

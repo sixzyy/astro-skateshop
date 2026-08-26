@@ -81,7 +81,7 @@ export function StockAlertsList() {
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
                 {g.emails.length} cliente{g.emails.length === 1 ? "" : "s"} esperando desde{" "}
-                {new Date(g.since).toLocaleDateString("es-MX")}
+                {new Date(g.since).toLocaleDateString("es-CO")}
               </p>
             </div>
             <div className="flex shrink-0 gap-2">

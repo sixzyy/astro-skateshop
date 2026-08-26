@@ -86,7 +86,7 @@ export function SettingsForm() {
         <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-widest">Envíos</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <label className={label}>
-            Envío gratis a partir de ($ MXN)
+            Envío gratis a partir de ($ COP)
             <input
               type="number"
               min={0}
@@ -97,7 +97,7 @@ export function SettingsForm() {
             />
           </label>
           <label className={label}>
-            Costo de envío estándar ($ MXN)
+            Costo de envío estándar ($ COP)
             <input
               type="number"
               min={0}

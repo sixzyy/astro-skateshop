@@ -64,7 +64,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           {!isLogin && (
             <Field label="Nombre" name="name" type="text" placeholder="Tu nombre" required minLength={2} />
           )}
-          <Field label="Correo" name="email" type="email" placeholder="tu@correo.mx" required />
+           <Field label="Correo" name="email" type="email" placeholder="tu@correo.co" required />
           <Field
             label="Contrasena"
             name="password"
@@ -77,7 +77,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           <button
             type="submit"
             disabled={loading}
-            className="min-h-[48px] w-full rounded-lg bg-cta px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:bg-cta-hover hover:shadow-[0_8px_30px_rgba(255,90,31,0.25)] active:scale-[0.98] disabled:opacity-60 cursor-pointer"
+            className="h-12 w-full rounded-full bg-foreground font-semibold text-sm text-background transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-black hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-50 cursor-pointer"
           >
             {loading ? "Procesando..." : isLogin ? "Entrar" : "Crear cuenta"}
           </button>
