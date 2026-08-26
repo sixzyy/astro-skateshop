@@ -35,15 +35,15 @@ export function QuickAdd({ product, className }: { product: ProductDTO; classNam
     <button
       type="button"
       onClick={onAdd}
-      aria-label={`Añadir ${product.name} al carrito`}
+      aria-label={`Anadir ${product.name} al carrito`}
       className={cn(
-        "btn-glow-cyan inline-flex items-center gap-1.5 rounded-md border border-accent/70 bg-background/90 px-3 py-2 font-display text-[11px] font-bold uppercase tracking-wider text-accent backdrop-blur transition-all hover:bg-accent hover:text-zinc-950 active:scale-95 cursor-pointer",
-        added && "border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-zinc-950",
+        "inline-flex items-center gap-1.5 rounded-lg border border-border bg-background-secondary/90 px-3 py-2 font-display text-[11px] font-bold uppercase tracking-wider text-foreground backdrop-blur transition-all hover:border-foreground/30 hover:text-foreground active:scale-95 cursor-pointer",
+        added && "border-emerald-400/50 text-emerald-400",
         className
       )}
     >
       {added ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : <Plus className="h-3.5 w-3.5" strokeWidth={3} />}
-      {added ? "Añadido" : "Añadir"}
+      {added ? "Anadido" : "Anadir"}
     </button>
   );
 }

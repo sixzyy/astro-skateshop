@@ -46,7 +46,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
   return (
     <div className="space-y-5">
       <div>
-        <p className="mb-2 font-display text-xs font-bold uppercase tracking-widest text-muted-foreground">
+        <p className="mb-2 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
           {product.category.name === "Ropa" ? "Talla" : "Medida"} —{" "}
           <span className="text-foreground">{variant?.title ?? "-"}</span>
         </p>
@@ -60,12 +60,12 @@ export function AddToCart({ product }: { product: ProductDTO }) {
               }}
               disabled={v.stock <= 0}
               className={cn(
-                "min-w-14 rounded-md border px-3 py-2 font-display text-sm font-semibold transition-all cursor-pointer",
+                "min-w-14 rounded-lg border px-3 py-2 font-display text-sm font-semibold transition-all cursor-pointer",
                 v.id === variantId
-                  ? "border-accent bg-accent text-zinc-950 shadow-[0_0_16px_rgba(0,240,255,0.35)]"
-                  : "border-border hover:border-accent/60",
+                  ? "border-foreground bg-foreground text-background"
+                  : "border-border hover:border-foreground/30",
                 v.stock <= 0 &&
-                  "cursor-not-allowed border-border bg-muted text-muted-foreground line-through opacity-60 hover:border-border"
+                  "cursor-not-allowed border-border text-foreground-secondary/40 line-through opacity-60 hover:border-border"
               )}
               title={v.stock <= 0 ? "Sin stock" : `${v.stock} disponibles`}
             >
@@ -75,19 +75,17 @@ export function AddToCart({ product }: { product: ProductDTO }) {
         </div>
         <p className="mt-2 font-mono text-[11px] uppercase tracking-widest">
           {!variant || variant.stock <= 0 ? (
-            <span className="text-red-400">● Sin unidades — selecciona otra medida o notifícame</span>
+            <span className="text-red-400">Sin unidades</span>
           ) : variant.stock <= 3 ? (
-            <span className="animate-pulse text-cta">▲ ¡Solo quedan {variant.stock} en órbita!</span>
+            <span className="text-cta">Solo quedan {variant.stock}</span>
           ) : (
-            <span className="text-emerald-400 [text-shadow:0_0_8px_rgba(52,211,153,0.55)]">
-              ● En stock · listo para despegar
-            </span>
+            <span className="text-emerald-400">En stock</span>
           )}
         </p>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <div className="inline-flex h-12 items-center rounded-md border border-border">
+        <div className="inline-flex h-12 items-center rounded-lg border border-border">
           <button
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
             disabled={quantity <= 1}
@@ -108,15 +106,15 @@ export function AddToCart({ product }: { product: ProductDTO }) {
         </div>
 
         {outOfStock ? (
-          <div className="flex h-12 min-w-52 flex-1 flex-wrap items-center justify-between gap-2 rounded-md border border-red-500/30 bg-red-500/5 px-4">
+          <div className="flex h-12 min-w-52 flex-1 flex-wrap items-center justify-between gap-2 rounded-lg border border-red-500/20 bg-red-500/5 px-4">
             <span className="font-display text-sm font-bold uppercase tracking-wide text-red-400">Agotado</span>
             <a
               href={`mailto:hola@astroskate.mx?subject=${encodeURIComponent(
                 "Notificar disponibilidad: " + product.name
-              )}&body=${encodeURIComponent("Hola, quiero que me avisen cuando regrese a órbita este producto.")}`}
-              className="inline-flex items-center gap-1.5 rounded-md border border-accent/60 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-accent transition-colors hover:bg-accent hover:text-zinc-950"
+              )}&body=${encodeURIComponent("Hola, quiero que me avisen cuando regrese a orbita este producto.")}`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-foreground-secondary transition-colors hover:border-foreground/30 hover:text-foreground"
             >
-              Notificar disponibilidad
+              Notificar
             </a>
           </div>
         ) : (
@@ -124,14 +122,13 @@ export function AddToCart({ product }: { product: ProductDTO }) {
             onClick={handleAdd}
             disabled={outOfStock}
             className={cn(
-              "group/btn btn-glow-cta flex h-12 flex-1 min-w-52 items-center justify-center gap-2 rounded-md font-display text-sm font-bold uppercase tracking-wide transition-all active:scale-[0.98]",
-              "bg-cta text-zinc-950 hover:bg-cta-strong cursor-pointer",
+              "group/btn flex h-12 flex-1 min-w-52 items-center justify-center gap-2 rounded-lg bg-foreground font-display text-sm font-bold uppercase tracking-wide text-background transition-all hover:opacity-90 active:scale-[0.98] cursor-pointer",
               added && "animate-pop"
             )}
           >
             {added ? (
               <>
-                <Check className="h-5 w-5" /> ¡Agregado!
+                <Check className="h-5 w-5" /> Agregado!
               </>
             ) : (
               <>
@@ -145,7 +142,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
 
       {variant && variant.stock > 0 && variant.stock <= 3 && (
         <p className="text-xs font-semibold uppercase tracking-wide text-red-500">
-          ¡Últimas {variant.stock} piezas!
+          Ultimas {variant.stock} piezas!
         </p>
       )}
     </div>

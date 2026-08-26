@@ -1,15 +1,13 @@
 export function GiantMarquee({
   items,
   reverse = false,
-  fast = false,
-  size = "xl",
+  size = "lg",
 }: {
   items: string[];
   reverse?: boolean;
-  fast?: boolean;
   size?: "lg" | "xl";
 }) {
-  const anim = reverse ? "animate-marquee-rev" : fast ? "animate-marquee-fast" : "animate-marquee";
+  const anim = reverse ? "animate-marquee-rev" : "animate-marquee";
   const sizeCls = size === "xl" ? "text-5xl md:text-7xl" : "text-3xl md:text-5xl";
 
   const row = (hidden: boolean) => (
@@ -18,19 +16,21 @@ export function GiantMarquee({
         <span key={`${item}-${i}`} className="flex items-center">
           <span
             className={`whitespace-nowrap font-display font-extrabold uppercase tracking-tight ${sizeCls} ${
-              i % 2 === 0 ? "text-stroke" : "text-accent/90"
+              i % 2 === 0 ? "text-foreground/[0.07]" : "text-foreground/[0.12]"
             }`}
           >
             {item}
           </span>
-          <span className="mx-8 select-none font-mono text-xl text-cta md:text-2xl">{"//"}</span>
+          <span className="mx-6 font-mono text-sm text-foreground-secondary/20 md:mx-10">
+            &bull;
+          </span>
         </span>
       ))}
     </div>
   );
 
   return (
-    <section className="relative overflow-hidden border-y border-border/60 py-6 md:py-8">
+    <section className="relative overflow-hidden border-y border-border-subtle py-8 md:py-12">
       <div className={`flex w-max ${anim}`}>
         {row(false)}
         {row(true)}

@@ -43,10 +43,10 @@ export function CatalogFilters({ categories, brands }: Props) {
   return (
     <aside className="space-y-6">
       <div className="flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest">
-        <SlidersHorizontal className="h-4 w-4 text-accent" /> Filtros
+        <SlidersHorizontal className="h-4 w-4 text-foreground-secondary/50" /> Filtros
       </div>
 
-      <FilterBlock title="Categoría">
+      <FilterBlock title="Categoria">
         <FilterRow label="Todas" active={!currentCategory} onClick={() => updateParam("category", null)} />
         {categories.map((c) => (
           <FilterRow
@@ -76,20 +76,20 @@ export function CatalogFilters({ categories, brands }: Props) {
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
             inputMode="numeric"
-            placeholder="Mín"
-            className="h-9 w-full rounded-md border border-border bg-card px-2.5 text-sm outline-none focus:border-accent"
+            placeholder="Min"
+            className="h-9 w-full rounded-lg border border-border bg-background-secondary px-2.5 text-sm outline-none transition-colors focus:border-foreground/40"
           />
-          <span className="text-muted-foreground">—</span>
+          <span className="text-foreground-secondary/30">&mdash;</span>
           <input
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
             inputMode="numeric"
-            placeholder="Máx"
-            className="h-9 w-full rounded-md border border-border bg-card px-2.5 text-sm outline-none focus:border-accent"
+            placeholder="Max"
+            className="h-9 w-full rounded-lg border border-border bg-background-secondary px-2.5 text-sm outline-none transition-colors focus:border-foreground/40"
           />
           <button
             type="submit"
-            className="h-9 shrink-0 rounded-md bg-accent px-3 font-display text-xs font-bold uppercase text-zinc-950 cursor-pointer hover:bg-accent-strong"
+            className="h-9 shrink-0 rounded-lg bg-foreground px-3 font-display text-xs font-bold uppercase text-background cursor-pointer transition-opacity hover:opacity-80"
           >
             OK
           </button>
@@ -97,14 +97,14 @@ export function CatalogFilters({ categories, brands }: Props) {
       </FilterBlock>
 
       <FilterBlock title="Disponibilidad">
-        <label className="flex cursor-pointer items-center gap-2.5 text-sm">
+        <label className="flex cursor-pointer items-center gap-2.5 text-sm text-foreground-secondary">
           <input
             type="checkbox"
             checked={inStockOnly}
             onChange={(e) => updateParam("stock", e.target.checked ? "1" : null)}
-            className="h-4 w-4 accent-[var(--accent)]"
+            className="h-4 w-4 accent-foreground"
           />
-          Solo productos en stock
+          Solo en stock
         </label>
       </FilterBlock>
 
@@ -112,11 +112,11 @@ export function CatalogFilters({ categories, brands }: Props) {
         <select
           value={sort}
           onChange={(e) => updateParam("sort", e.target.value === "newest" ? null : e.target.value)}
-          className="h-9 w-full rounded-md border border-border bg-card px-2.5 text-sm outline-none focus:border-accent cursor-pointer"
+          className="h-9 w-full rounded-lg border border-border bg-background-secondary px-2.5 text-sm outline-none transition-colors focus:border-foreground/40 cursor-pointer"
         >
-          <option value="newest">Más recientes</option>
-          <option value="price_asc">Precio: menor a mayor</option>
-          <option value="price_desc">Precio: mayor a menor</option>
+          <option value="newest">Mas recientes</option>
+          <option value="price_asc">Menor a mayor</option>
+          <option value="price_desc">Mayor a menor</option>
         </select>
       </FilterBlock>
     </aside>
@@ -125,8 +125,8 @@ export function CatalogFilters({ categories, brands }: Props) {
 
 function FilterBlock({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg border border-border bg-card p-4">
-      <h3 className="mb-3 font-display text-xs font-bold uppercase tracking-widest">{title}</h3>
+    <div className="border border-border-subtle bg-background-secondary/50 p-4">
+      <h3 className="mb-3 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">{title}</h3>
       <div className="space-y-1.5">{children}</div>
     </div>
   );
@@ -137,7 +137,7 @@ function FilterRow({ label, active, onClick }: { label: string; active?: boolean
     <button
       onClick={onClick}
       className={`block w-full text-left text-sm transition-colors cursor-pointer ${
-        active ? "font-display font-bold text-accent" : "text-muted-foreground hover:text-foreground"
+        active ? "font-display font-bold text-foreground" : "text-foreground-secondary hover:text-foreground"
       }`}
     >
       {label}

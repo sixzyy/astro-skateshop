@@ -1,67 +1,79 @@
 import Link from "next/link";
-import { MessageCircle, Music2 } from "lucide-react";
 import { InstagramIcon, YoutubeIcon } from "@/components/ui/social-icons";
 import { Logo } from "@/components/layout/logo";
 
 const SHOP_LINKS = [
-  { href: "/products?category=tablas", label: "Tablas" },
+  { href: "/products?category=tablas", label: "Decks" },
   { href: "/products?category=grips", label: "Grips" },
   { href: "/products?category=trucks", label: "Trucks" },
-  { href: "/products?category=ruedas", label: "Ruedas" },
-  { href: "/products?category=tenis", label: "Tenis" },
-  { href: "/products?category=ropa", label: "Ropa" },
+  { href: "/products?category=ruedas", label: "Wheels" },
+  { href: "/products?category=tenis", label: "Footwear" },
+  { href: "/products?category=ropa", label: "Apparel" },
 ];
 
-const SOCIALS = [
-  { icon: InstagramIcon, label: "Instagram", href: "https://instagram.com/astroskateshop" },
-  { icon: Music2, label: "TikTok", href: "https://tiktok.com/@astroskateshop" },
-  { icon: YoutubeIcon, label: "YouTube", href: "https://youtube.com/@astroskateshop" },
-  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/5215512345678" },
+const HELP_LINKS = [
+  { href: "/rastrear", label: "Rastrear pedido" },
+  { href: "/account", label: "Mi cuenta" },
+  { href: "/register", label: "Crear cuenta" },
 ];
 
 export function Footer() {
   return (
-    <footer className="scanlines relative mt-24 border-t border-accent/20">
-      <div className="overflow-hidden select-none border-b border-border/60 py-2">
-        <div className="animate-marquee-fast flex w-max">
+    <footer className="border-t border-border-subtle">
+      {/* Marquee */}
+      <div className="overflow-hidden border-b border-border-subtle py-3 select-none">
+        <div className="animate-marquee flex w-max">
           {[0, 1].map((n) => (
-            <span key={n} className="shrink-0 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.35em] text-muted-foreground" aria-hidden={n === 1}>
-              astro skateshop // consola de navegación // est. 2016 // cdmx // órbita baja // transmitiendo //
+            <span
+              key={n}
+              className="shrink-0 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.4em] text-foreground-secondary/40"
+              aria-hidden={n === 1}
+            >
+              ride your own orbit &nbsp;&nbsp;//&nbsp;&nbsp; est. 2016 &nbsp;&nbsp;//&nbsp;&nbsp; cdmx &nbsp;&nbsp;//&nbsp;&nbsp; skate culture &nbsp;&nbsp;//&nbsp;&nbsp; streetwear &nbsp;&nbsp;//&nbsp;&nbsp;
             </span>
           ))}
         </div>
       </div>
 
-      <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-        <div className="panel-corners overflow-hidden border border-border/70 bg-card/40 p-5 sm:p-6">
-          <Logo size="sm" className="sm:hidden" />
-          <Logo size="md" className="hidden sm:inline-flex" />
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-            Skateshop 100% independiente. Equipo real, producto real, cultura real desde otra órbita.
+      {/* Main footer */}
+      <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+        {/* Brand */}
+        <div className="lg:col-span-1">
+          <Logo size="md" />
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-foreground-secondary">
+            Skate y streetwear independiente. Equipo real, cultura real.
           </p>
-          <div className="mt-4 flex gap-2.5">
-            {SOCIALS.map((s) => (
+          <div className="mt-5 flex gap-3">
+            {[
+              { icon: InstagramIcon, label: "Instagram", href: "https://instagram.com/astroskateshop" },
+              { icon: YoutubeIcon, label: "YouTube", href: "https://youtube.com/@astroskateshop" },
+            ].map((s) => (
               <a
                 key={s.label}
                 href={s.href}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={s.label}
-                title={s.label}
-                className="link-glitch inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border transition-all hover:border-accent hover:text-accent hover:shadow-[0_0_14px_rgba(0,240,255,0.35)]"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-foreground-secondary transition-colors hover:border-foreground/30 hover:text-foreground"
               >
-                <s.icon className="h-4 w-4" strokeWidth={1.7} />
+                <s.icon className="h-4 w-4" strokeWidth={1.5} />
               </a>
             ))}
           </div>
         </div>
 
-        <div className="panel-corners border border-border/70 bg-card/40 p-5 sm:p-6">
-          <h3 className="font-mono text-xs uppercase tracking-[0.3em] text-accent">Módulos</h3>
-          <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
+        {/* Shop */}
+        <div>
+          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-secondary/60">
+            Shop
+          </h3>
+          <ul className="mt-4 space-y-2.5">
             {SHOP_LINKS.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="link-glitch">
+                <Link
+                  href={l.href}
+                  className="text-sm text-foreground-secondary transition-colors hover:text-foreground"
+                >
                   {l.label}
                 </Link>
               </li>
@@ -69,38 +81,61 @@ export function Footer() {
           </ul>
         </div>
 
-        <div className="panel-corners border border-border/70 bg-card/40 p-5 sm:p-6">
-          <h3 className="font-mono text-xs uppercase tracking-[0.3em] text-accent">Protocolos</h3>
-          <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-muted-foreground [overflow-wrap:break-word]">
-            <li>Envíos a todo México</li>
-            <li>Cambios y devoluciones: 30 días</li>
-            <li>Pago seguro con Stripe</li>
-            <li>Envío gratis desde $999 MXN</li>
+        {/* Help */}
+        <div>
+          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-secondary/60">
+            Help
+          </h3>
+          <ul className="mt-4 space-y-2.5">
+            {HELP_LINKS.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="text-sm text-foreground-secondary transition-colors hover:text-foreground"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <span className="text-sm text-foreground-secondary">
+                Envios a todo Mexico
+              </span>
+            </li>
+            <li>
+              <span className="text-sm text-foreground-secondary">
+                Envio gratis desde $999 MXN
+              </span>
+            </li>
           </ul>
         </div>
 
-        <div className="panel-corners border border-border/70 bg-card/40 p-5 sm:p-6">
-          <h3 className="font-mono text-xs uppercase tracking-[0.3em] text-accent">Base terrestre</h3>
-          <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-muted-foreground [overflow-wrap:break-word]">
+        {/* Contact */}
+        <div>
+          <h3 className="font-mono text-xs uppercase tracking-[0.25em] text-foreground-secondary/60">
+            Contacto
+          </h3>
+          <ul className="mt-4 space-y-2.5 text-sm text-foreground-secondary">
             <li>
-              <a href="mailto:hola@astroskate.mx" className="link-glitch break-all">
+              <a href="mailto:hola@astroskate.mx" className="transition-colors hover:text-foreground">
                 hola@astroskate.mx
               </a>
             </li>
-            <li>Lun - Sáb / 11am - 8pm</li>
             <li>Roma Norte, CDMX</li>
+            <li>Lun - Sab / 11am - 8pm</li>
           </ul>
         </div>
       </div>
 
-      <div className="border-t border-border/60">
-        <div className="mx-auto grid w-full max-w-7xl grid-cols-2 gap-x-4 gap-y-2 px-4 py-4 text-center font-mono text-[11px] uppercase tracking-widest text-muted-foreground sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-8 sm:text-left lg:px-8">
-          <span className="order-first col-span-2 sm:col-span-1">
-            Sistema: <span className="text-emerald-400">online ●</span>
+      {/* Bottom bar */}
+      <div className="border-t border-border-subtle">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-5 text-xs text-foreground-secondary/50 sm:px-6 lg:px-8">
+          <span className="font-display font-bold uppercase tracking-tight text-foreground-secondary/70">
+            Ride Your Own Orbit.
           </span>
-          <span>Lat 19.4194°N / Lon 99.1453°W</span>
-          <span className="text-accent">Señal ▓▓▓▓░</span>
-          <span>© {new Date().getFullYear()} Astro Skateshop</span>
+          <span className="font-mono text-[11px]">
+            &copy; {new Date().getFullYear()} ASTRO Skateshop
+          </span>
         </div>
       </div>
     </footer>

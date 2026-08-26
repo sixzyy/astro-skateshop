@@ -34,7 +34,7 @@ interface Props {
   loggedIn?: boolean;
 }
 
-const STEPS = ["Envío", "Pago", "Confirmación"];
+const STEPS = ["Envio", "Pago", "Confirmacion"];
 
 type FieldKey = "name" | "email" | "address" | "city" | "state" | "postalCode";
 
@@ -49,8 +49,8 @@ const FIELD_VALIDATORS: Record<FieldKey, (v: string) => boolean> = {
 
 const FIELD_LABELS: Record<FieldKey, { label: string; placeholder: string; autoComplete: string; type?: string; span?: string }> = {
   name: { label: "Nombre completo", placeholder: "Tu nombre y apellido", autoComplete: "name" },
-  email: { label: "Correo electrónico", placeholder: "tu@correo.mx", autoComplete: "email", type: "email" },
-  address: { label: "Calle y número", placeholder: "Av. Reforma 123, Int. 4", autoComplete: "street-address", span: "sm:col-span-2" },
+  email: { label: "Correo electronico", placeholder: "tu@correo.mx", autoComplete: "email", type: "email" },
+  address: { label: "Calle y numero", placeholder: "Av. Reforma 123, Int. 4", autoComplete: "street-address", span: "sm:col-span-2" },
   city: { label: "Ciudad", placeholder: "CDMX", autoComplete: "address-level2" },
   state: { label: "Estado", placeholder: "CMX", autoComplete: "address-level1" },
   postalCode: { label: "C.P.", placeholder: "06700", autoComplete: "postal-code" },
@@ -111,7 +111,6 @@ export function CheckoutForm({
 
   function setField(key: FieldKey, value: string) {
     setValues((prev) => ({ ...prev, [key]: value }));
-    // Si el usuario edita manualmente, deja de usar la dirección guardada.
     if (key !== "email") setSelectedAddressId("");
   }
 
@@ -164,7 +163,7 @@ export function CheckoutForm({
 
       router.push(`/checkout/success?number=${data.number}`);
     } catch {
-      setServerError("Error de conexión. Intenta de nuevo.");
+      setServerError("Error de conexion. Intenta de nuevo.");
       setLoading(false);
     }
   }
@@ -177,8 +176,8 @@ export function CheckoutForm({
     const result = await applyCoupon(couponInput.trim().toUpperCase());
     setCouponMessage(
       result.ok
-        ? { ok: true, text: "¡Cupón aplicado! El descuento ya está en tu total." }
-        : { ok: false, text: result.error ?? "Cupón inválido." }
+        ? { ok: true, text: "Cupon aplicado." }
+        : { ok: false, text: result.error ?? "Cupon invalido." }
     );
     if (result.ok) setCouponInput("");
     setCouponBusy(false);
@@ -203,45 +202,45 @@ export function CheckoutForm({
           <li key={label} className="flex flex-1 items-center gap-2">
             <span
               className={cn(
-                "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border font-mono text-xs",
+                "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border font-mono text-[11px]",
                 i === step
-                  ? "border-cta bg-cta text-zinc-950 shadow-[0_0_14px_rgba(255,107,0,0.5)]"
-                  : i === 2
-                    ? "border-border text-muted-foreground"
-                    : "border-accent/60 bg-accent/10 text-accent"
+                  ? "border-foreground bg-foreground text-background"
+                  : i < step
+                    ? "border-foreground/30 bg-foreground/10 text-foreground"
+                    : "border-border text-foreground-secondary/40"
               )}
             >
-              {i === 0 && step > 0 ? <Check className="h-4 w-4" /> : i + 1}
+              {i < step ? <Check className="h-3.5 w-3.5" /> : i + 1}
             </span>
             <span
               className={cn(
-                "hidden font-mono text-[11px] uppercase tracking-widest sm:block",
-                i === step ? "text-white" : "text-muted-foreground"
+                "hidden font-mono text-[10px] uppercase tracking-widest sm:block",
+                i === step ? "text-foreground" : "text-foreground-secondary/50"
               )}
             >
               {label}
             </span>
             {i < STEPS.length - 1 && (
-              <span className={cn("h-px flex-1", i < step ? "bg-cta" : "bg-border")} />
+              <span className={cn("h-px flex-1", i < step ? "bg-foreground/30" : "bg-border-subtle")} />
             )}
           </li>
         ))}
       </ol>
 
       {serverError && (
-        <p className="rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2.5 text-sm text-red-500">{serverError}</p>
+        <p className="rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2.5 text-sm text-red-500">{serverError}</p>
       )}
 
       {blocked && (
-        <p className="rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2.5 text-sm text-red-500">
-          Hay artículos agotados en tu carrito. Elimínalos para poder pagar.
+        <p className="rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2.5 text-sm text-red-500">
+          Hay articulos agotados en tu carrito. Eliminalos para poder pagar.
         </p>
       )}
 
       {step === 0 && (
-        <div className="animate-fade-up space-y-4">
-          <fieldset className="rounded-lg border border-border bg-card p-5">
-            <legend className="px-1 font-display text-xs font-bold uppercase tracking-widest text-muted-foreground">
+        <div className="space-y-4">
+          <fieldset className="border border-border-subtle bg-background-secondary/50 p-5">
+            <legend className="px-1 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
               Datos de contacto
             </legend>
             <div className="grid gap-4 pt-1 sm:grid-cols-2">
@@ -250,9 +249,9 @@ export function CheckoutForm({
             </div>
           </fieldset>
 
-          <fieldset className="rounded-lg border border-border bg-card p-5">
-            <legend className="px-1 font-display text-xs font-bold uppercase tracking-widest text-muted-foreground">
-              Dirección de envío
+          <fieldset className="border border-border-subtle bg-background-secondary/50 p-5">
+            <legend className="px-1 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
+              Direccion de envio
             </legend>
             {loggedIn && savedAddresses.length > 0 && (
               <div className="mb-4 grid gap-2 pt-1 sm:grid-cols-2">
@@ -262,20 +261,20 @@ export function CheckoutForm({
                     type="button"
                     onClick={() => pickAddress(a.id)}
                     className={cn(
-                      "rounded-md border p-3 text-left text-xs transition-colors cursor-pointer",
+                      "rounded-lg border p-3 text-left text-xs transition-colors cursor-pointer",
                       selectedAddressId === a.id
-                        ? "border-accent bg-accent/10"
-                        : "border-border hover:border-accent/60"
+                        ? "border-foreground bg-foreground/5"
+                        : "border-border hover:border-foreground/20"
                     )}
                   >
                     <span className="flex items-center justify-between font-bold">
                       {a.label}
-                      {selectedAddressId === a.id && <Check className="h-3.5 w-3.5 text-accent" strokeWidth={3} />}
+                      {selectedAddressId === a.id && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
                       {a.isDefault && selectedAddressId !== a.id && (
-                        <span className="text-[9px] font-bold uppercase tracking-wider text-accent">Predeterminada</span>
+                        <span className="text-[9px] font-bold uppercase tracking-wider text-foreground-secondary/50">Predeterminada</span>
                       )}
                     </span>
-                    <span className="mt-1 block text-muted-foreground">
+                    <span className="mt-1 block text-foreground-secondary">
                       {a.name} · {a.address}, {a.city}, {a.state} C.P. {a.postalCode}
                     </span>
                   </button>
@@ -289,14 +288,14 @@ export function CheckoutForm({
               <WizardField fieldKey="postalCode" values={values} errors={errors} touched={touched} onBlur={setTouched} onChange={setField} />
             </div>
             {loggedIn && !selectedAddressId && (
-              <label className="mt-3 flex cursor-pointer items-center gap-2 text-xs text-muted-foreground">
+              <label className="mt-3 flex cursor-pointer items-center gap-2 text-xs text-foreground-secondary">
                 <input
                   type="checkbox"
                   checked={saveAddressChecked}
                   onChange={(e) => setSaveAddressChecked(e.target.checked)}
-                  className="accent-[#00f0ff]"
+                  className="accent-foreground"
                 />
-                Guardar esta dirección en mi cuenta para futuras compras
+                Guardar esta direccion en mi cuenta
               </label>
             )}
           </fieldset>
@@ -311,10 +310,10 @@ export function CheckoutForm({
               setTouched({ name: true, email: true, address: true, city: true, state: true, postalCode: true });
             }}
             className={cn(
-              "inline-flex h-12 w-full items-center justify-center gap-2 rounded-md font-display text-sm font-bold uppercase tracking-wide transition-all active:scale-[0.99] sm:w-auto sm:px-10 cursor-pointer",
+              "inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg font-display text-sm font-bold uppercase tracking-wide transition-all active:scale-[0.99] sm:w-auto sm:px-10 cursor-pointer",
               shippingValid
-                ? "btn-glow-cta bg-cta text-zinc-950 hover:bg-cta-strong"
-                : "cursor-not-allowed bg-muted text-muted-foreground"
+                ? "bg-foreground text-background hover:opacity-90"
+                : "cursor-not-allowed bg-background-secondary text-foreground-secondary/50"
             )}
           >
             Continuar al pago <ArrowRight className="h-4 w-4" />
@@ -323,16 +322,16 @@ export function CheckoutForm({
       )}
 
       {step === 1 && (
-        <div className="animate-fade-up space-y-4">
-          <fieldset className="rounded-lg border border-border bg-card p-5">
-            <legend className="px-1 font-display text-xs font-bold uppercase tracking-widest text-muted-foreground">
-              Pago exprés
+        <div className="space-y-4">
+          <fieldset className="border border-border-subtle bg-background-secondary/50 p-5">
+            <legend className="px-1 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
+              Pago rapido
             </legend>
             <div className="grid grid-cols-2 gap-3 pt-1 sm:grid-cols-3">
               {[
                 { label: "Apple Pay", cls: "bg-black text-white border-white/25 hover:border-white/60" },
-                { label: "G Pay", cls: "bg-white text-zinc-900 border-transparent hover:border-accent" },
-                { label: "PayPal", cls: "bg-[#ffc439] text-[#003087] border-transparent hover:border-accent" },
+                { label: "G Pay", cls: "bg-white text-zinc-900 border-border hover:border-foreground/30" },
+                { label: "PayPal", cls: "bg-[#ffc439] text-[#003087] border-transparent hover:border-foreground/20" },
               ].map((w) => (
                 <button
                   key={w.label}
@@ -340,14 +339,14 @@ export function CheckoutForm({
                   disabled={!expressAvailable || loading || blocked}
                   title={
                     blocked
-                      ? "Elimina los artículos agotados primero"
+                      ? "Elimina los articulos agotados primero"
                       : expressAvailable
-                        ? `Paga rápido con ${w.label}`
+                        ? `Paga rapido con ${w.label}`
                         : "Disponible al activar Stripe"
                   }
                   onClick={() => void submit()}
                   className={cn(
-                    "h-11 rounded-md border font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer",
+                    "h-11 rounded-lg border font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer",
                     w.cls
                   )}
                 >
@@ -356,22 +355,22 @@ export function CheckoutForm({
               ))}
             </div>
             {!expressAvailable && (
-              <p className="mt-2 text-[11px] leading-snug text-muted-foreground">
-                Los pagos exprés se activan al configurar Stripe. Por ahora continúa con el pago seguro estándar.
+              <p className="mt-2 text-[11px] leading-snug text-foreground-secondary/60">
+                Los pagos rapidos se activan al configurar Stripe.
               </p>
             )}
           </fieldset>
 
           <div className="flex items-center gap-3">
-            <span className="h-px flex-1 bg-border" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">o paga con tarjeta</span>
-            <span className="h-px flex-1 bg-border" />
+            <span className="h-px flex-1 bg-border-subtle" />
+            <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/40">o paga con tarjeta</span>
+            <span className="h-px flex-1 bg-border-subtle" />
           </div>
 
-          <fieldset className="rounded-lg border border-border bg-card p-4">
-            <legend className="px-1 font-display text-xs font-bold uppercase tracking-widest text-muted-foreground">
-              ¿Tienes un cupón?
-            </legend>
+          <div className="border border-border-subtle bg-background-secondary/50 p-4">
+            <h3 className="mb-3 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
+              Tienes un cupon?
+            </h3>
             {coupon ? (
               <div className="flex items-center justify-between gap-3">
                 <span className="flex items-center gap-2 font-mono text-sm font-bold text-emerald-400">
@@ -384,7 +383,7 @@ export function CheckoutForm({
                       removeCoupon();
                       setCouponMessage(null);
                     }}
-                    className="rounded border border-border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-muted-foreground transition-colors hover:border-red-500/60 hover:text-red-500 cursor-pointer"
+                    className="rounded-lg border border-border px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-foreground-secondary transition-colors hover:border-red-500/60 hover:text-red-500 cursor-pointer"
                   >
                     Quitar
                   </button>
@@ -403,14 +402,14 @@ export function CheckoutForm({
                   }}
                   placeholder="ASTRO10"
                   maxLength={24}
-                  aria-label="Código de cupón"
-                  className="h-10 flex-1 rounded-md border border-border bg-background px-3 font-mono text-sm uppercase outline-none transition-colors placeholder:text-muted-foreground focus:border-accent"
+                  aria-label="Codigo de cupon"
+                  className="h-10 flex-1 rounded-lg border border-border bg-background-secondary px-3 font-mono text-sm uppercase outline-none transition-colors placeholder:text-foreground-secondary/30 focus:border-foreground/40"
                 />
                 <button
                   type="button"
                   onClick={() => void submitCoupon()}
                   disabled={couponBusy || !couponInput.trim()}
-                  className="inline-flex h-10 items-center gap-1.5 rounded-md border border-accent/50 px-4 font-display text-xs font-bold uppercase tracking-wide text-accent transition-colors hover:bg-accent/10 disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
+                  className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-colors hover:border-foreground/30 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
                 >
                   {couponBusy && <Loader2 className="h-3.5 w-3.5 animate-spin" />} Aplicar
                 </button>
@@ -419,21 +418,21 @@ export function CheckoutForm({
             {couponMessage && (
               <p
                 className={cn(
-                  "mt-2 rounded-md border px-3 py-1.5 text-xs",
+                  "mt-2 rounded-lg border px-3 py-1.5 text-xs",
                   couponMessage.ok
-                    ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"
-                    : "border-red-500/40 bg-red-500/10 text-red-400"
+                    ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-400"
+                    : "border-red-500/20 bg-red-500/5 text-red-400"
                 )}
               >
                 {couponMessage.text}
               </p>
             )}
-          </fieldset>
+          </div>
 
-          <div className="rounded-lg border border-border bg-card p-4">
+          <div className="border border-border-subtle bg-background-secondary/50 p-4">
             <div className="mb-3 flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">
-                {itemCount} artícul{itemCount === 1 ? "o" : "os"} · envío{" "}
+              <span className="text-foreground-secondary">
+                {itemCount} articulo{itemCount === 1 ? "" : "s"} · envio{" "}
                 {shipping === 0 ? "gratis" : formatMoney(shipping, currencyCode, rates)}
               </span>
               <span className="font-mono font-bold">{formatMoney(total, currencyCode, rates)}</span>
@@ -441,15 +440,15 @@ export function CheckoutForm({
             <button
               type="submit"
               disabled={loading || blocked}
-              className="btn-glow-cta h-12 w-full rounded-md bg-cta font-display text-sm font-bold uppercase tracking-wide text-zinc-950 transition-all hover:bg-cta-strong active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+              className="h-12 w-full rounded-lg bg-foreground font-display text-sm font-bold uppercase tracking-wide text-background transition-opacity hover:opacity-90 active:scale-[0.99] disabled:opacity-60 cursor-pointer"
             >
               {loading ? (
                 "Procesando pago..."
               ) : blocked ? (
-                "Carrito con artículos agotados"
+                "Carrito con articulos agotados"
               ) : (
                 <>
-                  <Lock className="h-4 w-4" /> Pagar {formatMoney(total, currencyCode, rates)}
+                  <Lock className="inline h-4 w-4 mr-2" /> Pagar {formatMoney(total, currencyCode, rates)}
                 </>
               )}
             </button>
@@ -458,14 +457,14 @@ export function CheckoutForm({
           <button
             type="button"
             onClick={() => setStep(0)}
-            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-accent cursor-pointer"
+            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-foreground-secondary transition-colors hover:text-foreground cursor-pointer"
           >
-            <ArrowLeft className="h-3.5 w-3.5" /> Editar envío
+            <ArrowLeft className="h-3.5 w-3.5" /> Editar envio
           </button>
         </div>
       )}
 
-      <p className="text-center text-xs leading-relaxed text-muted-foreground">
+      <p className="text-center text-xs leading-relaxed text-foreground-secondary/50">
         {currencyCode !== "MXN" && (
           <>
             Monto informativo en tu moneda. El cargo se procesa en pesos mexicanos (MXN).{" "}
@@ -498,7 +497,7 @@ function WizardField({
 
   return (
     <label className={cn("block", meta.span)}>
-      <span className="mb-1.5 flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+      <span className="mb-1.5 flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-foreground-secondary">
         {meta.label}
         {valid && <Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={3} />}
       </span>
@@ -512,22 +511,22 @@ function WizardField({
         aria-invalid={invalid}
         required
         className={cn(
-          "h-11 w-full rounded-md border bg-background px-3 text-sm outline-none transition-colors",
+          "h-11 w-full rounded-lg border bg-background-secondary px-3 text-sm outline-none transition-colors",
           invalid
-            ? "border-red-500/70 focus:border-red-500"
+            ? "border-red-500/50 focus:border-red-500"
             : valid
-              ? "border-emerald-500/60 focus:border-emerald-400"
-              : "border-border focus:border-accent"
+              ? "border-emerald-500/40 focus:border-emerald-400"
+              : "border-border focus:border-foreground/40"
         )}
       />
       {invalid && (
         <span className="mt-1 block text-[11px] text-red-400">
           {fieldKey === "email"
-            ? "Escribe un correo válido (ej. tu@correo.mx)"
+            ? "Escribe un correo valido"
             : fieldKey === "postalCode"
-              ? "Código postal de 4 a 6 dígitos"
+              ? "Codigo postal de 4 a 6 digitos"
               : fieldKey === "address"
-                ? "Incluye calle y número"
+                ? "Incluye calle y numero"
                 : "Este campo es obligatorio"}
         </span>
       )}

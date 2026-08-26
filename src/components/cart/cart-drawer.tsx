@@ -24,56 +24,56 @@ export function CartDrawer() {
   return (
     <div className="fixed inset-0 z-50">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" onClick={close} />
-      <aside className="animate-slide-in absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-border bg-card">
-        <div className="flex items-center justify-between border-b border-border px-5 py-4">
-          <h2 className="font-display text-lg font-bold uppercase tracking-wide">
+      <aside className="animate-slide-in absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-border bg-background">
+        <div className="flex items-center justify-between border-b border-border-subtle px-5 py-4">
+          <h2 className="font-display text-sm font-bold uppercase tracking-wide">
             Tu carrito ({items.length})
           </h2>
           <button
             onClick={close}
             aria-label="Cerrar carrito"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-muted cursor-pointer"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-foreground-secondary transition-colors hover:bg-background-secondary cursor-pointer"
           >
-            <X className="h-5 w-5" />
+            <X className="h-4 w-4" />
           </button>
         </div>
 
         {items.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
-            <ShoppingBag className="h-12 w-12 text-muted-foreground" strokeWidth={1.2} />
-            <p className="font-display font-semibold uppercase tracking-wide text-muted-foreground">
-              Tu carrito está vacío
+            <ShoppingBag className="h-10 w-10 text-foreground-secondary/30" strokeWidth={1.2} />
+            <p className="font-display text-sm font-semibold uppercase tracking-wide text-foreground-secondary/50">
+              Tu carrito esta vacio
             </p>
             <Link
               href="/products"
               onClick={close}
-              className="btn-glow-cta rounded-md bg-cta px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-cta-strong"
+              className="rounded-lg bg-foreground px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-background transition-opacity hover:opacity-80"
             >
               Ver productos
             </Link>
           </div>
         ) : (
           <>
-            <ul className="flex-1 divide-y divide-border overflow-y-auto px-5">
+            <ul className="flex-1 divide-y divide-border-subtle overflow-y-auto px-5">
               {items.map((item) => (
                 <li key={item.variantId} className="flex gap-3 py-4">
                   <Link href={`/products/${item.slug}`} onClick={close} className="shrink-0">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={item.image ?? "/products/generic.svg"} alt={item.name} className="h-20 w-20 rounded-md border border-border object-cover" />
+                    <img src={item.image ?? "/products/generic.svg"} alt={item.name} className="h-20 w-20 rounded-lg border border-border object-cover" />
                   </Link>
                   <div className="flex min-w-0 flex-1 flex-col justify-between py-0.5">
                     <div>
                       <Link
                         href={`/products/${item.slug}`}
                         onClick={close}
-                        className="line-clamp-1 font-display text-sm font-bold uppercase tracking-tight hover:text-accent"
+                        className="line-clamp-1 font-display text-sm font-bold uppercase tracking-tight transition-colors hover:text-foreground"
                       >
                         {item.name}
                       </Link>
-                      <p className="text-xs text-muted-foreground">{item.variantTitle}</p>
+                      <p className="text-xs text-foreground-secondary">{item.variantTitle}</p>
                     </div>
                     <div className="flex items-center justify-between gap-2">
-                      <div className="inline-flex items-center rounded-md border border-border">
+                      <div className="inline-flex items-center rounded-lg border border-border">
                         <button
                           onClick={() => setQuantity(item.variantId, item.quantity - 1)}
                           disabled={item.quantity <= 1}
@@ -92,14 +92,14 @@ export function CartDrawer() {
                           <Plus className="h-3.5 w-3.5" />
                         </button>
                       </div>
-                      <span className="font-display text-sm font-bold text-accent">
+                      <span className="font-display text-sm font-bold">
                         {formatMoney(item.price * item.quantity, currencyCode, rates)}
                       </span>
                     </div>
                   </div>
                   <button
                     onClick={() => remove(item.variantId)}
-                    className="self-start p-1 text-muted-foreground transition-colors hover:text-red-500 cursor-pointer"
+                    className="self-start p-1 text-foreground-secondary/40 transition-colors hover:text-red-500 cursor-pointer"
                     aria-label="Eliminar del carrito"
                   >
                     <Trash2 className="h-4 w-4" />
@@ -108,24 +108,20 @@ export function CartDrawer() {
               ))}
             </ul>
 
-            <div className="border-t border-border px-5 py-4">
+            <div className="border-t border-border-subtle px-5 py-4">
               <div className="mb-1.5 flex justify-between text-sm">
-                <span className="text-muted-foreground">Subtotal</span>
+                <span className="text-foreground-secondary">Subtotal</span>
                 <span className="font-display font-bold">{formatMoney(subtotal, currencyCode, rates)}</span>
               </div>
-              <p className="mb-3 text-xs text-muted-foreground">
+              <p className="mb-3 text-xs text-foreground-secondary/60">
                 {subtotal >= settings.freeShippingThreshold
-                  ? "¡Tienes envío gratis!"
-                  : `Envío gratis a partir de ${formatMoney(settings.freeShippingThreshold, currencyCode, rates)} — te faltan ${formatMoney(
-                      settings.freeShippingThreshold - subtotal,
-                      currencyCode,
-                      rates
-                    )}`}
+                  ? "Envio gratis incluido."
+                  : `Envio gratis a partir de ${formatMoney(settings.freeShippingThreshold, currencyCode, rates)}`}
               </p>
               <Link
                 href="/checkout"
                 onClick={close}
-                className="btn-glow-cta block w-full rounded-md bg-cta py-3 text-center font-display text-sm font-bold uppercase tracking-wide text-zinc-950 transition-all hover:bg-cta-strong active:scale-[0.99]"
+                className="block w-full rounded-lg bg-foreground py-3 text-center font-display text-sm font-bold uppercase tracking-wide text-background transition-opacity hover:opacity-90 active:scale-[0.99]"
               >
                 Ir a pagar
               </Link>

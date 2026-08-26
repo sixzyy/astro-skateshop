@@ -110,12 +110,12 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
       <header className="mb-6">
-        <span className="font-mono text-xs uppercase tracking-[0.3em] text-accent">{"// configurador orbital"}</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-secondary/50">Configurador</span>
         <h1 className="mt-1 font-display text-3xl font-extrabold uppercase tracking-tight sm:text-4xl">
-          Arma tu tabla <span className="text-stroke">en 3D</span>
+          Arma tu tabla
         </h1>
-        <p className="mt-2 max-w-lg text-sm text-muted-foreground">
-          Elige cada componente del catálogo y míralo montado en tiempo real. Gíralo, explótalo y despega.
+        <p className="mt-2 max-w-lg text-sm text-foreground-secondary">
+          Elige cada componente y mimalo montado en tiempo real. Giralo, explotalo y despega.
         </p>
       </header>
 
@@ -123,12 +123,12 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
         <aside className="order-2 space-y-5 lg:order-1">
           {sections.map((section) => (
             <section key={section.title}>
-              <h2 className="mb-2 flex items-center gap-2 font-display text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                <Layers className="h-3.5 w-3.5 text-accent" /> {section.title}
+              <h2 className="mb-2 flex items-center gap-2 font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
+                <Layers className="h-3.5 w-3.5 text-foreground-secondary/50" /> {section.title}
               </h2>
               {section.items.length === 0 ? (
-                <p className="rounded-md border border-dashed border-border px-3 py-2 text-xs text-muted-foreground">
-                  Sin productos disponibles aún.
+                <p className="border border-dashed border-border px-3 py-2 text-xs text-foreground-secondary/50">
+                  Sin productos disponibles aun.
                 </p>
               ) : (
                 <div className="grid grid-cols-3 gap-2">
@@ -142,18 +142,18 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
                         disabled={out}
                         title={out ? "Sin stock" : item.name}
                         className={cn(
-                          "group relative overflow-hidden rounded-md border p-1.5 text-left transition-all cursor-pointer",
+                          "group relative overflow-hidden rounded-lg border p-1.5 text-left transition-all cursor-pointer",
                           active
-                            ? "border-accent bg-accent/10 shadow-[0_0_14px_rgba(0,240,255,0.25)]"
-                            : "border-border hover:border-accent/50",
+                            ? "border-foreground bg-foreground/5"
+                            : "border-border hover:border-foreground/20",
                           out && "cursor-not-allowed opacity-40 grayscale"
                         )}
                       >
-                        <div className="img-cosmic relative mb-1 aspect-square overflow-hidden rounded-sm">
+                        <div className="relative mb-1 aspect-square overflow-hidden rounded-md">
                           <ProductImage src={item.images[0]} alt={item.name} fill sizes="120px" className="object-cover" />
                         </div>
                         <p className="truncate text-[10px] font-semibold leading-tight">{item.name}</p>
-                        <p className={cn("font-mono text-[10px]", active ? "text-accent" : "text-muted-foreground")}>
+                        <p className={cn("font-mono text-[10px]", active ? "text-foreground" : "text-foreground-secondary/60")}>
                           {formatMoney(item.price, currencyCode, rates)}
                         </p>
                       </button>
@@ -166,21 +166,21 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
         </aside>
 
         <div className="order-1 lg:order-2">
-          <div className="panel-corners relative h-[52vh] overflow-hidden rounded-lg border border-accent/20 bg-[radial-gradient(ellipse_at_50%_120%,rgba(42,8,92,0.55),transparent_65%)] sm:h-[60vh] lg:h-[68vh]">
+          <div className="relative h-[52vh] overflow-hidden rounded-lg border border-border bg-background-secondary sm:h-[60vh] lg:h-[68vh]">
             <BoardScene config={config} />
 
             <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-3">
-              <span className="rounded-sm border border-accent/40 bg-background/70 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-accent backdrop-blur">
-                [ setup en vivo ]
+              <span className="rounded-md border border-border bg-background-secondary/80 px-2 py-1 font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/60 backdrop-blur">
+                Setup en vivo
               </span>
               <div className="pointer-events-auto flex gap-2">
                 <button
                   onClick={() => setExploded((v) => !v)}
                   className={cn(
-                    "inline-flex cursor-pointer items-center gap-1.5 rounded-sm border px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur transition-colors",
+                    "inline-flex cursor-pointer items-center gap-1.5 rounded-md border px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur transition-colors",
                     exploded
-                      ? "border-cta bg-cta/20 text-cta"
-                      : "border-border bg-background/70 text-muted-foreground hover:text-accent"
+                      ? "border-cta bg-cta/10 text-cta"
+                      : "border-border bg-background-secondary/80 text-foreground-secondary hover:text-foreground"
                   )}
                 >
                   <Expand className="h-3 w-3" /> Explotada
@@ -188,30 +188,28 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
                 <button
                   onClick={() => setSpin((v) => !v)}
                   className={cn(
-                    "inline-flex cursor-pointer items-center gap-1.5 rounded-sm border px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur transition-colors",
+                    "inline-flex cursor-pointer items-center gap-1.5 rounded-md border px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest backdrop-blur transition-colors",
                     spin
-                      ? "border-accent bg-accent/15 text-accent"
-                      : "border-border bg-background/70 text-muted-foreground"
+                      ? "border-foreground/30 bg-foreground/10 text-foreground"
+                      : "border-border bg-background-secondary/80 text-foreground-secondary"
                   )}
                 >
                   <Rotate3d className="h-3 w-3" /> Girar
                 </button>
               </div>
             </div>
-
-            <span className="scanlines pointer-events-none absolute inset-0 opacity-30" />
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-4 rounded-lg border border-border bg-card p-4">
+          <div className="mt-4 flex flex-wrap items-center gap-4 border border-border-subtle bg-background-secondary/50 p-4">
             <div className="flex-1">
               {missing.length > 0 ? (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-foreground-secondary">
                   Falta por elegir: <strong className="text-cta">{missing.map((m) => m.label).join(", ")}</strong>
                 </p>
               ) : (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-foreground-secondary">
                   Setup completo ·{" "}
-                  <span className="font-mono font-bold text-white">{formatMoney(total, currencyCode, rates)}</span>{" "}
+                  <span className="font-mono font-bold text-foreground">{formatMoney(total, currencyCode, rates)}</span>{" "}
                   {shippingNote(total)}
                 </p>
               )}
@@ -220,7 +218,7 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
               onClick={addSetup}
               disabled={!allAvailable || added}
               className={cn(
-                "btn-glow-cta inline-flex h-11 items-center gap-2 rounded-md bg-cta px-6 font-display text-sm font-bold uppercase tracking-wide text-zinc-950 transition-all hover:bg-cta-strong active:scale-[0.98] disabled:opacity-60",
+                "inline-flex h-11 items-center gap-2 rounded-lg bg-foreground px-6 font-display text-sm font-bold uppercase tracking-wide text-background transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60",
                 added && "animate-pop"
               )}
             >
@@ -229,7 +227,7 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
               ) : (
                 <ShoppingCart className="h-4 w-4" />
               )}
-              {added ? "¡Agregado!" : "Agregar setup completo"}
+              {added ? "Agregado!" : "Agregar setup completo"}
             </button>
           </div>
         </div>
@@ -239,5 +237,5 @@ export function BoardBuilder({ decks, trucks, wheels, grips }: Props) {
 }
 
 function shippingNote(total: number) {
-  return total >= 999 ? "· ¡envío gratis!" : "· te falta para envío gratis";
+  return total >= 999 ? "· envio gratis" : "· te falta para envio gratis";
 }

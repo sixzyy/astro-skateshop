@@ -11,18 +11,19 @@ import { FloatingChat } from "@/components/layout/floating-chat";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
+  weight: ["400", "500", "600", "700"],
 });
 
 const syne = Syne({
   subsets: ["latin"],
-  weight: ["700", "800"],
   variable: "--font-syne",
+  weight: ["600", "700", "800"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "700"],
   variable: "--font-jetbrains",
+  weight: ["400", "500"],
 });
 
 const BASE = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
@@ -30,15 +31,15 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: "Astro Skateshop — Patinando sobre la gravedad",
-    template: "%s | Astro Skateshop",
+    default: "ASTRO — Ride Your Own Orbit",
+    template: "%s | ASTRO",
   },
   description:
-    "Skateshop cósmico: tablas con constelaciones, ruedas planetarias y equipo de skate real. Envío gratis desde $999 MXN.",
+    "Skate y streetwear premium. Tablas, trucks, ruedas, tenis y ropa de marca. Armador 3D. Envío gratis desde $999 MXN.",
   openGraph: {
     type: "website",
     locale: "es_MX",
-    siteName: "Astro SkateShop",
+    siteName: "ASTRO Skateshop",
     url: BASE,
   },
   twitter: { card: "summary_large_image" },

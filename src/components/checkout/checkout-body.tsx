@@ -81,7 +81,7 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
     }).catch(() => null);
     if (!res || !res.ok) {
       const json = res ? await res.json().catch(() => null) : null;
-      return { ok: false, error: json?.error ?? "No se pudo validar el cupón." };
+      return { ok: false, error: json?.error ?? "No se pudo validar el cupon." };
     }
     const json = await res.json();
     setCoupon({ code: json.code, discount: json.discount });
@@ -126,14 +126,14 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border py-24 text-center">
-        <ShoppingBag className="h-12 w-12 text-muted-foreground" strokeWidth={1.2} />
-        <p className="mt-4 font-display font-semibold uppercase tracking-wide text-muted-foreground">
-          Tu carrito está vacío
+      <div className="flex flex-col items-center justify-center border border-dashed border-border py-24 text-center">
+        <ShoppingBag className="h-10 w-10 text-foreground-secondary/30" strokeWidth={1.2} />
+        <p className="mt-4 font-display text-sm font-semibold uppercase tracking-wide text-foreground-secondary/50">
+          Tu carrito esta vacio
         </p>
         <Link
           href="/products"
-          className="btn-glow-cta mt-6 rounded-md bg-cta px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-cta-strong"
+          className="mt-6 rounded-lg bg-foreground px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-background transition-opacity hover:opacity-80"
         >
           Ir a la tienda
         </Link>
@@ -150,8 +150,8 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
   return (
     <>
       {canceled && (
-        <p className="mb-6 flex items-center gap-2 rounded-md border border-yellow-500/30 bg-yellow-500/10 px-3 py-2.5 text-sm text-yellow-500">
-          <XCircle className="h-4 w-4 shrink-0" /> El pago fue cancelado. Puedes intentarlo de nuevo cuando quieras.
+        <p className="mb-6 flex items-center gap-2 rounded-lg border border-yellow-500/20 bg-yellow-500/5 px-3 py-2.5 text-sm text-yellow-500">
+          <XCircle className="h-4 w-4 shrink-0" /> El pago fue cancelado. Puedes intentarlo de nuevo.
         </p>
       )}
 
@@ -161,15 +161,15 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
             n.type === "out" ? (
               <p
                 key={n.variantId}
-                className="flex flex-wrap items-center gap-2 rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2.5 text-sm text-red-400"
+                className="flex flex-wrap items-center gap-2 rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2.5 text-sm text-red-400"
               >
                 <XCircle className="h-4 w-4 shrink-0" />
                 <span>
-                  <strong>{n.label}</strong> se agotó. Elimínalo del carrito para continuar.
+                  <strong>{n.label}</strong> se agoto. Eliminalo del carrito para continuar.
                 </span>
                 <button
                   onClick={() => removeItem(n.variantId)}
-                  className="ml-auto rounded border border-red-400/50 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors hover:bg-red-500 hover:text-white cursor-pointer"
+                  className="ml-auto rounded-lg border border-red-400/30 px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider transition-colors hover:bg-red-500 hover:text-white cursor-pointer"
                 >
                   Eliminar
                 </button>
@@ -177,10 +177,10 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
             ) : (
               <p
                 key={n.variantId}
-                className="flex items-center gap-2 rounded-md border border-cta/40 bg-cta/10 px-3 py-2.5 text-sm text-cta"
+                className="flex items-center gap-2 rounded-lg border border-cta/20 bg-cta/5 px-3 py-2.5 text-sm text-cta"
               >
                 <AlertTriangle className="h-4 w-4 shrink-0" />
-                Ajustamos <strong>{n.label}</strong> a {n.qty} pieza{n.qty === 1 ? "" : "s"}: es lo que queda disponible.
+                Ajustamos <strong>{n.label}</strong> a {n.qty} pieza{n.qty === 1 ? "" : "s"}.
               </p>
             )
           )}
@@ -203,10 +203,10 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
           loggedIn={account.loggedIn}
         />
 
-        <aside className="h-fit rounded-lg border border-border bg-card p-5 lg:sticky lg:top-24">
+        <aside className="h-fit border border-border-subtle bg-background-secondary/50 p-5 lg:sticky lg:top-24">
           <h2 className="mb-1 font-display text-sm font-bold uppercase tracking-widest">Tu pedido</h2>
-          <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-            {liveStock === null ? "◉ Verificando disponibilidad..." : "● Disponibilidad confirmada"}
+          <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/50">
+            {liveStock === null ? "Verificando disponibilidad..." : "Disponibilidad confirmada"}
           </p>
           <ul className="mb-4 max-h-72 space-y-3 overflow-y-auto pr-1">
             {items.map((item) => (
@@ -214,11 +214,11 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
                   <ProductImage
                     src={item.image ?? "/products/generic.svg"}
                     alt={item.name}
-                    className="h-14 w-14 rounded-md border border-border object-cover"
+                    className="h-14 w-14 rounded-lg border border-border object-cover"
                 />
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-1 font-display text-xs font-bold uppercase">{item.name}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-foreground-secondary">
                     {item.variantTitle} × {item.quantity}
                   </p>
                 </div>
@@ -226,18 +226,18 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
               </li>
             ))}
           </ul>
-          <dl className="space-y-1.5 border-t border-border pt-3 text-sm">
+          <dl className="space-y-1.5 border-t border-border-subtle pt-3 text-sm">
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">Subtotal</dt>
+              <dt className="text-foreground-secondary">Subtotal</dt>
               <dd>{formatMoney(subtotal, currencyCode, rates)}</dd>
             </div>
             {coupon && discount > 0 && (
               <div className="flex justify-between text-emerald-400">
                 <dt className="flex items-center gap-1.5">
-                  Cupón {coupon.code}
+                  Cupon {coupon.code}
                   <button
                     onClick={removeCoupon}
-                    aria-label="Quitar cupón"
+                    aria-label="Quitar cupon"
                     className="rounded p-0.5 transition-colors hover:bg-red-500/10 hover:text-red-500 cursor-pointer"
                   >
                     <XCircle className="h-3.5 w-3.5" />
@@ -247,20 +247,20 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
               </div>
             )}
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">Envío</dt>
+              <dt className="text-foreground-secondary">Envio</dt>
               <dd>{shipping === 0 ? "Gratis" : formatMoney(shipping, currencyCode, rates)}</dd>
             </div>
-            <div className="flex justify-between border-t border-border pt-2 font-display text-base font-bold">
+            <div className="flex justify-between border-t border-border-subtle pt-2 font-display text-base font-bold">
               <dt>Total</dt>
-              <dd className="text-accent">{formatMoney(total, currencyCode, rates)}</dd>
+              <dd>{formatMoney(total, currencyCode, rates)}</dd>
             </div>
           </dl>
-          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border pt-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border-subtle pt-3 font-mono text-[10px] uppercase tracking-widest text-foreground-secondary/50">
             <span className="inline-flex items-center gap-1">
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" /> SSL 256-bit
             </span>
             <span className="inline-flex items-center gap-1">
-              <Lock className="h-3.5 w-3.5 text-accent" /> Pago cifrado
+              <Lock className="h-3.5 w-3.5" /> Pago cifrado
             </span>
           </div>
         </aside>

@@ -1,78 +1,93 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
+/**
+ * Custom cursor — small dot + ring that expands on hover.
+ * Desktop only. No particle trail. Clean and minimal.
+ */
 export function CustomStarCursor() {
-  const starRef = useRef<HTMLDivElement>(null);
-  const trailRef = useRef<HTMLDivElement>(null);
-  const last = useRef({ x: -100, y: -100 });
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+
+  const onMove = useCallback((e: MouseEvent) => {
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return;
+    dot.style.transform = `translate(${e.clientX - 3}px, ${e.clientY - 3}px)`;
+    ring.style.transform = `translate(${e.clientX - 16}px, ${e.clientY - 16}px)`;
+  }, []);
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
-    const star = starRef.current;
-    const trail = trailRef.current;
-    if (!star || !trail) return;
+
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return;
 
     document.body.classList.add("cosmos-cursor");
     let frame = 0;
-    let mx = 0;
-    let my = 0;
 
-    const spawnSpark = (x: number, y: number) => {
-      if (trail.childElementCount > 36) return;
-      const spark = document.createElement("span");
-      const dx = (Math.random() - 0.5) * 30;
-      const dy = (Math.random() - 0.5) * 30;
-      spark.className = "cursor-spark";
-      spark.style.left = `${x}px`;
-      spark.style.top = `${y}px`;
-      spark.style.setProperty("--dx", `${dx}px`);
-      spark.style.setProperty("--dy", `${dy}px`);
-      trail.appendChild(spark);
-      window.setTimeout(() => spark.remove(), 700);
-    };
-
-    const onMove = (e: MouseEvent) => {
-      mx = e.clientX;
-      my = e.clientY;
-      star.style.opacity = "1";
+    const handler = (e: MouseEvent) => {
       if (!frame) {
         frame = requestAnimationFrame(() => {
           frame = 0;
-          star.style.transform = `translate(${mx - 11}px, ${my - 11}px)`;
+          onMove(e);
         });
-      }
-      const dist = Math.hypot(mx - last.current.x, my - last.current.y);
-      if (dist > 32) {
-        last.current = { x: mx, y: my };
-        spawnSpark(mx, my);
       }
     };
 
-    window.addEventListener("mousemove", onMove, { passive: true });
+    const onEnterInteractive = () => {
+      ring.style.width = "40px";
+      ring.style.height = "40px";
+      ring.style.borderColor = "var(--accent)";
+      ring.style.opacity = "0.5";
+    };
+
+    const onLeaveInteractive = () => {
+      ring.style.width = "32px";
+      ring.style.height = "32px";
+      ring.style.borderColor = "var(--foreground)";
+      ring.style.opacity = "0.2";
+    };
+
+    window.addEventListener("mousemove", handler, { passive: true });
+
+    // Attach hover states to interactive elements
+    const observeHover = () => {
+      document.querySelectorAll("a, button, [role='button'], input, select, textarea, label").forEach((el) => {
+        el.addEventListener("mouseenter", onEnterInteractive);
+        el.addEventListener("mouseleave", onLeaveInteractive);
+      });
+    };
+    observeHover();
+    const observer = new MutationObserver(observeHover);
+    observer.observe(document.body, { childList: true, subtree: true });
+
     return () => {
-      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mousemove", handler);
       document.body.classList.remove("cosmos-cursor");
       if (frame) cancelAnimationFrame(frame);
+      observer.disconnect();
     };
-  }, []);
+  }, [onMove]);
 
   return (
     <>
-      <div ref={trailRef} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]" />
+      {/* Ring — follows with slight lag via CSS transition */}
       <div
-        ref={starRef}
+        ref={ringRef}
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[101] h-[22px] w-[22px] opacity-0 mix-blend-screen"
-        style={{ filter: "drop-shadow(0 0 7px rgba(0, 240, 255, 0.95))" }}
-      >
-        <svg viewBox="0 0 24 24" className="h-full w-full">
-          <path
-            d="M12 1 L14.6 9.4 L23 12 L14.6 14.6 L12 23 L9.4 14.6 L1 12 L9.4 9.4 Z"
-            fill="#00f0ff"
-          />
-        </svg>
-      </div>
+        className="pointer-events-none fixed left-0 top-0 z-[101] h-8 w-8 rounded-full border transition-[width,height,border-color,opacity] duration-200 ease-out"
+        style={{ borderColor: "var(--foreground)", opacity: 0.2, willChange: "transform" }}
+      />
+      {/* Dot */}
+      <div
+        ref={dotRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 z-[102] h-1.5 w-1.5 rounded-full"
+        style={{ background: "var(--foreground)", willChange: "transform" }}
+      />
     </>
   );
 }

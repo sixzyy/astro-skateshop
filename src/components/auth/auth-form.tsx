@@ -30,7 +30,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
 
     if (!res || !res.ok) {
       const data = res ? await res.json().catch(() => null) : null;
-      setError(data?.error ?? "Ocurrió un error. Intenta de nuevo.");
+      setError(data?.error ?? "Ocurrio un error. Intenta de nuevo.");
       return;
     }
 
@@ -41,21 +41,21 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
 
   return (
     <div className="mx-auto flex min-h-[70vh] w-full max-w-md flex-col justify-center px-4 py-16">
-      <div className="rounded-xl border border-border bg-card p-8">
+      <div className="border border-border-subtle bg-background-secondary/50 p-8">
         <div className="mb-6 text-center">
           <Logo className="justify-center" />
           <h1 className="mt-4 font-display text-2xl font-bold uppercase tracking-tight">
-            {isLogin ? "Inicia sesión" : "Crea tu cuenta"}
+            {isLogin ? "Inicia sesion" : "Crea tu cuenta"}
           </h1>
-          <p className="mt-1.5 text-sm text-muted-foreground">
+          <p className="mt-1.5 text-sm text-foreground-secondary">
             {isLogin
               ? "Bienvenido de vuelta al crew"
-              : "Únete y guarda tus pedidos favoritos"}
+              : "Unete y guarda tus pedidos favoritos"}
           </p>
         </div>
 
         {error && (
-          <p className="mb-4 rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-500">
+          <p className="mb-4 rounded-lg border border-red-500/20 bg-red-500/5 px-3 py-2 text-sm text-red-500">
             {error}
           </p>
         )}
@@ -66,10 +66,10 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           )}
           <Field label="Correo" name="email" type="email" placeholder="tu@correo.mx" required />
           <Field
-            label="Contraseña"
+            label="Contrasena"
             name="password"
             type="password"
-            placeholder={isLogin ? "••••••••" : "Mínimo 8 caracteres"}
+            placeholder={isLogin ? "••••••••" : "Minimo 8 caracteres"}
             required
             minLength={isLogin ? undefined : 8}
           />
@@ -77,25 +77,25 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           <button
             type="submit"
             disabled={loading}
-            className="btn-glow-cta h-11 w-full rounded-md bg-cta font-display text-sm font-bold uppercase tracking-wide text-zinc-950 transition-all hover:bg-cta-strong active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+            className="h-11 w-full rounded-lg bg-foreground font-display text-sm font-bold uppercase tracking-wide text-background transition-opacity hover:opacity-90 active:scale-[0.99] disabled:opacity-60 cursor-pointer"
           >
             {loading ? "Procesando..." : isLogin ? "Entrar" : "Crear cuenta"}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-muted-foreground">
+        <p className="mt-6 text-center text-sm text-foreground-secondary">
           {isLogin ? (
             <>
-              ¿Sin cuenta?{" "}
-              <Link href="/register" className="font-semibold text-accent hover:underline">
-                Regístrate gratis
+              Sin cuenta?{" "}
+              <Link href="/register" className="font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-foreground/70">
+                Registrate gratis
               </Link>
             </>
           ) : (
             <>
-              ¿Ya tienes cuenta?{" "}
-              <Link href="/login" className="font-semibold text-accent hover:underline">
-                Inicia sesión
+              Ya tienes cuenta?{" "}
+              <Link href="/login" className="font-semibold text-foreground underline underline-offset-4 transition-colors hover:text-foreground/70">
+                Inicia sesion
               </Link>
             </>
           )}
@@ -111,12 +111,12 @@ function Field({
 }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <label className="block">
-      <span className="mb-1.5 block font-display text-xs font-bold uppercase tracking-widest text-muted-foreground">
+      <span className="mb-1.5 block font-display text-xs font-bold uppercase tracking-widest text-foreground-secondary">
         {label}
       </span>
       <input
         {...props}
-        className="h-11 w-full rounded-md border border-border bg-background px-3 text-sm outline-none transition-colors focus:border-accent"
+        className="h-11 w-full rounded-lg border border-border bg-background-secondary px-3 text-sm outline-none transition-colors focus:border-foreground/40"
       />
     </label>
   );

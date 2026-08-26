@@ -20,7 +20,7 @@ const EMPTY = { label: "Casa", name: "", address: "", city: "", state: "", posta
 
 export function AddressesManager({ initial }: { initial: Address[] }) {
   const [list, setList] = useState(initial);
-  const [editing, setEditing] = useState<string | null>(null); // null | "new" | id
+  const [editing, setEditing] = useState<string | null>(null);
   const [form, setForm] = useState({ ...EMPTY });
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -80,7 +80,7 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
   }
 
   async function remove(id: string) {
-    if (!confirm("¿Eliminar esta dirección?")) return;
+    if (!confirm("Eliminar esta direccion?")) return;
     const res = await fetch(`/api/account/addresses/${id}`, { method: "DELETE" });
     if (res.ok) setList((l) => l.filter((a) => a.id !== id));
   }
@@ -97,15 +97,15 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
   }
 
   return (
-    <div className="rounded-lg border border-border bg-card p-5">
+    <div className="border border-border-subtle bg-background-secondary/50 p-5">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="flex items-center gap-2 font-display text-sm font-bold uppercase tracking-wide">
-          <MapPin className="h-4 w-4 text-accent" /> Mis direcciones
+          <MapPin className="h-4 w-4 text-foreground-secondary/50" /> Mis direcciones
         </h3>
         {editing === null && list.length < 10 && (
           <button
             onClick={openNew}
-            className="inline-flex h-8 cursor-pointer items-center gap-1 rounded-md border border-accent px-3 text-xs font-bold text-accent hover:bg-accent hover:text-zinc-950"
+            className="inline-flex h-8 cursor-pointer items-center gap-1 rounded-lg border border-border px-3 text-xs font-bold text-foreground-secondary hover:border-foreground/30 hover:text-foreground"
           >
             <Plus className="h-3.5 w-3.5" /> Agregar
           </button>
@@ -115,19 +115,19 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
       {editing !== null ? (
         <div className="space-y-2">
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-            <input value={form.label} onChange={set("label")} placeholder="Etiqueta (Casa, Oficina…)" className="field" />
-            <input value={form.name} onChange={set("name")} placeholder="Nombre de quien recibe *" className="field" />
+            <input value={form.label} onChange={set("label")} placeholder="Etiqueta (Casa, Oficina...)" className="address-field" />
+            <input value={form.name} onChange={set("name")} placeholder="Nombre de quien recibe *" className="address-field" />
           </div>
-          <input value={form.address} onChange={set("address")} placeholder="Calle y número *" className="field" />
+          <input value={form.address} onChange={set("address")} placeholder="Calle y numero *" className="address-field" />
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-            <input value={form.city} onChange={set("city")} placeholder="Ciudad *" className="field" />
-            <input value={form.state} onChange={set("state")} placeholder="Estado *" className="field" />
-            <input value={form.postalCode} onChange={set("postalCode")} placeholder="C.P. *" className="field" />
+            <input value={form.city} onChange={set("city")} placeholder="Ciudad *" className="address-field" />
+            <input value={form.state} onChange={set("state")} placeholder="Estado *" className="address-field" />
+            <input value={form.postalCode} onChange={set("postalCode")} placeholder="C.P. *" className="address-field" />
           </div>
           <div className="flex items-center gap-3">
-            <input value={form.phone} onChange={set("phone")} placeholder="Teléfono (opcional)" className="field flex-1" />
-            <label className="flex cursor-pointer items-center gap-1.5 text-xs text-muted-foreground">
-              <input type="checkbox" checked={form.isDefault} onChange={set("isDefault")} className="accent-[#00f0ff]" />
+            <input value={form.phone} onChange={set("phone")} placeholder="Telefono (opcional)" className="address-field flex-1" />
+            <label className="flex cursor-pointer items-center gap-1.5 text-xs text-foreground-secondary">
+              <input type="checkbox" checked={form.isDefault} onChange={set("isDefault")} className="accent-foreground" />
               Predeterminada
             </label>
           </div>
@@ -136,50 +136,50 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
             <button
               onClick={save}
               disabled={!valid || busy}
-              className="inline-flex h-9 items-center rounded-md bg-accent px-5 font-display text-xs font-bold uppercase tracking-wide text-zinc-950 hover:bg-accent-strong disabled:opacity-50"
+              className="inline-flex h-9 items-center rounded-lg bg-foreground px-5 font-display text-xs font-bold uppercase tracking-wide text-background hover:opacity-90 disabled:opacity-50"
             >
-              Guardar dirección
+              Guardar direccion
             </button>
             <button
               onClick={() => setEditing(null)}
-              className="inline-flex h-9 cursor-pointer items-center gap-1 rounded-md border border-border px-4 text-xs text-muted-foreground hover:text-foreground"
+              className="inline-flex h-9 cursor-pointer items-center gap-1 rounded-lg border border-border px-4 text-xs text-foreground-secondary hover:text-foreground"
             >
               <X className="h-3.5 w-3.5" /> Cancelar
             </button>
           </div>
         </div>
       ) : list.length === 0 ? (
-        <p className="py-6 text-center text-sm text-muted-foreground">
-          Sin direcciones guardadas. Agrégalas para un checkout express.
+        <p className="py-6 text-center text-sm text-foreground-secondary/50">
+          Sin direcciones guardadas.
         </p>
       ) : (
         <ul className="space-y-2">
           {list.map((a) => (
-            <li key={a.id} className={cn("flex items-start justify-between gap-3 rounded-md border p-3", a.isDefault ? "border-accent/50 bg-accent/5" : "border-border")}>
+            <li key={a.id} className={cn("flex items-start justify-between gap-3 rounded-lg border p-3", a.isDefault ? "border-foreground/20 bg-foreground/5" : "border-border-subtle")}>
               <div className="min-w-0">
                 <p className="text-sm font-semibold">
                   {a.label}
                   {a.isDefault && (
-                    <span className="ml-2 inline-flex items-center gap-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">
-                      <Star className="h-3 w-3 fill-current" /> Predeterminada
+                    <span className="ml-2 inline-flex items-center gap-0.5 text-[10px] font-bold uppercase tracking-wider text-foreground-secondary/50">
+                      <Star className="h-3 w-3" /> Predeterminada
                     </span>
                   )}
                 </p>
-                <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                <p className="mt-0.5 truncate text-xs text-foreground-secondary">
                   {a.name} · {a.address}, {a.city}, {a.state}, C.P. {a.postalCode}
                   {a.phone ? ` · ${a.phone}` : ""}
                 </p>
               </div>
               <div className="flex shrink-0 gap-1">
                 {!a.isDefault && (
-                  <button onClick={() => makeDefault(a.id)} title="Predeterminar" className="cursor-pointer rounded p-1.5 text-muted-foreground hover:text-accent">
+                  <button onClick={() => makeDefault(a.id)} title="Predeterminar" className="cursor-pointer rounded p-1.5 text-foreground-secondary/40 hover:text-foreground">
                     <Star className="h-4 w-4" />
                   </button>
                 )}
-                <button onClick={() => openEdit(a)} title="Editar" className="cursor-pointer rounded p-1.5 text-muted-foreground hover:text-accent">
+                <button onClick={() => openEdit(a)} title="Editar" className="cursor-pointer rounded p-1.5 text-foreground-secondary/40 hover:text-foreground">
                   <Pencil className="h-4 w-4" />
                 </button>
-                <button onClick={() => remove(a.id)} title="Eliminar" className="cursor-pointer rounded p-1.5 text-muted-foreground hover:text-red-400">
+                <button onClick={() => remove(a.id)} title="Eliminar" className="cursor-pointer rounded p-1.5 text-foreground-secondary/40 hover:text-red-400">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
@@ -188,7 +188,7 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
         </ul>
       )}
 
-      <style>{`.field{height:2.5rem;width:100%;border-radius:.375rem;border:1px solid var(--border,#26263a);background:#101018;padding:0 .75rem;font-size:.875rem;outline:none}.field:focus{border-color:#00f0ff}`}</style>
+      <style>{`.address-field{height:2.5rem;width:100%;border-radius:.5rem;border:1px solid var(--border,#1e202b);background:var(--background-secondary,#0e0f14);padding:0 .75rem;font-size:.875rem;outline:none;transition:border-color .2s}.address-field:focus{border-color:rgba(255,255,255,.4)}`}</style>
     </div>
   );
 }
