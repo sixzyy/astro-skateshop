@@ -35,45 +35,47 @@ export function CosmosHero() {
         }}
       />
 
-      {/* Cosmic atmosphere — deeper, more present */}
-      <div className="pointer-events-none absolute inset-0 animate-fade-in" style={{ animationDuration: "1.2s" }}>
-        <div className="absolute -right-32 top-1/4 h-[32rem] w-[32rem] rounded-full bg-accent/[0.06] blur-[140px]" />
-        <div className="absolute -left-40 bottom-1/4 h-[36rem] w-[36rem] rounded-full bg-accent-secondary/[0.07] blur-[160px]" />
-        <div className="absolute left-1/3 top-1/2 h-[24rem] w-[24rem] rounded-full bg-cosmic-violet/40 blur-[120px]" />
+      {/* Cosmic atmosphere — deeper, animated entrance */}
+      <div className="pointer-events-none absolute inset-0" style={{ animation: "fade-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) both" }}>
+        <div className="absolute -right-32 top-1/4 h-[36rem] w-[36rem] rounded-full bg-accent/[0.08] blur-[150px]" />
+        <div className="absolute -left-40 bottom-1/4 h-[40rem] w-[40rem] rounded-full bg-accent-secondary/[0.09] blur-[170px]" />
+        <div className="absolute left-1/3 top-1/2 h-[28rem] w-[28rem] rounded-full bg-cosmic-violet/50 blur-[130px]" />
+        <div className="absolute right-1/4 bottom-1/3 h-[16rem] w-[16rem] rounded-full bg-cta/[0.03] blur-[100px]" />
       </div>
 
       <div className="texture-grain pointer-events-none absolute inset-0" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-20 pt-32 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
-          {/* Kicker — stagger entrance */}
+          {/* Kicker */}
           <span className="inline-block font-mono text-[11px] uppercase tracking-[0.3em] text-foreground-disabled animate-entrance animate-stagger-1">
             Skateshop &amp; Streetwear
           </span>
 
-          {/* Title — text-9xl, layered entrance */}
-          <h1
-            ref={titleRef}
-            className="mt-4 font-display text-[clamp(3.5rem,10vw,9rem)] font-extrabold uppercase leading-[0.85] tracking-tighter animate-entrance animate-stagger-2"
-          >
-            SKATE
-            <br />
-            BEYOND
-            <br />
-            <span className="text-foreground-muted">THE ORDINARY.</span>
+          {/* Title — each line staggered independently */}
+          <h1 ref={titleRef} className="mt-4 font-display font-extrabold uppercase leading-[0.85] tracking-tighter">
+            <span className="block text-[clamp(3.5rem,10vw,9rem)] animate-entrance animate-stagger-2">
+              SKATE
+            </span>
+            <span className="block text-[clamp(3.5rem,10vw,9rem)] animate-entrance animate-stagger-3">
+              BEYOND
+            </span>
+            <span className="block text-[clamp(3.5rem,10vw,9rem)] text-foreground-muted animate-entrance animate-stagger-4">
+              THE ORDINARY.
+            </span>
           </h1>
 
-          {/* Description — stagger entrance */}
-          <p className="mt-6 max-w-md text-base leading-relaxed text-foreground-secondary animate-entrance animate-stagger-3">
+          {/* Description */}
+          <p className="mt-6 max-w-md text-base leading-relaxed text-foreground-secondary animate-entrance animate-stagger-5">
             Equipo seleccionado. Marcas reales. Cultura autentica.
             Tablas, trucks, ruedas y streetwear para riders que no siguen orbitas ajenas.
           </p>
 
-          {/* CTA buttons — larger, hover lift */}
-          <div className="mt-10 flex flex-wrap items-center gap-5 animate-entrance animate-stagger-4">
+          {/* CTA buttons — pulse glow on primary */}
+          <div className="mt-10 flex flex-wrap items-center gap-5 animate-entrance animate-stagger-6">
             <Link
               href="/products"
-              className="group inline-flex min-h-[52px] items-center gap-2 rounded-lg bg-cta px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:bg-cta-hover hover:shadow-[0_8px_30px_rgba(255,90,31,0.25)] active:scale-[0.98]"
+              className="group inline-flex min-h-[52px] items-center gap-2 rounded-lg bg-cta px-7 py-4 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] hover:bg-cta-hover hover:shadow-[0_8px_30px_rgba(255,90,31,0.25)] active:scale-[0.98] animate-pulse-glow"
             >
               Explore Boards
               <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1" />
@@ -86,8 +88,8 @@ export function CosmosHero() {
             </Link>
           </div>
 
-          {/* Telemetry bar — stagger entrance */}
-          <div className="mt-16 flex items-center gap-6 font-mono text-[10px] uppercase tracking-[0.25em] text-foreground-disabled animate-entrance animate-stagger-5">
+          {/* Telemetry bar */}
+          <div className="mt-16 flex items-center gap-6 font-mono text-[10px] uppercase tracking-[0.25em] text-foreground-disabled animate-entrance animate-stagger-7">
             <span>Free shipping +$999</span>
             <span className="h-px w-4 bg-border" />
             <span>Secure checkout</span>
@@ -97,7 +99,7 @@ export function CosmosHero() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-entrance animate-stagger-8">
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground-disabled">
             Scroll to explore
           </span>

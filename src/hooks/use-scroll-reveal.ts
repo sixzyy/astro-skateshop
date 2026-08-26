@@ -1,22 +1,24 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * Adds .is-visible to elements with .reveal-section or .reveal-image
  * when they enter the viewport. Uses IntersectionObserver for performance.
+ * Re-scans on route changes.
  */
 export function useScrollReveal() {
-  const initialized = useRef(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (initialized.current) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    initialized.current = true;
-
-    const elements = document.querySelectorAll(".reveal-section, .reveal-image");
-    if (elements.length === 0) return;
+    // Disconnect previous observer
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -27,11 +29,22 @@ export function useScrollReveal() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }
     );
 
-    elements.forEach((el) => observer.observe(el));
+    observerRef.current = observer;
 
-    return () => observer.disconnect();
-  }, []);
+    // Small delay to let DOM render after route change
+    const timer = setTimeout(() => {
+      const elements = document.querySelectorAll(
+        ".reveal-section:not(.is-visible), .reveal-image:not(.is-visible)"
+      );
+      elements.forEach((el) => observer.observe(el));
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [pathname]);
 }
