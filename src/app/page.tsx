@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { nextScheduledDrop, scheduledFilter } from "@/lib/schedule";
 import { ProductCard } from "@/components/product/product-card";
 import { CosmosHero } from "@/components/home/cosmos-hero";
-import { GiantMarquee } from "@/components/home/giant-marquee";
+import { BrandLogos } from "@/components/home/brand-logos";
 import { AstroCommunity } from "@/components/home/community";
 import { DropBanner } from "@/components/home/drop-banner";
 import type { ProductDTO } from "@/lib/types";
@@ -91,10 +91,7 @@ export default async function HomePage() {
 
       <CosmosHero />
 
-      <GiantMarquee
-        size="lg"
-        items={["Santa Cruz", "Independent", "Spitfire", "Element", "Vans", "Nike SB", "Thrasher"]}
-      />
+      <BrandLogos />
 
       <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-3">
@@ -144,8 +141,6 @@ export default async function HomePage() {
         </section>
       )}
 
-      <GiantMarquee reverse items={["Patinando sobre la gravedad", "Astro Skateshop", "Grit + Cosmos"]} />
-
       {newArrivals.length > 0 && (
         <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <SectionHeading
@@ -157,21 +152,21 @@ export default async function HomePage() {
           />
           <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
             {newArrivals.map((p, i) => (
-              <ProductCard key={p.id} product={p as unknown as ProductDTO} tag={TAGS[i % TAGS.length]} />
+              <ProductCard key={p.id} product={p} tag={TAGS[i % TAGS.length]} />
             ))}
           </div>
         </section>
       )}
 
-      <section className="relative overflow-hidden border-y border-accent/15 bg-[radial-gradient(ellipse_at_70%_50%,rgba(42,8,92,0.55),transparent_60%)]">
+      <section className="relative overflow-hidden border-y border-accent/15 bg-[radial-gradient(ellipse_at_70%_50%,rgba(39,64,111,0.55),transparent_60%)]">
         <div className="scanlines pointer-events-none absolute inset-0 opacity-50" />
         <div className="animate-float absolute -right-24 top-1/2 hidden h-96 w-96 -translate-y-1/2 md:block" style={{ animationDuration: "9s" }}>
-          <div className="relative h-full w-full rounded-full bg-[radial-gradient(circle_at_32%_28%,#8b46ff,#2a085c_52%,#12022a_100%)] shadow-[0_0_90px_rgba(42,8,92,0.9)]">
+          <div className="relative h-full w-full rounded-full bg-[radial-gradient(circle_at_32%_28%,#6f8fe0,#27406f_52%,#0f1d40_100%)] shadow-[0_0_90px_rgba(39,64,111,0.9)]">
             <span className="absolute left-[22%] top-[18%] h-10 w-10 rounded-full bg-galaxy-deep/80" />
             <span className="absolute right-[20%] top-[48%] h-14 w-14 rounded-full bg-galaxy-deep/70" />
             <span className="absolute bottom-[16%] left-[38%] h-7 w-7 rounded-full bg-galaxy-deep/80" />
             <div className="animate-spin-slower absolute -inset-10">
-              <div className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 rounded-full bg-cta shadow-[0_0_18px_rgba(255,107,0,0.9)]" />
+              <div className="absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 rounded-full bg-cta shadow-[0_0_18px_rgba(70,212,191,0.9)]" />
             </div>
           </div>
         </div>
@@ -207,7 +202,7 @@ export default async function HomePage() {
             {featured.map((p, i) => (
               <ProductCard
                 key={p.id}
-                product={p as unknown as ProductDTO}
+                product={p}
                 tag={TAGS[i % TAGS.length]}
                 className={i === 0 ? "lg:col-span-2" : ""}
               />

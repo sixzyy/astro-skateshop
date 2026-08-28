@@ -127,7 +127,7 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
           <div className="flex items-center gap-3">
             <input value={form.phone} onChange={set("phone")} placeholder="Teléfono (opcional)" className="field flex-1" />
             <label className="flex cursor-pointer items-center gap-1.5 text-xs text-muted-foreground">
-              <input type="checkbox" checked={form.isDefault} onChange={set("isDefault")} className="accent-[#00f0ff]" />
+              <input type="checkbox" checked={form.isDefault} onChange={set("isDefault")} className="accent-[#6fc8e9]" />
               Predeterminada
             </label>
           </div>
@@ -188,7 +188,7 @@ export function AddressesManager({ initial }: { initial: Address[] }) {
         </ul>
       )}
 
-      <style>{`.field{height:2.5rem;width:100%;border-radius:.375rem;border:1px solid var(--border,#26263a);background:#101018;padding:0 .75rem;font-size:.875rem;outline:none}.field:focus{border-color:#00f0ff}`}</style>
+      <style>{`.field{height:2.5rem;width:100%;border-radius:.375rem;border:1px solid var(--border,#26263a);background:#101018;padding:0 .75rem;font-size:.875rem;outline:none}.field:focus{border-color:#6fc8e9}`}</style>
     </div>
   );
 }

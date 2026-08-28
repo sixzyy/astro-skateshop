@@ -43,7 +43,7 @@ export function CurrencySelector() {
         <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-md border border-accent/25 bg-card p-1 shadow-[0_0_30px_rgba(0,240,255,0.12)]">
+        <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-md border border-accent/25 bg-card p-1 shadow-[0_0_30px_rgba(111,200,233,0.12)]">
           {SUPPORTED_CURRENCIES.map((c) => (
             <button
               key={c.code}

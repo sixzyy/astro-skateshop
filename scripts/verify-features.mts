@@ -29,14 +29,14 @@ async function main() {
   const login = await api("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: "cliente@demo.mx", password: "nueva12345" }),
+    body: JSON.stringify({ email: "cliente@demo.co", password: "nueva12345" }),
   });
   if (login.res.status !== 200) {
     // La contraseña pudo no haber sido reseteada; usa la original.
     const l2 = await api("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: "cliente@demo.mx", password: "cliente123!" }),
+      body: JSON.stringify({ email: "cliente@demo.co", password: "cliente123!" }),
     });
     login.setCookie = l2.setCookie;
     check("login cliente", l2.res.status === 200);
@@ -89,14 +89,14 @@ async function main() {
   const aLogin = await api("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: "admin@astroskate.mx", password: "admin123!" }),
+    body: JSON.stringify({ email: "admin@astroskate.co", password: "admin123!" }),
   });
   check("login admin", aLogin.res.status === 200);
   const adminCookie = cookieOf(aLogin.setCookie);
 
   const customers = await api("/api/admin/customers", { headers: { cookie: adminCookie } });
   check("GET /api/admin/customers", customers.res.status === 200 && customers.json?.customers?.length > 0);
-  const demo = (customers.json?.customers ?? []).find((c: any) => c.email === "cliente@demo.mx");
+  const demo = (customers.json?.customers ?? []).find((c: any) => c.email === "cliente@demo.co");
 
   const det = await api(`/api/admin/customers/${demo.id}`, { headers: { cookie: adminCookie } });
   check(
@@ -121,7 +121,7 @@ async function main() {
   const blockedLogin = await api("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: "cliente@demo.mx", password: "reset9abc" }),
+    body: JSON.stringify({ email: "cliente@demo.co", password: "reset9abc" }),
   });
   check("login bloqueado para cuenta desactivada → 403", blockedLogin.res.status === 403);
 
@@ -135,7 +135,7 @@ async function main() {
   const reLogin = await api("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: "cliente@demo.mx", password: "reset9abc" }),
+    body: JSON.stringify({ email: "cliente@demo.co", password: "reset9abc" }),
   });
   check("login con contraseña reseteada → 200", reLogin.res.status === 200);
 

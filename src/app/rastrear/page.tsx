@@ -112,7 +112,7 @@ export default function TrackOrderPage() {
                     i < currentIndex
                       ? "border-accent bg-accent text-zinc-950"
                       : i === currentIndex
-                        ? "border-accent bg-background text-accent shadow-[0_0_12px_rgba(0,240,255,0.5)]"
+                        ? "border-accent bg-background text-accent shadow-[0_0_12px_rgba(111,200,233,0.5)]"
                         : "border-border bg-background text-muted-foreground"
                   )}
                 >

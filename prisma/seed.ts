@@ -36,10 +36,10 @@ const main = async () => {
   const clientPassword = await bcrypt.hash("cliente123!", 12);
 
   await prisma.user.upsert({
-    where: { email: "admin@astroskate.mx" },
+    where: { email: "admin@astroskate.co" },
     update: {},
     create: {
-      email: "admin@astroskate.mx",
+      email: "admin@astroskate.co",
       name: "Admin Astro",
       passwordHash: adminPassword,
       role: "ADMIN",
@@ -47,10 +47,10 @@ const main = async () => {
   });
 
   await prisma.user.upsert({
-    where: { email: "cliente@demo.mx" },
+    where: { email: "cliente@demo.co" },
     update: {},
     create: {
-      email: "cliente@demo.mx",
+      email: "cliente@demo.co",
       name: "Cliente Demo",
       passwordHash: clientPassword,
       role: "CLIENT",
@@ -330,8 +330,8 @@ const main = async () => {
   }
 
   console.log("Seed completado: marcas, categorías, productos y usuarios listos.");
-  console.log("Admin: admin@astroskate.mx / admin123!");
-  console.log("Cliente: cliente@demo.mx / cliente123!");
+  console.log("Admin: admin@astroskate.co / admin123!");
+  console.log("Cliente: cliente@demo.co / cliente123!");
 };
 
 main()

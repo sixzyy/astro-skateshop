@@ -113,15 +113,29 @@ export function CartDrawer() {
                 <span className="text-muted-foreground">Subtotal</span>
                 <span className="font-display font-bold">{formatMoney(subtotal, currencyCode, rates)}</span>
               </div>
-              <p className="mb-3 text-xs text-muted-foreground">
-                {subtotal >= settings.freeShippingThreshold
-                  ? "¡Tienes envío gratis!"
-                  : `Envío gratis a partir de ${formatMoney(settings.freeShippingThreshold, currencyCode, rates)} — te faltan ${formatMoney(
-                      settings.freeShippingThreshold - subtotal,
-                      currencyCode,
-                      rates
-                    )}`}
-              </p>
+              {settings.freeShippingThreshold > 0 && (
+                <div className="mb-3 rounded-md border border-cta/20 bg-cta/5 px-3 py-2">
+                  <p className="text-xs">
+                    {subtotal >= settings.freeShippingThreshold ? (
+                      <span className="text-cta">★ ¡Ya tienes envío gratis!</span>
+                    ) : (
+                      <span className="text-muted-foreground">
+                        Te faltan{" "}
+                        <strong className="text-cta">
+                          {formatMoney(settings.freeShippingThreshold - subtotal, currencyCode, rates)}
+                        </strong>{" "}
+                        para envío gratis
+                      </span>
+                    )}
+                  </p>
+                  <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-muted">
+                    <div
+                      className="h-full rounded-full bg-cta shadow-[0_0_10px_rgba(70,212,191,0.7)] transition-all duration-500"
+                      style={{ width: `${Math.min(100, (subtotal / settings.freeShippingThreshold) * 100)}%` }}
+                    />
+                  </div>
+                </div>
+              )}
               <Link
                 href="/checkout"
                 onClick={close}

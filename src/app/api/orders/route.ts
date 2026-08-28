@@ -133,13 +133,16 @@ export async function POST(req: Request) {
         include: { product: true },
       });
 
+      // COP es una moneda sin decimales en Stripe: unit_amount va en pesos enteros.
+      const toCOP = (amount: number) => Math.max(0, Math.round(amount));
+
       const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map((item) => {
         const variant = variants.find((v) => v.id === item.variantId)!;
         return {
           quantity: item.quantity,
           price_data: {
             currency: "cop",
-            unit_amount: Math.round(variant.product.price * 100),
+            unit_amount: toCOP(variant.product.price),
             product_data: {
               name: `${variant.product.name} — ${variant.title}`,
             },
@@ -152,7 +155,7 @@ export async function POST(req: Request) {
           quantity: 1,
           price_data: {
             currency: "cop",
-            unit_amount: Math.round(order.shipping * 100),
+            unit_amount: toCOP(order.shipping),
             product_data: { name: "Envío" },
           },
         });
@@ -170,7 +173,7 @@ export async function POST(req: Request) {
 
       if (discount > 0) {
         const coupon = await stripe.coupons.create({
-          amount_off: Math.round(discount * 100),
+          amount_off: toCOP(discount),
           currency: "cop",
           duration: "once",
           name: `Cupón ${order.couponCode}`,

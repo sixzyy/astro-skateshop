@@ -62,7 +62,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
               className={cn(
                 "min-w-14 rounded-md border px-3 py-2 font-display text-sm font-semibold transition-all cursor-pointer",
                 v.id === variantId
-                  ? "border-accent bg-accent text-zinc-950 shadow-[0_0_16px_rgba(0,240,255,0.35)]"
+                  ? "border-accent bg-accent text-zinc-950 shadow-[0_0_16px_rgba(111,200,233,0.35)]"
                   : "border-border hover:border-accent/60",
                 v.stock <= 0 &&
                   "cursor-not-allowed border-border bg-muted text-muted-foreground line-through opacity-60 hover:border-border"
@@ -111,7 +111,7 @@ export function AddToCart({ product }: { product: ProductDTO }) {
           <div className="flex h-12 min-w-52 flex-1 flex-wrap items-center justify-between gap-2 rounded-md border border-red-500/30 bg-red-500/5 px-4">
             <span className="font-display text-sm font-bold uppercase tracking-wide text-red-400">Agotado</span>
             <a
-              href={`mailto:hola@astroskate.mx?subject=${encodeURIComponent(
+              href={`mailto:hola@astroskate.co?subject=${encodeURIComponent(
                 "Notificar disponibilidad: " + product.name
               )}&body=${encodeURIComponent("Hola, quiero que me avisen cuando regrese a órbita este producto.")}`}
               className="inline-flex items-center gap-1.5 rounded-md border border-accent/60 px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-accent transition-colors hover:bg-accent hover:text-zinc-950"

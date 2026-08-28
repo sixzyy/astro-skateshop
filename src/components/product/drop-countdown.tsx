@@ -6,7 +6,7 @@ import { Zap } from "lucide-react";
 function Cell({ value, label }: { value: number | null; label: string }) {
   return (
     <span className="flex flex-col items-center">
-      <span className="min-w-[4rem] rounded-lg border border-cta/50 bg-background/80 px-3 py-2 font-mono text-2xl font-bold tabular-nums text-white shadow-[0_0_18px_rgba(255,107,0,0.25)] sm:text-3xl">
+      <span className="min-w-[4rem] rounded-lg border border-cta/50 bg-background/80 px-3 py-2 font-mono text-2xl font-bold tabular-nums text-white shadow-[0_0_18px_rgba(70,212,191,0.25)] sm:text-3xl">
         {value === null ? "--" : String(value).padStart(2, "0")}
       </span>
       <span className="mt-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">

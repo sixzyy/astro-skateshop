@@ -8,6 +8,7 @@ import { AlertTriangle, Lock, ShieldCheck, ShoppingBag, XCircle } from "lucide-r
 import { cartSubtotal, useCartStore } from "@/store/cart";
 import { useCurrencyStore } from "@/store/currency";
 import { shippingFor } from "@/lib/utils";
+import { ivaOf } from "@/lib/pricing";
 import { formatMoney } from "@/lib/currency";
 import { useSettings } from "@/hooks/use-settings";
 import { CheckoutForm } from "@/components/checkout/checkout-form";
@@ -190,7 +191,6 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
       <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
         <CheckoutForm
           items={items}
-          subtotal={subtotal}
           shipping={shipping}
           total={total}
           expressAvailable={expressAvailable}
@@ -208,6 +208,29 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
           <p className="mb-4 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
             {liveStock === null ? "◉ Verificando disponibilidad..." : "● Disponibilidad confirmada"}
           </p>
+          {settings.freeShippingThreshold > 0 && (
+            <div className="mb-4 rounded-md border border-cta/20 bg-cta/5 px-3 py-2.5">
+              <p className="font-mono text-[10px] uppercase tracking-widest">
+                {shipping === 0 ? (
+                  <span className="text-cta">★ ¡Ya tienes envío gratis!</span>
+                ) : (
+                  <span className="text-muted-foreground">
+                    Te faltan{" "}
+                    <strong className="text-cta">
+                      {formatMoney(settings.freeShippingThreshold - discountedSubtotal, currencyCode, rates)}
+                    </strong>{" "}
+                    para envío gratis
+                  </span>
+                )}
+              </p>
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted">
+                <div
+                  className="h-full rounded-full bg-cta shadow-[0_0_10px_rgba(70,212,191,0.7)] transition-all duration-500"
+                  style={{ width: `${Math.min(100, (discountedSubtotal / settings.freeShippingThreshold) * 100)}%` }}
+                />
+              </div>
+            </div>
+          )}
           <ul className="mb-4 max-h-72 space-y-3 overflow-y-auto pr-1">
             {items.map((item) => (
               <li key={item.variantId} className="flex items-center gap-3">
@@ -246,6 +269,10 @@ export function CheckoutBody({ expressAvailable = false }: { expressAvailable?: 
                 <dd>-{formatMoney(discount, currencyCode, rates)}</dd>
               </div>
             )}
+            <div className="flex justify-between">
+              <dt className="text-muted-foreground">IVA 19% incluido</dt>
+              <dd>{formatMoney(ivaOf(discountedSubtotal), currencyCode, rates)}</dd>
+            </div>
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Envío</dt>
               <dd>{shipping === 0 ? "Gratis" : formatMoney(shipping, currencyCode, rates)}</dd>

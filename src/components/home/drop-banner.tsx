@@ -28,7 +28,7 @@ export function DropBanner({ name, slug, date }: { name: string; slug: string; d
   const { days, hours, minutes, seconds } = parts(left);
   const cell = (value: number, label: string) => (
     <span className="flex flex-col items-center">
-      <span className="min-w-[2.4rem] rounded-md border border-cta/50 bg-background/80 px-2 py-1 font-mono text-lg font-bold tabular-nums text-white shadow-[0_0_14px_rgba(255,107,0,0.25)]">
+      <span className="min-w-[2.4rem] rounded-md border border-cta/50 bg-background/80 px-2 py-1 font-mono text-lg font-bold tabular-nums text-white shadow-[0_0_14px_rgba(70,212,191,0.25)]">
         {String(value).padStart(2, "0")}
       </span>
       <span className="mt-1 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">{label}</span>
@@ -38,7 +38,7 @@ export function DropBanner({ name, slug, date }: { name: string; slug: string; d
   return (
     <Link
       href={`/products/${slug}`}
-      className="animate-fade-up mx-auto mb-6 mt-6 flex w-full max-w-7xl flex-wrap items-center justify-center gap-x-5 gap-y-3 rounded-xl border border-cta/40 bg-gradient-to-r from-galaxy/70 via-card to-cta/15 px-5 py-3.5 transition-all hover:border-cta hover:shadow-[0_0_32px_rgba(255,107,0,0.25)] sm:flex-nowrap"
+      className="animate-fade-up mx-auto mb-6 mt-6 flex w-full max-w-7xl flex-wrap items-center justify-center gap-x-5 gap-y-3 rounded-xl border border-cta/40 bg-gradient-to-r from-galaxy/70 via-card to-cta/15 px-5 py-3.5 transition-all hover:border-cta hover:shadow-[0_0_32px_rgba(70,212,191,0.25)] sm:flex-nowrap"
     >
       <span className="flex items-center gap-2 font-display text-sm font-bold uppercase tracking-widest text-cta">
         <Zap className="h-4 w-4 animate-pulse" /> Próximo drop

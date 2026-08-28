@@ -8,6 +8,7 @@ import { LogoutButton } from "@/components/account/logout-button";
 import { ProfileForm } from "@/components/account/profile-form";
 import { AddressesManager, type Address } from "@/components/account/addresses-manager";
 import { formatDate, formatPrice, ORDER_STATUS_LABELS } from "@/lib/utils";
+import { ReorderButton } from "@/components/account/reorder-button";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Mi cuenta" };
@@ -44,7 +45,15 @@ export default async function AccountPage() {
     status: string;
     total: number;
     createdAt: Date;
-    items: { id: string; productName: string; variantTitle: string; quantity: number; image: string | null }[];
+    items: {
+      id: string;
+      productName: string;
+      variantTitle: string;
+      quantity: number;
+      image: string | null;
+      variantId: string | null;
+      productId: string | null;
+    }[];
   }[] = [];
 
   try {
@@ -132,6 +141,15 @@ export default async function AccountPage() {
                   </li>
                 ))}
               </ul>
+              <div className="flex justify-end border-t border-border px-5 py-3">
+                <ReorderButton
+                  items={order.items.map((it) => ({
+                    variantId: it.variantId,
+                    productId: it.productId,
+                    quantity: it.quantity,
+                  }))}
+                />
+              </div>
             </li>
           ))}
         </ul>

@@ -134,7 +134,7 @@ export function SettingsForm() {
               type="text"
               value={state.whatsappNumber}
               onChange={(e) => setState({ ...state, whatsappNumber: e.target.value })}
-              placeholder="5215512345678"
+              placeholder="573001234567"
               className={`${field} font-mono`}
             />
           </label>

@@ -7,7 +7,7 @@ import { loadEnvFile } from "node:process";
 loadEnvFile();
 
 const BASE = (process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
-const ADMIN = { email: "admin@astroskate.mx", password: "admin123!" };
+const ADMIN = { email: "admin@astroskate.co", password: "admin123!" };
 
 let passed = 0;
 let failed = 0;
@@ -96,11 +96,11 @@ async function main() {
         saveAddress: false,
         shippingInfo: {
           name: "Smoke Test",
-          email: "smoke@test.mx",
-          address: "Av. Prueba 123",
-          city: "CDMX",
-          state: "CMX",
-          postalCode: "06700",
+          email: "smoke@test.co",
+          address: "Cra 30 # 73-10",
+          city: "Bogotá",
+          state: "Cundinamarca",
+          postalCode: "110221",
         },
       }),
     });

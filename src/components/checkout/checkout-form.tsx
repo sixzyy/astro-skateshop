@@ -21,7 +21,6 @@ interface SavedAddress {
 
 interface Props {
   items: CartItem[];
-  subtotal: number;
   shipping: number;
   total: number;
   expressAvailable: boolean;
@@ -49,16 +48,15 @@ const FIELD_VALIDATORS: Record<FieldKey, (v: string) => boolean> = {
 
 const FIELD_LABELS: Record<FieldKey, { label: string; placeholder: string; autoComplete: string; type?: string; span?: string }> = {
   name: { label: "Nombre completo", placeholder: "Tu nombre y apellido", autoComplete: "name" },
-  email: { label: "Correo electrónico", placeholder: "tu@correo.mx", autoComplete: "email", type: "email" },
-  address: { label: "Calle y número", placeholder: "Av. Reforma 123, Int. 4", autoComplete: "street-address", span: "sm:col-span-2" },
-  city: { label: "Ciudad", placeholder: "CDMX", autoComplete: "address-level2" },
-  state: { label: "Estado", placeholder: "CMX", autoComplete: "address-level1" },
-  postalCode: { label: "C.P.", placeholder: "06700", autoComplete: "postal-code" },
+  email: { label: "Correo electrónico", placeholder: "tu@correo.co", autoComplete: "email", type: "email" },
+  address: { label: "Calle y número", placeholder: "Cra 49 # 12-34, Ap. 401", autoComplete: "street-address", span: "sm:col-span-2" },
+  city: { label: "Ciudad", placeholder: "Medellín", autoComplete: "address-level2" },
+  state: { label: "Departamento", placeholder: "Antioquia", autoComplete: "address-level1" },
+  postalCode: { label: "Código postal", placeholder: "050001", autoComplete: "postal-code" },
 };
 
 export function CheckoutForm({
   items,
-  subtotal: _subtotal,
   shipping,
   total,
   expressAvailable,
@@ -205,7 +203,7 @@ export function CheckoutForm({
               className={cn(
                 "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border font-mono text-xs",
                 i === step
-                  ? "border-cta bg-cta text-zinc-950 shadow-[0_0_14px_rgba(255,107,0,0.5)]"
+                  ? "border-cta bg-cta text-zinc-950 shadow-[0_0_14px_rgba(70,212,191,0.5)]"
                   : i === 2
                     ? "border-border text-muted-foreground"
                     : "border-accent/60 bg-accent/10 text-accent"
@@ -294,7 +292,7 @@ export function CheckoutForm({
                   type="checkbox"
                   checked={saveAddressChecked}
                   onChange={(e) => setSaveAddressChecked(e.target.checked)}
-                  className="accent-[#00f0ff]"
+                  className="accent-[#6fc8e9]"
                 />
                 Guardar esta dirección en mi cuenta para futuras compras
               </label>
@@ -523,7 +521,7 @@ function WizardField({
       {invalid && (
         <span className="mt-1 block text-[11px] text-red-400">
           {fieldKey === "email"
-            ? "Escribe un correo válido (ej. tu@correo.mx)"
+            ? "Escribe un correo válido (ej. tu@correo.co)"
             : fieldKey === "postalCode"
               ? "Código postal de 4 a 6 dígitos"
               : fieldKey === "address"

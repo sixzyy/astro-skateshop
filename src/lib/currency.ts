@@ -39,7 +39,6 @@ const FALLBACK_RATES: Record<string, number> = {
   CLP: 0.24,
   ARS: 0.33,
   PEN: 0.00095,
-  MXN: 0.0048,
 };
 
 type RatesSnapshot = { rates: Record<string, number>; fetchedAt: number };

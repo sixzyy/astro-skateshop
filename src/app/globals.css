@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0b0b10;
-  --foreground: #ededf4;
-  --card: #12121c;
-  --muted: #181826;
-  --muted-foreground: #8f8fa8;
-  --border: #23233a;
-  --accent: #00f0ff;
-  --accent-strong: #6bf7ff;
-  --galaxy: #2a085c;
-  --galaxy-deep: #150430;
-  --cta: #ff6b00;
-  --cta-strong: #ff8a3d;
+  --background: #0b1424;
+  --foreground: #e7edf8;
+  --card: #101b33;
+  --muted: #16233d;
+  --muted-foreground: #8b9cc4;
+  --border: #243357;
+  --accent: #6fc8e9;
+  --accent-strong: #8fd9ef;
+  --galaxy: #27406f;
+  --galaxy-deep: #0f1d40;
+  --cta: #46d4bf;
+  --cta-strong: #6fdfce;
 }
 
 @theme inline {
@@ -50,16 +50,16 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #0b0b10;
+  color: #0b1424;
 }
 
 .text-stroke {
-  -webkit-text-stroke: 1.5px rgba(0, 240, 255, 0.28);
+  -webkit-text-stroke: 1.5px rgba(111, 200, 233, 0.28);
   color: transparent;
 }
 
 .text-stroke-soft {
-  -webkit-text-stroke: 1px rgba(237, 237, 244, 0.18);
+  -webkit-text-stroke: 1px rgba(231, 237, 248, 0.18);
   color: transparent;
 }
 
@@ -78,8 +78,8 @@ body {
 .scanlines {
   background-image: repeating-linear-gradient(
     0deg,
-    rgba(0, 240, 255, 0.028) 0px,
-    rgba(0, 240, 255, 0.028) 1px,
+    rgba(111, 200, 233, 0.028) 0px,
+    rgba(111, 200, 233, 0.028) 1px,
     transparent 1px,
     transparent 4px
   );
@@ -93,7 +93,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(155deg, rgba(42, 8, 92, 0.45) 0%, rgba(11, 11, 16, 0.15) 45%, rgba(0, 240, 255, 0.12) 100%);
+  background: linear-gradient(155deg, rgba(39, 64, 111, 0.45) 0%, rgba(11, 20, 36, 0.15) 45%, rgba(111, 200, 233, 0.12) 100%);
   mix-blend-mode: overlay;
   pointer-events: none;
 }
@@ -127,14 +127,14 @@ body {
 
 .btn-glow-cyan {
   box-shadow:
-    0 0 20px rgba(0, 240, 255, 0.22),
-    inset 0 0 12px rgba(0, 240, 255, 0.08);
+    0 0 20px rgba(111, 200, 233, 0.22),
+    inset 0 0 12px rgba(111, 200, 233, 0.08);
 }
 
 .btn-glow-cta {
   box-shadow:
-    0 0 26px rgba(255, 107, 0, 0.38),
-    inset 0 0 14px rgba(255, 138, 61, 0.18);
+    0 0 26px rgba(70, 212, 191, 0.38),
+    inset 0 0 14px rgba(111, 223, 206, 0.18);
 }
 
 .link-glitch {
@@ -146,8 +146,8 @@ body {
   color: var(--accent);
   animation: glitch-jitter 0.25s steps(2, end) 2;
   text-shadow:
-    -2px 0 rgba(255, 107, 0, 0.75),
-    2px 0 rgba(0, 240, 255, 0.75);
+    -2px 0 rgba(70, 212, 191, 0.75),
+    2px 0 rgba(111, 200, 233, 0.75);
 }
 
 @keyframes glitch-jitter {
@@ -165,24 +165,6 @@ body {
   }
   100% {
     transform: translate(0, 0) skewX(0deg);
-  }
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes marquee-rev {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
   }
 }
 
@@ -260,33 +242,21 @@ body {
     transform: translate(0, 0) skewX(0deg);
   }
   25% {
-    filter: drop-shadow(-3px 0 rgba(255, 107, 0, 0.6));
+    filter: drop-shadow(-3px 0 rgba(70, 212, 191, 0.6));
     transform: translate(-2px, 1px) skewX(-2deg);
   }
   50% {
-    filter: drop-shadow(3px 0 rgba(0, 240, 255, 0.6));
+    filter: drop-shadow(3px 0 rgba(111, 200, 233, 0.6));
     transform: translate(2px, -1px) skewX(2deg);
   }
   75% {
-    filter: drop-shadow(-2px 0 rgba(42, 8, 92, 0.9));
+    filter: drop-shadow(-2px 0 rgba(39, 64, 111, 0.9));
     transform: translate(-1px, 0) skewX(-1deg);
   }
   100% {
     filter: drop-shadow(0 0 0 transparent);
     transform: translate(0, 0) skewX(0deg);
   }
-}
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-
-.animate-marquee-fast {
-  animation: marquee 18s linear infinite;
-}
-
-.animate-marquee-rev {
-  animation: marquee-rev 34s linear infinite;
 }
 
 .animate-fade-up {
@@ -378,4 +348,28 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

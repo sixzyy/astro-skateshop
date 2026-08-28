@@ -4,7 +4,7 @@ export const SETTING_DEFAULTS = {
   freeShippingThreshold: "999",
   shippingFlat: "149",
   announcement: "",
-  whatsappNumber: "5215512345678",
+  whatsappNumber: "573001234567",
   instagramUrl: "https://instagram.com/astroskateshop",
   tiktokUrl: "https://tiktok.com/@astroskateshop",
   youtubeUrl: "https://youtube.com/@astroskateshop",

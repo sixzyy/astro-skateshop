@@ -50,15 +50,15 @@ function shell(title: string, body: string, cta?: { label: string; href: string 
   const url = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
   return `<!doctype html><html><body style="margin:0;background:#0b0b10;font-family:Arial,Helvetica,sans-serif;color:#e8e8f0;padding:28px">
   <div style="max-width:560px;margin:0 auto;border:1px solid #26263a;border-radius:12px;overflow:hidden">
-    <div style="background:#12061f;padding:18px 24px;border-bottom:2px solid #00f0ff">
-      <span style="font-size:20px;font-weight:800;letter-spacing:2px;color:#fff">ASTRO<span style="color:#00f0ff">SKATE</span></span>
+    <div style="background:#0b1424;padding:18px 24px;border-bottom:2px solid #6fc8e9">
+      <span style="font-size:20px;font-weight:800;letter-spacing:2px;color:#fff">ASTRO<span style="color:#6fc8e9">SKATE</span></span>
     </div>
     <div style="padding:26px 24px">
       <h1 style="margin:0 0 14px;font-size:19px;color:#fff">${title}</h1>
       ${body}
       ${
         cta
-          ? `<a href="${cta.href}" style="display:inline-block;margin-top:18px;background:#ff6b00;color:#111;font-weight:700;padding:11px 22px;border-radius:6px;text-decoration:none">${cta.label}</a>`
+          ? `<a href="${cta.href}" style="display:inline-block;margin-top:18px;background:#46d4bf;color:#0b1424;font-weight:700;padding:11px 22px;border-radius:6px;text-decoration:none">${cta.label}</a>`
           : ""
       }
     </div>
@@ -86,7 +86,7 @@ export async function sendOrderConfirmation(input: {
   const url = `${process.env.NEXT_PUBLIC_APP_URL ?? ""}/rastrear?numero=${input.number}`;
   const body = `
     <p style="color:#cfcfe0;margin:0 0 12px">Recibimos tu pedido y ya lo estamos preparando. 🛹</p>
-    <p style="font-mono;margin:0 0 8px"><strong style="color:#00f0ff">${input.number}</strong></p>
+    <p style="font-mono;margin:0 0 8px"><strong style="color:#6fc8e9">${input.number}</strong></p>
     <table style="width:100%;border-collapse:collapse">${rows}</table>
     <p style="font-size:17px;margin:16px 0 0"><strong>Total: ${money(input.total)}</strong></p>`;
   return send(input.to, `Pedido confirmado ${input.number} · Astro SkateShop`, shell("¡Gracias por tu compra!", body, { label: "Rastrear pedido", href: url }));
@@ -120,8 +120,8 @@ export async function sendOrderStatusUpdate(input: {
     trackingHtml = `
       <div style="margin-top:16px;padding:14px;border:1px solid #26263a;border-radius:8px;background:#101018">
         <p style="margin:0 0 4px;font-size:12px;color:#8a8aa0;text-transform:uppercase;letter-spacing:1px">Guía de rastreo</p>
-        <p style="margin:0 0 10px;font-size:18px;font-weight:bold;color:#00f0ff;letter-spacing:1px">${escapeHtml(input.trackingNumber)}</p>
-        <a href="${link}" style="color:#00f0ff;font-size:13px">Rastrear paquete${carrierName ? ` en ${carrierName}` : " aquí"} →</a>
+        <p style="margin:0 0 10px;font-size:18px;font-weight:bold;color:#6fc8e9;letter-spacing:1px">${escapeHtml(input.trackingNumber)}</p>
+        <a href="${link}" style="color:#6fc8e9;font-size:13px">Rastrear paquete${carrierName ? ` en ${carrierName}` : " aquí"} →</a>
       </div>`;
   }
 

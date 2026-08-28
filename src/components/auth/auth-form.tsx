@@ -64,7 +64,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           {!isLogin && (
             <Field label="Nombre" name="name" type="text" placeholder="Tu nombre" required minLength={2} />
           )}
-          <Field label="Correo" name="email" type="email" placeholder="tu@correo.mx" required />
+          <Field label="Correo" name="email" type="email" placeholder="tu@correo.co" required />
           <Field
             label="Contraseña"
             name="password"

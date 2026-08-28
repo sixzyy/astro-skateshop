@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { scheduledFilter } from "@/lib/schedule";
 import { ProductCard } from "@/components/product/product-card";
@@ -8,14 +9,27 @@ import { withImagesAll } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = { title: "Tienda" };
-
 const PER_PAGE = 12;
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
 function single(v: string | string[] | undefined) {
   return Array.isArray(v) ? v[0] : v;
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}): Promise<Metadata> {
+  const sp = await searchParams;
+  const category = single(sp.category);
+  const q = single(sp.q);
+  const title = q ? `Búsqueda: ${q}` : category ? `Categoría: ${category}` : "Tienda";
+  return {
+    title,
+    description: `Catálogo${category ? ` de ${category}` : ""} de tablas, trucks, ruedas, grip, tenis y ropa. Envío gratis desde $999 COP en toda Colombia.`,
+  };
 }
 
 export default async function ProductsPage({ searchParams }: { searchParams: SearchParams }) {
@@ -45,6 +59,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
   let total = 0;
   let categories: CategoryDTO[] = [];
   let brands: BrandDTO[] = [];
+  let ratings: Record<string, { average: number; count: number }> = {};
 
   try {
     const [rawProducts, rawTotal, rawCategories, rawBrands] = await Promise.all([
@@ -64,13 +79,45 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
       prisma.category.findMany({ orderBy: { name: "asc" } }),
       prisma.brand.findMany({ orderBy: { name: "asc" } }),
     ]);
-    products = withImagesAll(rawProducts) as unknown as ProductDTO[];
+    products = withImagesAll(rawProducts);
     total = rawTotal;
     categories = rawCategories;
     brands = rawBrands;
+    if (rawProducts.length > 0) {
+      const grouped = await prisma.review.groupBy({
+        by: ["productId"],
+        where: { productId: { in: rawProducts.map((p) => p.id) }, approved: true },
+        _avg: { rating: true },
+        _count: { rating: true },
+      });
+      ratings = Object.fromEntries(
+        grouped.map((r) => [
+          r.productId,
+          { average: Number((r._avg.rating ?? 0).toFixed(1)), count: r._count.rating },
+        ])
+      );
+    }
   } catch {}
 
   const pages = Math.ceil(total / PER_PAGE);
+
+  const BASE = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+
+  const itemListJsonLd = products.length
+    ? JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: q ? `Resultados de búsqueda: ${q}` : category ? `Categoría ${category}` : "Catálogo de tienda",
+        numberOfItems: total,
+        itemListElement: products.map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          url: `${BASE}/products/${p.slug}`,
+          name: p.name,
+          ...(p.images[0] ? { image: p.images[0] } : {}),
+        })),
+      })
+    : null;
 
   function buildHref(overrides: Record<string, string | null>) {
     const params = new URLSearchParams();
@@ -101,6 +148,12 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      {itemListJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: itemListJsonLd }}
+        />
+      )}
       <header className="mb-8">
         <span className="text-xs font-bold uppercase tracking-[0.25em] text-accent">Catálogo</span>
         <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
@@ -116,7 +169,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
             href={f.href}
             className={`whitespace-nowrap rounded-full border px-4 py-2 font-mono text-xs uppercase tracking-wider transition-all ${
               f.active
-                ? "border-accent bg-accent/10 text-accent shadow-[0_0_16px_rgba(0,240,255,0.2)]"
+                ? "border-accent bg-accent/10 text-accent shadow-[0_0_16px_rgba(111,200,233,0.2)]"
                 : "border-border text-muted-foreground hover:border-accent/60 hover:text-accent"
             }`}
           >
@@ -148,7 +201,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
             <>
               <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 xl:grid-cols-4">
                 {products.map((p) => (
-                  <ProductCard key={p.id} product={p} />
+                  <ProductCard key={p.id} product={p} rating={ratings[p.id]} />
                 ))}
               </div>
 
@@ -168,7 +221,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
                       href={buildHref({ page: String(p) })}
                       className={`rounded-md border px-4 py-2 font-display text-sm font-semibold ${
                         p === page
-                          ? "border-cta bg-cta text-zinc-950 shadow-[0_0_14px_rgba(255,107,0,0.4)]"
+                          ? "border-cta bg-cta text-zinc-950 shadow-[0_0_14px_rgba(70,212,191,0.4)]"
                           : "border-border hover:border-accent hover:text-accent"
                       }`}
                     >

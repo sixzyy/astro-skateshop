@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Price } from "@/components/ui/price";
 import { QuickAdd } from "@/components/product/quick-add";
@@ -18,10 +19,12 @@ export function ProductCard({
   product,
   className,
   tag,
+  rating,
 }: {
   product: ProductDTO;
   className?: string;
   tag?: string;
+  rating?: { average: number; count: number };
 }) {
   const totalStock = product.variants.reduce((acc, v) => acc + v.stock, 0);
   const lowStock = totalStock > 0 && totalStock <= 3;
@@ -37,7 +40,7 @@ export function ProductCard({
   return (
     <div
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all duration-300 hover:border-accent/70 hover:shadow-[0_0_32px_rgba(0,240,255,0.16)]",
+        "group relative flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card transition-all duration-300 hover:border-accent/70 hover:shadow-[0_0_32px_rgba(111,200,233,0.16)]",
         className
       )}
     >
@@ -68,7 +71,7 @@ export function ProductCard({
             [{tag ?? tagFor(product.id)}]
           </span>
           {discount > 0 && (
-            <span className="rounded-sm bg-cta px-2 py-0.5 font-display text-[11px] font-bold uppercase tracking-wider text-zinc-950 shadow-[0_0_12px_rgba(255,107,0,0.6)]">
+            <span className="rounded-sm bg-cta px-2 py-0.5 font-display text-[11px] font-bold uppercase tracking-wider text-zinc-950 shadow-[0_0_12px_rgba(70,212,191,0.6)]">
               -{discount}%
             </span>
           )}
@@ -111,6 +114,15 @@ export function ProductCard({
             </span>
           )}
         </div>
+        {rating && rating.count > 0 && (
+          <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            <Star className="h-3 w-3 fill-accent text-accent" />
+            <span className="text-accent">{rating.average.toFixed(1)}</span>
+            <span>
+              ({rating.count} {rating.count === 1 ? "reseña" : "reseñas"})
+            </span>
+          </p>
+        )}
         <p className="mt-auto pt-1.5 font-mono text-[10px] uppercase tracking-widest">
           {totalStock === 0 ? (
             <span className="text-red-400">● Agotado</span>

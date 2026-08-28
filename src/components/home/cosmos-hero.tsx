@@ -100,18 +100,18 @@ export function CosmosHero() {
           <div ref={deckWrapRef} className="relative">
             <div className="animate-float">
               <div ref={deckRef} style={{ transformStyle: "preserve-3d", transform: "rotateX(52deg)" }}>
-                <div className="grip-texture relative h-[84px] w-[300px] rounded-[2rem] border border-accent/30 shadow-[0_0_60px_rgba(0,240,255,0.22)]">
+                <div className="grip-texture relative h-[84px] w-[300px] rounded-[2rem] border border-accent/30 shadow-[0_0_60px_rgba(111,200,233,0.22)]">
                   <svg viewBox="0 0 300 84" className="absolute inset-0 h-full w-full opacity-90">
-                    <g stroke="#00f0ff" strokeWidth="1" opacity="0.75">
+                    <g stroke="#6fc8e9" strokeWidth="1" opacity="0.75">
                       <line x1="52" y1="24" x2="98" y2="44" />
                       <line x1="98" y1="44" x2="140" y2="26" />
                       <line x1="196" y1="58" x2="232" y2="36" />
                       <line x1="232" y1="36" x2="264" y2="52" />
                     </g>
-                    <g fill="#eafcff">
+                    <g fill="#eaf3fb">
                       <circle cx="52" cy="24" r="2.6" />
                       <circle cx="98" cy="44" r="2" />
-                      <circle cx="140" cy="26" r="3" fill="#ff6b00" />
+                      <circle cx="140" cy="26" r="3" fill="#46d4bf" />
                       <circle cx="196" cy="58" r="2.2" />
                       <circle cx="232" cy="36" r="2.6" />
                       <circle cx="264" cy="52" r="1.8" />
@@ -125,7 +125,7 @@ export function CosmosHero() {
                   {[0, 1].map((i) => (
                     <div key={i} className="flex flex-col items-center">
                       <span className="h-5 w-1.5 bg-zinc-600" />
-                      <span className="h-9 w-9 rounded-full border border-cta/70 bg-[radial-gradient(circle_at_32%_28%,#ffb066,#ff6b00_48%,#571d00_100%)] shadow-[0_0_24px_rgba(255,107,0,0.55)]" />
+                      <span className="h-9 w-9 rounded-full border border-cta/70 bg-[radial-gradient(circle_at_32%_28%,#9fe8d8,#46d4bf_48%,#123b33_100%)] shadow-[0_0_24px_rgba(70,212,191,0.55)]" />
                     </div>
                   ))}
                 </div>
@@ -138,7 +138,7 @@ export function CosmosHero() {
           >
             <p>mapa estelar // capa de grip</p>
             <svg viewBox="0 0 260 40" className="mt-2 h-10 w-full">
-              <g fill="#ff6b00" opacity="0.85">
+              <g fill="#46d4bf" opacity="0.85">
                 <circle cx="16" cy="28" r="1.6" />
                 <circle cx="58" cy="12" r="1.2" />
                 <circle cx="102" cy="30" r="1.8" />
@@ -146,7 +146,7 @@ export function CosmosHero() {
                 <circle cx="198" cy="26" r="1.6" />
                 <circle cx="242" cy="10" r="1.2" />
               </g>
-              <g stroke="#00f0ff" strokeWidth="0.7" opacity="0.5">
+              <g stroke="#6fc8e9" strokeWidth="0.7" opacity="0.5">
                 <line x1="16" y1="28" x2="58" y2="12" />
                 <line x1="58" y1="12" x2="102" y2="30" />
                 <line x1="150" y1="14" x2="198" y2="26" />

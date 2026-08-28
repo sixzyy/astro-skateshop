@@ -23,7 +23,7 @@ export function FloatingChat() {
         href="/rastrear"
         aria-label="Rastrear mi pedido"
         title="Rastrear mi pedido"
-        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-accent/50 bg-background/90 text-accent shadow-[0_4px_18px_rgba(0,240,255,0.25)] backdrop-blur transition-transform hover:scale-110"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-accent/50 bg-background/90 text-accent shadow-[0_4px_18px_rgba(111,200,233,0.25)] backdrop-blur transition-transform hover:scale-110"
       >
         <PackageSearch className="h-5 w-5" />
       </Link>

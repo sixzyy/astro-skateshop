@@ -10,6 +10,8 @@ import { HeartButton } from "@/components/product/heart-button";
 import { ReviewsSection } from "@/components/product/reviews-section";
 import { DropCountdown } from "@/components/product/drop-countdown";
 import { Price } from "@/components/ui/price";
+import { ivaOf } from "@/lib/pricing";
+import { formatPrice } from "@/lib/utils";
 import type { ProductDTO } from "@/lib/types";
 import { withImages, withImagesAll } from "@/lib/types";
 
@@ -107,6 +109,9 @@ export default async function ProductDetailPage({ params }: Props) {
               <Price amount={product.price} className="font-display text-3xl font-bold" />
               <span className="text-xs uppercase tracking-widest text-muted-foreground">precio de lanzamiento</span>
             </div>
+            <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              Precio final · incluye IVA 19% ({formatPrice(ivaOf(product.price))})
+            </p>
 
             <p className="mt-5 leading-relaxed text-muted-foreground">{product.description}</p>
 
@@ -156,7 +161,7 @@ export default async function ProductDetailPage({ params }: Props) {
         select: { id: true, name: true, rating: true, comment: true, createdAt: true },
       }),
     ]);
-    related = withImagesAll(rawRelated) as unknown as ProductDTO[];
+    related = withImagesAll(rawRelated);
     reviews = rawReviews;
   } catch {}
 
@@ -164,10 +169,26 @@ export default async function ProductDetailPage({ params }: Props) {
     ? Math.round((reviews.reduce((a, r) => a + r.rating, 0) / reviews.length) * 10) / 10
     : null;
 
+  const jsonLdProduct =
+    average !== null && reviews.length > 0
+      ? {
+          ...jsonLd,
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: average,
+            reviewCount: reviews.length,
+          },
+        }
+      : jsonLd;
+
   const specs = (product.specs ?? null) as Record<string, string> | null;
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProduct) }}
+      />
       <Link
         href="/products"
         className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-accent"
@@ -222,10 +243,14 @@ export default async function ProductDetailPage({ params }: Props) {
             )}
           </div>
 
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            Precio final · incluye IVA 19% ({formatPrice(ivaOf(product.price))})
+          </p>
+
           <p className="mt-5 leading-relaxed text-muted-foreground">{product.description}</p>
 
           <div className="mt-7 border-t border-border pt-7">
-            <AddToCart product={product as unknown as ProductDTO} />
+            <AddToCart product={product} />
           </div>
 
           <ul className="mt-8 grid gap-3 sm:grid-cols-3">

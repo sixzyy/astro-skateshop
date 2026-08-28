@@ -98,7 +98,7 @@ model Order {
   state     String
   postalCode String
   status    String       @default("PENDING")
-  currency  String       @default("MXN")
+  currency  String       @default("COP")
   exchangeRate Float     @default(1)
   couponCode   String?
   trackingNumber String?

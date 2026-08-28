@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { JetBrains_Mono, Space_Grotesk, Syne } from "next/font/google";
 import "./globals.css";
@@ -42,6 +42,23 @@ export const metadata: Metadata = {
     url: BASE,
   },
   twitter: { card: "summary_large_image" },
+  applicationName: "Astro SkateShop",
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Astro SkateShop",
+    statusBarStyle: "black-translucent",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0b1424",
 };
 
 export default function RootLayout({
@@ -61,6 +78,14 @@ export default function RootLayout({
             __html: `!function(){function r(e){e.removeAttribute("bis_skin_checked");for(var c=e.firstElementChild;c;c=c.firstElementChild)r(c)}function s(){r(document.body);new MutationObserver(function(a){for(var m of a)for(var n of m.addedNodes)n.nodeType===1&&r(n)}).observe(document.body,{childList:!0,subtree:!0})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",s):s()}()`,
           }}
         />
+        {process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN && (
+          <Script
+            id="plausible-analytics"
+            strategy="afterInteractive"
+            data-domain={process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN}
+            src="https://plausible.io/js/script.js"
+          />
+        )}
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

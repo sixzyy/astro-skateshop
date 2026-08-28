@@ -17,7 +17,7 @@ const DEFAULTS: StoreSettings = {
   freeShippingThreshold: FREE_SHIPPING_THRESHOLD,
   shippingFlat: SHIPPING_FLAT,
   announcement: "",
-  whatsappNumber: "5215512345678",
+  whatsappNumber: "573001234567",
   instagramUrl: "",
   tiktokUrl: "",
   youtubeUrl: "",

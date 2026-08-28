@@ -6,42 +6,42 @@ const POSTS = [
     handle: "@astro.rita",
     likes: "12.4k",
     type: "ig" as const,
-    gradient: "from-galaxy via-[#4b1a8f] to-accent/40",
+    gradient: "from-galaxy via-[#4b5f9e] to-accent/40",
     caption: "Sesión nocturna en el cráter",
   },
   {
     handle: "@nico_ollies",
     likes: "8.1k",
     type: "tt" as const,
-    gradient: "from-cta/70 via-[#7a2d00] to-background",
+    gradient: "from-cta/70 via-[#1f5047] to-background",
     caption: "Kickflip orbital",
   },
   {
     handle: "@astro.skateshop",
     likes: "3.2k",
     type: "yt" as const,
-    gradient: "from-accent/50 via-[#005f6b] to-background",
+    gradient: "from-accent/50 via-[#1c5568] to-background",
     caption: "Setup de la semana",
   },
   {
     handle: "@luna.grinds",
     likes: "21.9k",
     type: "tt" as const,
-    gradient: "from-[#a1128c]/70 via-galaxy to-background",
+    gradient: "from-[#7a3f8f]/70 via-galaxy to-background",
     caption: "Nosegrind interestelar",
   },
   {
     handle: "@astro.crew",
     likes: "6.7k",
     type: "ig" as const,
-    gradient: "from-[#0e8f7c]/60 via-[#023a31] to-background",
+    gradient: "from-[#0f8f7c]/60 via-[#0a2f2a] to-background",
     caption: "Drop 03 detrás de cámaras",
   },
   {
     handle: "@pablo.bowl",
     likes: "15.3k",
     type: "ig" as const,
-    gradient: "from-[#1173b4]/60 via-[#032c47] to-background",
+    gradient: "from-[#1f7ab4]/60 via-[#0a2440] to-background",
     caption: "Bowl con gravedad cero",
   },
 ];
@@ -50,7 +50,7 @@ const SOCIALS = [
   { icon: InstagramIcon, label: "Instagram", href: "https://instagram.com/astroskateshop" },
   { icon: Music2, label: "TikTok", href: "https://tiktok.com/@astroskateshop" },
   { icon: YoutubeIcon, label: "YouTube", href: "https://youtube.com/@astroskateshop" },
-  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/5215512345678" },
+  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/573001234567" },
 ];
 
 function PostIcon({ type }: { type: "ig" | "tt" | "yt" }) {
@@ -81,7 +81,7 @@ export function AstroCommunity() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={s.label}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all hover:border-accent hover:text-accent hover:shadow-[0_0_16px_rgba(0,240,255,0.35)]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all hover:border-accent hover:text-accent hover:shadow-[0_0_16px_rgba(111,200,233,0.35)]"
               >
                 <s.icon className="h-4.5 w-4.5" strokeWidth={1.7} />
               </a>
@@ -98,7 +98,7 @@ export function AstroCommunity() {
               )!.href}
               target="_blank"
               rel="noreferrer"
-              className={`group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-lg border border-border bg-gradient-to-br p-3 transition-all duration-300 hover:-translate-y-1 hover:border-accent/70 hover:shadow-[0_0_28px_rgba(0,240,255,0.22)] ${post.gradient}`}
+              className={`group relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-lg border border-border bg-gradient-to-br p-3 transition-all duration-300 hover:-translate-y-1 hover:border-accent/70 hover:shadow-[0_0_28px_rgba(111,200,233,0.22)] ${post.gradient}`}
             >
               <div className="scanlines absolute inset-0 opacity-30" />
               <div className="relative flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-white/80">

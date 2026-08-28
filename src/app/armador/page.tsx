@@ -29,7 +29,11 @@ async function byCategory(slug: string) {
   return withImagesAll(JSON.parse(JSON.stringify(products)) as ProductDTO[]) as ProductDTO[];
 }
 
-export default async function ArmadorPage() {
+export default async function ArmadorPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const [decks, trucks, wheels, grips] = await Promise.all([
     byCategory("tablas"),
     byCategory("trucks"),
@@ -37,5 +41,16 @@ export default async function ArmadorPage() {
     byCategory("grips"),
   ]);
 
-  return <BoardBuilder decks={decks} trucks={trucks} wheels={wheels} grips={grips} />;
+  const sp = await searchParams;
+  const asString = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
+  const initial = {
+    decks: asString(sp.tabla),
+    trucks: asString(sp.trucks),
+    wheels: asString(sp.ruedas),
+    grips: asString(sp.grip),
+  };
+
+  return (
+    <BoardBuilder decks={decks} trucks={trucks} wheels={wheels} grips={grips} initial={initial} />
+  );
 }
