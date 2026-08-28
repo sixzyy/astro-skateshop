@@ -60,15 +60,15 @@ export default async function AccountPage() {
     <div className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
       <header className="mb-10 flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border bg-card p-6">
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground-muted">Mi cuenta</p>
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">Mi cuenta</p>
           <h1 className="mt-1 font-display text-2xl font-bold uppercase tracking-tight">{session.name}</h1>
-          <p className="mt-0.5 text-sm text-foreground-secondary">{session.email}</p>
+          <p className="mt-0.5 text-sm text-muted-foreground">{session.email}</p>
         </div>
         <div className="flex gap-2">
           {session.role === "ADMIN" && (
             <Link
               href="/admin"
-              className="inline-flex h-10 items-center rounded-full border border-border px-5 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground hover:shadow-sm"
+              className="inline-flex h-10 items-center rounded-md border border-accent px-5 font-display text-xs font-bold uppercase tracking-wide text-accent hover:bg-accent hover:text-zinc-950"
             >
               Panel admin
             </Link>
@@ -85,11 +85,11 @@ export default async function AccountPage() {
       <h2 className="mb-5 font-display text-lg font-bold uppercase tracking-wide">Mis pedidos</h2>
 
       {orders.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-border py-16 text-center">
-          <p className="text-sm text-foreground-muted">An no tienes pedidos.</p>
+        <div className="rounded-lg border border-dashed border-border py-16 text-center">
+          <p className="text-sm text-muted-foreground">Aún no tienes pedidos.</p>
           <Link
             href="/products"
-            className="mt-4 inline-block rounded-full bg-cta px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white transition-all duration-300 hover:bg-cta-hover hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98]"
+            className="mt-4 inline-block rounded-md bg-accent px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-zinc-950 hover:bg-accent-strong"
           >
             Explorar la tienda
           </Link>
@@ -97,11 +97,11 @@ export default async function AccountPage() {
       ) : (
         <ul className="space-y-4">
           {orders.map((order) => (
-            <li key={order.id} className="rounded-xl border border-border bg-card">
+            <li key={order.id} className="rounded-lg border border-border bg-card">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-3.5">
                 <div>
                   <p className="font-display text-sm font-bold tracking-wide">{order.number}</p>
-                  <p className="text-xs text-foreground-secondary">{formatDate(order.createdAt)}</p>
+                  <p className="text-xs text-muted-foreground">{formatDate(order.createdAt)}</p>
                 </div>
                 <div className="flex items-center gap-4">
                   <span
@@ -120,13 +120,13 @@ export default async function AccountPage() {
                       <ProductImage
                         src={item.image}
                         alt={item.productName}
-                        className="h-11 w-11 rounded-lg border border-border object-cover"
+                        className="h-11 w-11 rounded-md border border-border object-cover"
                       />
                     )}
                     <div className="min-w-0 flex-1">
                       <p className="line-clamp-1 text-sm font-semibold">{item.productName}</p>
-                      <p className="text-xs text-foreground-secondary">
-                        {item.variantTitle} x {item.quantity}
+                      <p className="text-xs text-muted-foreground">
+                        {item.variantTitle} × {item.quantity}
                       </p>
                     </div>
                   </li>

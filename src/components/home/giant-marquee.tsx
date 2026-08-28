@@ -1,37 +1,37 @@
 export function GiantMarquee({
   items,
   reverse = false,
-  size = "lg",
+  fast = false,
+  size = "xl",
 }: {
   items: string[];
   reverse?: boolean;
+  fast?: boolean;
   size?: "lg" | "xl";
 }) {
-  const anim = reverse ? "animate-marquee-rev" : "animate-marquee";
-  const sizeCls = size === "xl" ? "text-4xl md:text-6xl" : "text-2xl md:text-4xl";
+  const anim = reverse ? "animate-marquee-rev" : fast ? "animate-marquee-fast" : "animate-marquee";
+  const sizeCls = size === "xl" ? "text-5xl md:text-7xl" : "text-3xl md:text-5xl";
 
   const row = (hidden: boolean) => (
-    <div aria-hidden={hidden || undefined} className="inline-flex shrink-0 items-center">
+    <div aria-hidden={hidden || undefined} className="flex shrink-0 items-center">
       {items.map((item, i) => (
-        <span key={`${item}-${i}`} className="inline-flex items-center">
+        <span key={`${item}-${i}`} className="flex items-center">
           <span
-            className={`whitespace-nowrap font-display font-bold uppercase tracking-tight ${sizeCls} ${
-              i % 2 === 0 ? "text-foreground/[0.06]" : "text-foreground/[0.09]"
+            className={`whitespace-nowrap font-display font-extrabold uppercase tracking-tight ${sizeCls} ${
+              i % 2 === 0 ? "text-stroke" : "text-accent/90"
             }`}
           >
             {item}
           </span>
-          <span className="mx-5 text-sm text-foreground-disabled md:mx-8">
-            &middot;
-          </span>
+          <span className="mx-8 select-none font-mono text-xl text-cta md:text-2xl">{"//"}</span>
         </span>
       ))}
     </div>
   );
 
   return (
-    <section className="relative overflow-hidden border-y border-border bg-background py-8 md:py-10">
-      <div className={anim} style={{ display: "flex", width: "max-content" }}>
+    <section className="relative overflow-hidden border-y border-border/60 py-6 md:py-8">
+      <div className={`flex w-max ${anim}`}>
         {row(false)}
         {row(true)}
       </div>

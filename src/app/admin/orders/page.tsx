@@ -56,12 +56,12 @@ export default async function AdminOrdersPage({ searchParams }: { searchParams: 
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="font-display text-2xl font-bold uppercase tracking-tight">Órdenes</h1>
-          <p className="mt-1 text-sm text-foreground-secondary">{orders.length} órdenes</p>
+          <p className="mt-1 text-sm text-muted-foreground">{orders.length} órdenes</p>
         </div>
         <a
           href={`/api/admin/orders/export${filter !== "ALL" ? `?status=${filter}` : ""}`}
           download
-          className="inline-flex items-center gap-2 rounded-full border border-border px-3.5 py-2 font-display text-xs font-bold uppercase tracking-wide transition-colors hover:border-accent hover:text-accent hover:shadow-sm"
+          className="inline-flex items-center gap-2 rounded-md border border-border px-3.5 py-2 font-display text-xs font-bold uppercase tracking-wide transition-colors hover:border-accent hover:text-accent"
         >
           <Download className="h-3.5 w-3.5" /> Exportar CSV
         </a>
@@ -69,13 +69,13 @@ export default async function AdminOrdersPage({ searchParams }: { searchParams: 
 
       <form method="GET" action="/admin/orders" className="relative max-w-md">
         {filter !== "ALL" && <input type="hidden" name="status" value={filter} />}
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground-muted" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <input
           type="search"
           name="q"
           defaultValue={query}
           placeholder="Buscar por número, cliente o correo…"
-          className="w-full rounded-full border border-border bg-card py-2.5 pl-9 pr-3 text-sm outline-none transition-colors placeholder:text-foreground-muted focus:border-accent"
+          className="w-full rounded-md border border-border bg-card py-2.5 pl-9 pr-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-accent"
         />
       </form>
 
@@ -84,10 +84,10 @@ export default async function AdminOrdersPage({ searchParams }: { searchParams: 
           <a
             key={f}
             href={f === "ALL" ? "/admin/orders" : `/admin/orders?status=${f}`}
-            className={`rounded-full border px-3.5 py-1.5 font-display text-xs font-bold uppercase tracking-wide transition-colors ${
+            className={`rounded-md border px-3.5 py-1.5 font-display text-xs font-bold uppercase tracking-wide transition-colors ${
               filter === f
-                ? "border-accent bg-accent text-background"
-                : "border-border text-foreground-secondary hover:border-accent hover:text-accent"
+                ? "border-accent bg-accent text-zinc-950"
+                : "border-border text-muted-foreground hover:border-accent hover:text-accent"
             }`}
           >
             {f === "ALL" ? "Todas" : ORDER_STATUS_LABELS[f]}
@@ -96,14 +96,14 @@ export default async function AdminOrdersPage({ searchParams }: { searchParams: 
       </nav>
 
       {orders.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-border py-16 text-center text-sm text-foreground-secondary">
+        <p className="rounded-lg border border-dashed border-border py-16 text-center text-sm text-muted-foreground">
           No hay órdenes con este filtro.
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-border bg-card">
+        <div className="overflow-x-auto rounded-lg border border-border bg-card">
           <table className="w-full min-w-[820px] text-sm">
             <thead>
-              <tr className="border-b border-border text-left font-display text-[11px] uppercase tracking-widest text-foreground-secondary">
+              <tr className="border-b border-border text-left font-display text-[11px] uppercase tracking-widest text-muted-foreground">
                 <th className="px-5 py-3.5 font-bold">Orden</th>
                 <th className="px-5 py-3.5 font-bold">Cliente</th>
                 <th className="px-5 py-3.5 font-bold">Artículos</th>
@@ -117,11 +117,11 @@ export default async function AdminOrdersPage({ searchParams }: { searchParams: 
                 <tr key={order.id} className="transition-colors hover:bg-muted/50">
                   <td className="px-5 py-3.5">
                     <p className="font-display font-bold tracking-wide">{order.number}</p>
-                    <p className="text-xs text-foreground-secondary">{formatDate(order.createdAt)}</p>
+                    <p className="text-xs text-muted-foreground">{formatDate(order.createdAt)}</p>
                   </td>
                   <td className="px-5 py-3.5">
                     <p className="font-semibold">{order.name}</p>
-                    <p className="text-xs text-foreground-secondary">
+                    <p className="text-xs text-muted-foreground">
                       {order.email} · {order.city}
                     </p>
                   </td>

@@ -1,5 +1,3 @@
-"use client";
-
 function mulberry32(seed: number) {
   return () => {
     seed |= 0;
@@ -10,17 +8,20 @@ function mulberry32(seed: number) {
   };
 }
 
-export function Starfield({ density = 40 }: { density?: number }) {
+const COLORS = ["#cfe9ff", "#ffffff", "#ffd9a8"];
+
+export function Starfield({ density = 90 }: { density?: number }) {
   const rand = mulberry32(20260817);
-  const stars = Array.from({ length: density }, () => {
-    const size = 1 + rand() * 1.5;
+  const stars = Array.from({ length: density }, (_, i) => {
+    const layer = i % 3;
+    const base = [0.9, 1.4, 2][layer];
     return {
       x: rand() * 100,
       y: rand() * 100,
-      r: size,
-      dur: 3 + rand() * 4,
-      delay: rand() * 5,
-      opacity: 0.15 + rand() * 0.35,
+      r: base * (0.7 + rand() * 0.6),
+      c: COLORS[layer],
+      dur: 2.5 + rand() * 3,
+      delay: rand() * 4,
     };
   });
 
@@ -29,13 +30,14 @@ export function Starfield({ density = 40 }: { density?: number }) {
       {stars.map((s, i) => (
         <span
           key={i}
-          className="absolute rounded-full bg-white"
+          className="absolute rounded-full"
           style={{
             left: `${s.x}%`,
             top: `${s.y}%`,
             width: `${s.r}px`,
             height: `${s.r}px`,
-            opacity: s.opacity,
+            backgroundColor: s.c,
+            boxShadow: `0 0 ${s.r * 3}px ${s.c}`,
             animation: `twinkle ${s.dur}s ease-in-out ${s.delay}s infinite`,
           }}
         />

@@ -1,31 +1,28 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { DM_Sans, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { JetBrains_Mono, Space_Grotesk, Syne } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 import { CustomStarCursor } from "@/components/fx/custom-star-cursor";
 import { FloatingChat } from "@/components/layout/floating-chat";
-import { ScrollRevealProvider } from "@/components/fx/scroll-reveal-provider";
-import { HydrationSuppressor } from "@/components/fx/hydration-suppressor";
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
-  weight: ["400", "500", "600", "700"],
-});
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
-  weight: ["500", "600", "700"],
+});
+
+const syne = Syne({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-syne",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
+  weight: ["400", "700"],
   variable: "--font-jetbrains",
-  weight: ["400", "500"],
 });
 
 const BASE = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
@@ -33,15 +30,15 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: "ASTRO — Skate Shop",
-    template: "%s | ASTRO",
+    default: "Astro Skateshop — Patinando sobre la gravedad",
+    template: "%s | Astro Skateshop",
   },
   description:
-    "Skate shop premium. Tablas, trucks, ruedas, tenis y ropa de marca. Armador 3D. Envio gratis desde $999 COP.",
+    "Skateshop cósmico: tablas con constelaciones, ruedas planetarias y equipo de skate real. Envío gratis desde $999 COP.",
   openGraph: {
     type: "website",
     locale: "es_CO",
-    siteName: "ASTRO Skateshop",
+    siteName: "Astro SkateShop",
     url: BASE,
   },
   twitter: { card: "summary_large_image" },
@@ -53,11 +50,10 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${dmSans.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`${spaceGrotesk.variable} ${syne.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <body className="flex min-h-screen flex-col antialiased" suppressHydrationWarning>
-        <HydrationSuppressor />
         <Script
           id="bitdefender-strip"
           strategy="beforeInteractive"
@@ -70,7 +66,6 @@ export default function RootLayout({
         <Footer />
         <CartDrawer />
         <CustomStarCursor />
-        <ScrollRevealProvider />
         <FloatingChat />
       </body>
     </html>

@@ -31,27 +31,27 @@ export function ProfileForm({ initialName }: { initialName: string }) {
   }
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="rounded-lg border border-border bg-card p-5">
       <h3 className="mb-4 font-display text-sm font-bold uppercase tracking-wide">Datos personales</h3>
-      <label className="mb-1 block text-xs text-foreground-secondary">Nombre</label>
+      <label className="mb-1 block text-xs text-muted-foreground">Nombre</label>
       <div className="flex gap-2">
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="h-10 flex-1 rounded-xl border border-border bg-background-secondary px-3 text-sm outline-none transition-all duration-300 focus:border-border-active"
+          className="h-10 flex-1 rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-accent"
         />
         <button
           onClick={saveName}
           disabled={busy || name.trim().length < 2}
           className={cn(
-            "inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-full bg-cta px-4 font-display text-xs font-bold uppercase tracking-wide text-white transition-all duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-0.5 hover:bg-cta-hover hover:shadow-lg active:scale-[0.98] disabled:opacity-50",
-            saved && "bg-success",
+            "inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-md bg-accent px-4 font-display text-xs font-bold uppercase tracking-wide text-zinc-950 hover:bg-accent-strong disabled:opacity-50",
+            saved && "bg-emerald-500 text-zinc-950",
           )}
         >
           <Save className="h-3.5 w-3.5" /> {saved ? "Guardado" : "Guardar"}
         </button>
       </div>
-      {error && <p className="mt-2 text-xs text-error">{error}</p>}
+      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
       <PasswordForm />
     </div>
   );
@@ -74,7 +74,7 @@ function PasswordForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "No se pudo cambiar");
-      setMsg({ ok: true, text: "Contrasena actualizada" });
+      setMsg({ ok: true, text: "Contraseña actualizada ✓" });
       setCurrent("");
       setNext("");
     } catch (e) {
@@ -89,30 +89,30 @@ function PasswordForm() {
   return (
     <div className="mt-6 border-t border-border pt-5">
       <h3 className="mb-3 flex items-center gap-2 font-display text-sm font-bold uppercase tracking-wide">
-        <KeyRound className="h-4 w-4 text-foreground-muted" /> Cambiar contrasena
+        <KeyRound className="h-4 w-4 text-accent" /> Cambiar contraseña
       </h3>
       <input
         type="password"
-        placeholder="Contrasena actual"
+        placeholder="Contraseña actual"
         value={currentPassword}
         onChange={(e) => setCurrent(e.target.value)}
-        className="mb-2 h-10 w-full rounded-xl border border-border bg-background-secondary px-3 text-sm outline-none transition-all duration-300 focus:border-border-active"
+        className="mb-2 h-10 w-full rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-accent"
       />
       <input
         type="password"
-        placeholder="Nueva contrasena (8+ caracteres, con numero)"
+        placeholder="Nueva contraseña (8+ caracteres, con número)"
         value={newPassword}
         onChange={(e) => setNext(e.target.value)}
-        className="mb-2 h-10 w-full rounded-xl border border-border bg-background-secondary px-3 text-sm outline-none transition-all duration-300 focus:border-border-active"
+        className="mb-2 h-10 w-full rounded-md border border-border bg-background px-3 text-sm outline-none focus:border-accent"
       />
       <button
         onClick={submit}
         disabled={!valid || busy}
-        className="inline-flex h-9 cursor-pointer items-center rounded-full border border-border px-4 font-display text-xs font-bold uppercase tracking-wide text-foreground-secondary transition-all duration-300 hover:border-border-active hover:text-foreground hover:shadow-sm disabled:opacity-50"
+        className="inline-flex h-9 cursor-pointer items-center rounded-md border border-accent px-4 font-display text-xs font-bold uppercase tracking-wide text-accent transition-colors hover:bg-accent hover:text-zinc-950 disabled:opacity-50"
       >
-        Actualizar contrasena
+        Actualizar contraseña
       </button>
-      {msg && <p className={cn("mt-2 text-xs", msg.ok ? "text-success" : "text-error")}>{msg.text}</p>}
+      {msg && <p className={cn("mt-2 text-xs", msg.ok ? "text-emerald-400" : "text-red-400")}>{msg.text}</p>}
     </div>
   );
 }

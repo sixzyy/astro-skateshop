@@ -83,7 +83,7 @@ export default async function AdminDashboardPage() {
     <div className="space-y-8">
       <header>
         <h1 className="font-display text-2xl font-bold uppercase tracking-tight">Dashboard</h1>
-        <p className="mt-1 text-sm text-foreground-secondary">Resumen general de la tienda</p>
+        <p className="mt-1 text-sm text-muted-foreground">Resumen general de la tienda</p>
       </header>
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -103,7 +103,7 @@ export default async function AdminDashboardPage() {
           {pendingReviews > 0 && (
             <Link
               href="/admin/reviews"
-              className="rounded-full border border-yellow-500/40 bg-yellow-500/10 px-4 py-2 text-sm font-semibold text-yellow-500 transition-colors hover:bg-yellow-500/20 hover:shadow-sm"
+              className="rounded-md border border-yellow-500/40 bg-yellow-500/10 px-4 py-2 text-sm font-semibold text-yellow-500 transition-colors hover:bg-yellow-500/20"
             >
               {pendingReviews} reseña{pendingReviews === 1 ? "" : "s"} por moderar →
             </Link>
@@ -111,7 +111,7 @@ export default async function AdminDashboardPage() {
           {activeAlerts > 0 && (
             <Link
               href="/admin/alerts"
-              className="rounded-full border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent transition-colors hover:bg-accent/20 hover:shadow-sm"
+              className="rounded-md border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent transition-colors hover:bg-accent/20"
             >
               {activeAlerts} alerta{activeAlerts === 1 ? "" : "s"} de stock pendiente{activeAlerts === 1 ? "" : "s"} →
             </Link>
@@ -122,15 +122,15 @@ export default async function AdminDashboardPage() {
       <SalesChart />
 
       <section className="grid gap-6 xl:grid-cols-2">
-        <div className="rounded-xl border border-border bg-card p-5">
+        <div className="rounded-lg border border-border bg-card p-5">
           <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-widest">Más vendidos</h2>
           {topProducts.length === 0 ? (
-            <p className="text-sm text-foreground-secondary">Aún no hay ventas registradas.</p>
+            <p className="text-sm text-muted-foreground">Aún no hay ventas registradas.</p>
           ) : (
             <ol className="space-y-3">
               {topProducts.map((p, i) => (
                 <li key={p.id} className="flex items-center gap-3">
-                  <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-background-secondary font-display text-xs font-bold">
+                  <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted font-display text-xs font-bold">
                     {i + 1}
                   </span>
                   <span className="line-clamp-1 flex-1 text-sm">{p.name}</span>
@@ -143,10 +143,10 @@ export default async function AdminDashboardPage() {
           )}
         </div>
 
-        <div className="rounded-xl border border-border bg-card p-5">
+        <div className="rounded-lg border border-border bg-card p-5">
           <h2 className="mb-4 font-display text-sm font-bold uppercase tracking-widest">Stock bajo</h2>
           {lowStock.length === 0 ? (
-            <p className="text-sm text-foreground-secondary">Todo el inventario está saludable.</p>
+            <p className="text-sm text-muted-foreground">Todo el inventario está saludable.</p>
           ) : (
             <ul className="divide-y divide-border">
               {lowStock.slice(0, 6).map((v) => (
@@ -168,7 +168,7 @@ export default async function AdminDashboardPage() {
         </div>
       </section>
 
-      <section className="rounded-xl border border-border bg-card">
+      <section className="rounded-lg border border-border bg-card">
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <h2 className="font-display text-sm font-bold uppercase tracking-widest">Órdenes recientes</h2>
           <Link href="/admin/orders" className="text-sm font-semibold text-accent hover:underline">
@@ -176,21 +176,21 @@ export default async function AdminDashboardPage() {
           </Link>
         </div>
         {recentOrders.length === 0 ? (
-          <p className="px-5 py-6 text-sm text-foreground-secondary">No hay órdenes todavía.</p>
+          <p className="px-5 py-6 text-sm text-muted-foreground">No hay órdenes todavía.</p>
         ) : (
           <ul className="divide-y divide-border px-5">
             {recentOrders.map((o) => (
               <li key={o.id} className="flex flex-wrap items-center justify-between gap-2 py-3.5">
                 <div>
                   <p className="font-display text-sm font-bold tracking-wide">{o.number}</p>
-                    <p className="text-xs text-foreground-secondary">
+                    <p className="text-xs text-muted-foreground">
                     {o.user?.name ?? o.number} · {formatDate(o.createdAt)}
                   </p>
                 </div>
                 <div className="flex items-center gap-4">
                   <span className="font-display text-sm font-bold">{formatPrice(o.total)}</span>
                   <StatusBadge status={o.status} />
-                  <span className="hidden text-xs text-foreground-secondary sm:inline">
+                  <span className="hidden text-xs text-muted-foreground sm:inline">
                     {ORDER_STATUS_LABELS[o.status]}
                   </span>
                 </div>
@@ -217,13 +217,13 @@ function StatCard({
   accent?: boolean;
 }) {
   return (
-    <div className={`rounded-xl border p-5 ${accent ? "border-accent/40 bg-accent/10" : "border-border bg-card"}`}>
+    <div className={`rounded-lg border p-5 ${accent ? "border-accent/40 bg-accent/10" : "border-border bg-card"}`}>
       <div className="flex items-center justify-between">
-        <Icon className={`h-5 w-5 ${accent ? "text-accent" : "text-foreground-secondary"}`} strokeWidth={1.8} />
+        <Icon className={`h-5 w-5 ${accent ? "text-accent" : "text-muted-foreground"}`} strokeWidth={1.8} />
       </div>
       <p className="mt-3 font-display text-2xl font-bold tracking-tight">{value}</p>
-      <p className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-foreground-secondary">{label}</p>
-      {hint && <p className="mt-1 text-xs text-foreground-secondary">{hint}</p>}
+      <p className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</p>
+      {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
     </div>
   );
 }

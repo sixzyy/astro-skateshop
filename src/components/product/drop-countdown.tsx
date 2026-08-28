@@ -1,36 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { Zap } from "lucide-react";
 
 function Cell({ value, label }: { value: number | null; label: string }) {
-  const [display, setDisplay] = useState(value);
-  const [animating, setAnimating] = useState(false);
-  const prevRef = useRef(value);
-
-  useEffect(() => {
-    if (value !== null && value !== prevRef.current) {
-      setAnimating(true);
-      const timeout = setTimeout(() => {
-        setDisplay(value);
-        setAnimating(false);
-      }, 150);
-      prevRef.current = value;
-      return () => clearTimeout(timeout);
-    }
-  }, [value]);
-
   return (
     <span className="flex flex-col items-center">
-      <span className="min-w-[3.5rem] overflow-hidden rounded-lg bg-background-secondary px-3 py-2.5 sm:min-w-[4.2rem]">
-        <span
-          className={`font-display text-2xl font-bold tabular-nums text-foreground transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-3xl ${
-            animating ? "translate-y-[-100%] opacity-0" : "translate-y-0 opacity-100"
-          }`}
-        >
-          {value === null ? "--" : String(display ?? value).padStart(2, "0")}
-        </span>
+      <span className="min-w-[4rem] rounded-lg border border-cta/50 bg-background/80 px-3 py-2 font-mono text-2xl font-bold tabular-nums text-white shadow-[0_0_18px_rgba(255,107,0,0.25)] sm:text-3xl">
+        {value === null ? "--" : String(value).padStart(2, "0")}
       </span>
-      <span className="mt-1.5 text-[10px] font-medium uppercase tracking-wider text-foreground-muted">
+      <span className="mt-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
         {label}
       </span>
     </span>
@@ -55,17 +34,17 @@ export function DropCountdown({ date }: { date: string }) {
   const seconds = left === null ? null : Math.floor((total % 60000) / 1000);
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
-      <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-wider text-foreground-muted">
-        El drop cae en
+    <div className="rounded-xl border border-cta/40 bg-gradient-to-r from-galaxy/60 via-card to-cta/15 p-5">
+      <p className="flex items-center gap-2 font-display text-xs font-bold uppercase tracking-[0.25em] text-cta">
+        <Zap className="h-4 w-4 animate-pulse" /> El drop cae en
       </p>
       <div className="mt-3 flex items-start gap-2 sm:gap-3" role="timer" aria-live="off">
-        <Cell value={days} label="dias" />
-        <span className="mt-3 text-sm font-medium text-foreground-muted">:</span>
+        <Cell value={days} label="días" />
+        <span className="mt-2 font-bold text-cta">:</span>
         <Cell value={hours} label="hrs" />
-        <span className="mt-3 text-sm font-medium text-foreground-muted">:</span>
+        <span className="mt-2 font-bold text-cta">:</span>
         <Cell value={minutes} label="min" />
-        <span className="mt-3 text-sm font-medium text-foreground-muted">:</span>
+        <span className="mt-2 font-bold text-cta">:</span>
         <Cell value={seconds} label="seg" />
       </div>
     </div>
