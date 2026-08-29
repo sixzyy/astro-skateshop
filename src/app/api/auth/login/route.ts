@@ -5,6 +5,7 @@ import { loginSchema } from "@/lib/validators";
 import { createSession } from "@/lib/auth";
 import type { Role } from "@/lib/types";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 export async function POST(req: Request) {
   const ip = clientIp(req);
@@ -17,6 +18,14 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json().catch(() => null);
+
+  if (!(await verifyTurnstile((body as Record<string, unknown> | null)?.turnstileToken))) {
+    return NextResponse.json(
+      { error: "Verificación de seguridad fallida. Intenta de nuevo." },
+      { status: 400 }
+    );
+  }
+
   const parsed = loginSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Datos inválidos" }, { status: 400 });

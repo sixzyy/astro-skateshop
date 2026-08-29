@@ -1,6 +1,9 @@
 import nodemailer from "nodemailer";
 import { trackUrl } from "@/lib/utils";
 
+const RESEND_KEY = process.env.RESEND_API_KEY;
+const RESEND_ENDPOINT = "https://api.resend.com/emails";
+
 let transporter: nodemailer.Transporter | null = null;
 
 function getTransporter(): nodemailer.Transporter | null {
@@ -17,10 +20,16 @@ function getTransporter(): nodemailer.Transporter | null {
 }
 
 export function mailConfigured() {
-  return Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
+  return Boolean(
+    RESEND_KEY ||
+      (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS)
+  );
 }
 
-const FROM = () => process.env.MAIL_FROM ?? process.env.SMTP_USER ?? "Astro SkateShop";
+const FROM = () =>
+  process.env.MAIL_FROM ??
+  process.env.SMTP_USER ??
+  (RESEND_KEY ? "Astro SkateShop <onboarding@resend.dev>" : "Astro SkateShop");
 
 function escapeHtml(str: string): string {
   return str
@@ -31,7 +40,28 @@ function escapeHtml(str: string): string {
     .replace(/'/g, "&#39;");
 }
 
-async function send(to: string, subject: string, html: string) {
+async function sendViaResend(to: string, subject: string, html: string): Promise<boolean> {
+  try {
+    const res = await fetch(RESEND_ENDPOINT, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${RESEND_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ from: FROM(), to: [to], subject, html }),
+    });
+    if (!res.ok) {
+      console.error(`[email] Resend respondió ${res.status}; se intenta con SMTP.`);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error("[email] fallo en Resend; se intenta con SMTP:", err instanceof Error ? err.message : err);
+    return false;
+  }
+}
+
+async function sendViaSmtp(to: string, subject: string, html: string): Promise<boolean> {
   const tx = getTransporter();
   if (!tx) {
     console.warn(`[email] SMTP no configurado. Omitido -> "${subject}" para ${to}`);
@@ -44,6 +74,14 @@ async function send(to: string, subject: string, html: string) {
     console.error("[email] fallo al enviar:", err instanceof Error ? err.message : err);
     return false;
   }
+}
+
+async function send(to: string, subject: string, html: string) {
+  if (RESEND_KEY) {
+    const ok = await sendViaResend(to, subject, html);
+    if (ok) return true;
+  }
+  return sendViaSmtp(to, subject, html);
 }
 
 function shell(title: string, body: string, cta?: { label: string; href: string }) {

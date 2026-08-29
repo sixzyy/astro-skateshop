@@ -1,24 +1,98 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Logo } from "@/components/layout/logo";
+
+const SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+type TurnstileWidget = {
+  render: (
+    el: HTMLElement,
+    opts: {
+      sitekey: string;
+      theme: string;
+      callback: (token: string) => void;
+      "expired-callback": () => void;
+    }
+  ) => { reset: () => void };
+  remove: (id: string) => void;
+};
 
 export function AuthForm({ mode }: { mode: "login" | "register" }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const holderRef = useRef<HTMLDivElement>(null);
+  const widgetRef = useRef<{ reset: () => void } | null>(null);
   const isLogin = mode === "login";
+
+  useEffect(() => {
+    if (!SITE_KEY || !holderRef.current) return;
+    let cancelled = false;
+    const holder = holderRef.current;
+    const widgetId = `turnstile-${mode}`;
+    holder.innerHTML = "";
+    const div = document.createElement("div");
+    div.id = widgetId;
+    holder.appendChild(div);
+
+    const win = window as unknown as TurnstileWindow;
+    const render = () => {
+      if (cancelled || !win.turnstile || !holder.isConnected) return;
+      const widget = win.turnstile.render(div, {
+        sitekey: SITE_KEY as string,
+        theme: "dark",
+        callback: (token: string) => setTurnstileToken(token),
+        "expired-callback": () => setTurnstileToken(null),
+      });
+      widgetRef.current = widget;
+    };
+
+    if (win.turnstile) {
+      render();
+    } else {
+      const script = document.createElement("script");
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      script.async = true;
+      script.onload = render;
+      document.head.appendChild(script);
+    }
+
+    return () => {
+      cancelled = true;
+      if (typeof win.turnstile?.remove === "function") {
+        try {
+          win.turnstile.remove(widgetId);
+        } catch {}
+      }
+      widgetRef.current = null;
+      setTurnstileToken(null);
+    };
+  }, [mode]);
+
+  function resetChallenge() {
+    widgetRef.current?.reset();
+    setTurnstileToken(null);
+  }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
+
+    if (SITE_KEY && !turnstileToken) {
+      setError("Completa la verificación de seguridad para continuar.");
+      return;
+    }
+
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
     const payload = Object.fromEntries(formData.entries());
+    if (SITE_KEY) payload.turnstileToken = turnstileToken ?? "";
 
     const res = await fetch(isLogin ? "/api/auth/login" : "/api/auth/register", {
       method: "POST",
@@ -31,6 +105,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
     if (!res || !res.ok) {
       const data = res ? await res.json().catch(() => null) : null;
       setError(data?.error ?? "Ocurrió un error. Intenta de nuevo.");
+      resetChallenge();
       return;
     }
 
@@ -73,6 +148,15 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
             required
             minLength={isLogin ? undefined : 8}
           />
+
+          {SITE_KEY && (
+            <div>
+              <div ref={holderRef} className="min-h-[65px] w-full overflow-hidden rounded-md" />
+              <p className="mt-1.5 text-center text-[10px] uppercase tracking-widest text-muted-foreground">
+                Protegido por Cloudflare Turnstile
+              </p>
+            </div>
+          )}
 
           <button
             type="submit"
@@ -121,3 +205,5 @@ function Field({
     </label>
   );
 }
+
+type TurnstileWindow = Window & { turnstile?: TurnstileWidget };

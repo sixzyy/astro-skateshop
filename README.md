@@ -101,6 +101,19 @@ Con Stripe activo:
 - ✅ Headers HTTP: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`
 - ✅ Descuento de stock atómico (`UPDATE ... WHERE stock >= qty`) dentro de transacciones — evita sobrevender
 - ✅ Snapshots de precio/producto en OrderItem: el historial no cambia si editas o eliminas productos
+- ✅ Anti-bots **Cloudflare Turnstile** en login/registro (se activa con `NEXT_PUBLIC_TURNSTILE_SITE_KEY` + `TURNSTILE_SECRET_KEY`)
+- ✅ Contraseñas filtradas rechazadas al registrarse vía **Pwned Passwords** (HIBP, k-anonimato: solo se envía el prefijo SHA-1)
+
+## Integraciones gratuitas (opcionales)
+
+| Integración | Qué aporta | Claves necesarias |
+|---|---|---|
+| [Pwned Passwords (HIBP)](https://haveibeenpwned.com/API/v3) | Rechaza contraseñas de filtraciones conocidas al registrarse | Ninguna (sin key) |
+| [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/) | Captcha invisible anti-bots en login/registro | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` + `TURNSTILE_SECRET_KEY` |
+| [Resend](https://resend.com) (tier gratis 3k/mes) | Correos transaccionales de pedidos/estados sin servidor SMTP | `RESEND_API_KEY` (si no, usa SMTP) |
+| [open.er-api](https://open.er-api.com) + [Frankfurter ECB](https://api.frankfurter.app) (ya integradas) | Tipos de cambio COP→USD/EUR… con fallback automático | Ninguna |
+
+Todas se comportan como **fail-open** cuando no están configuradas: la tienda sigue funcionando sin las claves.
 
 ## API REST
 

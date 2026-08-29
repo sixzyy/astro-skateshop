@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { registerSchema } from "@/lib/validators";
 import { createSession } from "@/lib/auth";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
+import { isPasswordPwned } from "@/lib/pwned";
+import { verifyTurnstile } from "@/lib/turnstile";
 import type { Role } from "@/lib/types";
 
 export async function POST(req: Request) {
@@ -17,9 +19,24 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json().catch(() => null);
+
+  if (!(await verifyTurnstile((body as Record<string, unknown> | null)?.turnstileToken))) {
+    return NextResponse.json(
+      { error: "Verificación de seguridad fallida. Intenta de nuevo." },
+      { status: 400 }
+    );
+  }
+
   const parsed = registerSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Datos inválidos" }, { status: 400 });
+  }
+
+  if (await isPasswordPwned(parsed.data.password)) {
+    return NextResponse.json(
+      { error: "Esa contraseña aparece en filtraciones de datos conocidas. Elige una más segura." },
+      { status: 400 }
+    );
   }
 
   const email = parsed.data.email.toLowerCase();

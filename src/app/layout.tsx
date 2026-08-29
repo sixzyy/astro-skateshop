@@ -75,7 +75,7 @@ export default function RootLayout({
           id="bitdefender-strip"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
-            __html: `!function(){function r(e){e.removeAttribute("bis_skin_checked");for(var c=e.firstElementChild;c;c=c.firstElementChild)r(c)}function s(){r(document.body);new MutationObserver(function(a){for(var m of a)for(var n of m.addedNodes)n.nodeType===1&&r(n)}).observe(document.body,{childList:!0,subtree:!0})}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",s):s()}()`,
+            __html: `!function(){var N="bis_skin_checked",q=document.documentElement;function s(e){e.removeAttribute(N)}function r(t){s(t);for(var c=t.firstElementChild;c;c=c.firstElementChild)r(c)}var o=new MutationObserver(function(a){for(var i=0;i<a.length;i++){var m=a[i];if(m.type==="attributes")s(m.target);for(var j=0;j<m.addedNodes.length;j++){var n=m.addedNodes[j];n.nodeType===1&&r(n)}}});r(q);o.observe(q,{subtree:!0,childList:!0,attributes:!0,attributeFilter:[N]})}()`,
           }}
         />
         {process.env.NEXT_PUBLIC_ANALYTICS_DOMAIN && (
